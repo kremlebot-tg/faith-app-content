@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-21",
+  "last_updated": "2026-07-22",
   "library": [
     {
       "id": "avva_dorofey",
@@ -8,7 +8,7 @@
       "work": "Душеполезные поучения",
       "century": "VI",
       "place": "Палестина",
-      "chapters_count": 21,
+      "chapters_count": 22,
       "chapter_label": "Поучение",
       "size_bytes": 530000,
       "bundled": true,
@@ -22,10 +22,10 @@
       "place": "Синай",
       "chapters_count": 30,
       "chapter_label": "Степень",
-      "size_bytes": 881771,
+      "size_bytes": 880277,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.0/ioann_lestvichnik.json",
-      "sha256": "09254329c6db738079ba6e947eb0f4b466204f49fdc1a7fcce5c96d35b6a5adf"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.2/ioann_lestvichnik.json",
+      "sha256": "82f4da9e7355c44a359b8c7d3c465a8f3ff6671b332ab6524ed86f4ca8f80784"
     },
     {
       "id": "ioann_damaskin",
@@ -37,8 +37,8 @@
       "chapter_label": "Глава",
       "size_bytes": 754265,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.0/ioann_damaskin.json",
-      "sha256": "5140921811f591d7833eb80ffa3281c0b4693301c84b53631ef5225d2a4221bd"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.2/ioann_damaskin.json",
+      "sha256": "9c077c94db2b82b0e3dcebee1f457279c70473210049967e07df54426e79d80b"
     },
     {
       "id": "feofan_put_ko_spaseniyu",
@@ -61,10 +61,10 @@
       "place": "Россия",
       "chapters_count": 80,
       "chapter_label": "Письмо",
-      "size_bytes": 811930,
+      "size_bytes": 809026,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.0/feofan_dukhovnaja_zhizn.json",
-      "sha256": "92716541d4fcae885e2f1f7ece61d8ff2edf3bfc7d2d855f627d5658b8e482c2"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.2/feofan_dukhovnaja_zhizn.json",
+      "sha256": "47a63edc0abcf74c671eaa749a8ffcb010ef6d9cc6b849cc9d5ea6436ee22920"
     },
     {
       "id": "ignatij_prinoshenie",
@@ -74,10 +74,10 @@
       "place": "Россия",
       "chapters_count": 60,
       "chapter_label": "Глава",
-      "size_bytes": 1647463,
+      "size_bytes": 1647316,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.0/ignatij_prinoshenie.json",
-      "sha256": "93a5bf1fc8d7d160b76d60255c7eedca13e759dfd4fe7c550db3204299644030"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.2/ignatij_prinoshenie.json",
+      "sha256": "79aec2e5e1d1d6547aed7fe12f9ffe9efe75226fbcb888960ccddbb4b7a46a0c"
     }
   ]
 }
