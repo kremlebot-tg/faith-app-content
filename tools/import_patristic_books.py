@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 import argparse
+from copy import deepcopy
 import hashlib
 import html
 import json
@@ -83,6 +84,7 @@ BOOKS: dict[str, dict[str, Any]] = {
     },
     "afanasij_voploshhenie": {
         "id": "afanasij_voploshhenie",
+        "version": 2,
         "author": "Афанасий Великий",
         "work": "Слово о воплощении Бога-Слова",
         "century": "IV",
@@ -104,6 +106,7 @@ BOOKS: dict[str, dict[str, Any]] = {
     },
     "makarij_duhovnye_besedy": {
         "id": "makarij_duhovnye_besedy",
+        "version": 2,
         "author": "Макарий Великий",
         "work": "Духовные беседы",
         "century": "IV",
@@ -414,6 +417,50 @@ def update_manifest(output_dir: Path, outputs: list[Path]) -> None:
     )
 
 
+def write_book(book: dict[str, Any], output: Path) -> Path:
+    validate_book(book)
+    raw = json.dumps(book, ensure_ascii=False, indent=2)
+    output.write_text(raw, encoding="utf-8")
+    digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()
+    print(
+        f'{book["id"]}: глав={len(book["chapters"])}, '
+        f'байт={len(raw.encode("utf-8"))}, sha256={digest}'
+    )
+    return output
+
+
+def _without_tests_and_version(book: dict[str, Any]) -> dict[str, Any]:
+    preserved = deepcopy(book)
+    preserved.pop("version", None)
+    for chapter in preserved["chapters"]:
+        chapter.pop("test", None)
+    return preserved
+
+
+def embed_tests_in_existing_book(config: dict[str, Any], output_dir: Path) -> Path:
+    """Embed authored tests without refetching or changing verified book text."""
+    output = output_dir / f'{config["id"]}.json'
+    if not output.exists():
+        raise ValueError(f"Не найден существующий файл книги: {output}")
+    book = json.loads(output.read_text(encoding="utf-8"))
+    if book.get("id") != config["id"]:
+        raise ValueError(f"Неверный id в существующей книге: {output}")
+    if len(book.get("chapters", [])) != config["count"]:
+        raise ValueError(
+            f'{config["id"]}: ожидалось глав {config["count"]}, '
+            f'получено {len(book.get("chapters", []))}'
+        )
+
+    preserved = _without_tests_and_version(book)
+    for chapter in book["chapters"]:
+        chapter.pop("test", None)
+    attach_authored_tests(config["id"], book["chapters"])
+    book["version"] = config.get("version", book.get("version", 1))
+    if _without_tests_and_version(book) != preserved:
+        raise AssertionError(f'{config["id"]}: изменился основной текст книги')
+    return write_book(book, output)
+
+
 def build_book(config: dict[str, Any], output_dir: Path) -> Path:
     if config["mode"] == "headings":
         chapters = build_heading_chapters(config)
@@ -431,7 +478,7 @@ def build_book(config: dict[str, Any], output_dir: Path) -> Path:
     book = {
         "id": config["id"],
         "schema_version": 1,
-        "version": 1,
+        "version": config.get("version", 1),
         "author": config["author"],
         "work": config["work"],
         "century": config["century"],
@@ -455,15 +502,7 @@ def build_book(config: dict[str, Any], output_dir: Path) -> Path:
             "Атрибуция этой беседы святителю Иоанну Златоусту считается сомнительной."
         )
 
-    validate_book(book)
-    raw = json.dumps(book, ensure_ascii=False, indent=2)
-    output.write_text(raw, encoding="utf-8")
-    digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()
-    print(
-        f'{config["id"]}: глав={len(chapters)}, байт={len(raw.encode("utf-8"))}, '
-        f'sha256={digest}'
-    )
-    return output
+    return write_book(book, output)
 
 
 def main() -> None:
@@ -479,10 +518,16 @@ def main() -> None:
         action="store_true",
         help="обновить chapters_count, size_bytes и sha256 существующих записей",
     )
+    parser.add_argument(
+        "--tests-only",
+        action="store_true",
+        help="встроить тесты в существующий проверенный JSON без сетевого импорта",
+    )
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     selected = BOOKS.values() if args.book == "all" else [BOOKS[args.book]]
-    outputs = [build_book(config, args.output_dir) for config in selected]
+    builder = embed_tests_in_existing_book if args.tests_only else build_book
+    outputs = [builder(config, args.output_dir) for config in selected]
     if args.update_manifest:
         update_manifest(args.output_dir, outputs)
 

@@ -39,6 +39,8 @@ def audit_question(
         errors.append(f"{location}: книжный движок поддерживает только choice")
     if not prompt:
         errors.append(f"{location}: пустой вопрос")
+    elif not prompt.endswith("?"):
+        errors.append(f"{location}: формулировка вопроса должна оканчиваться знаком вопроса")
     if len(answers) != 3:
         errors.append(f"{location}: нужно ровно 3 варианта, найдено {len(answers)}")
     if not explanation:
@@ -48,8 +50,6 @@ def audit_question(
             f"{location}: explanation должен быть мини-уроком на 12–75 слов, "
             f"найдено {len(words(explanation))}"
         )
-    if SECOND_PERSON_RE.search(f"{prompt} {explanation}"):
-        errors.append(f"{location}: прямое обращение на «ты»")
     if not answers:
         return None
     if any(not isinstance(answer, dict) for answer in answers):
@@ -57,6 +57,12 @@ def audit_question(
         return None
     if any(not answer.get("text", "").strip() for answer in answers):
         errors.append(f"{location}: пустой вариант ответа")
+    answer_texts = [answer.get("text", "").strip() for answer in answers]
+    normalized_answers = [text.rstrip(".?!").casefold() for text in answer_texts]
+    if len(set(normalized_answers)) != len(normalized_answers):
+        errors.append(f"{location}: варианты ответа не должны повторяться")
+    if SECOND_PERSON_RE.search(" ".join([prompt, explanation, *answer_texts])):
+        errors.append(f"{location}: прямое обращение на «ты»")
     if any(not isinstance(answer.get("correct"), bool) for answer in answers):
         errors.append(f"{location}: correct должен быть bool у каждого варианта")
         return None

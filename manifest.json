@@ -10,10 +10,10 @@
       "place": "Александрия",
       "chapters_count": 9,
       "chapter_label": "Глава",
-      "size_bytes": 227153,
+      "size_bytes": 260607,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.1.0/afanasij_voploshhenie.json",
-      "sha256": "040619f6d5ed9d9739f456a8eb7165f1be1f18f37cdff18b2cfa345d36596d8f"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.2.0/afanasij_voploshhenie.json",
+      "sha256": "7156752f8b1fa5068a6d5aa669797f060a55de6be4bf8545ddfdcfd6a8c92af5"
     },
     {
       "id": "makarij_duhovnye_besedy",
@@ -23,10 +23,10 @@
       "place": "Египет",
       "chapters_count": 50,
       "chapter_label": "Беседа",
-      "size_bytes": 890707,
+      "size_bytes": 1080425,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.1.0/makarij_duhovnye_besedy.json",
-      "sha256": "4bd4cabbfa10794fcd394feca6a88391dee70fffbfbb6bbc3bdcc4df1360f9eb"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.2.0/makarij_duhovnye_besedy.json",
+      "sha256": "d03849882f1139fc5f2117d006b3091d6ae3da39e98051a93fc350f5e69c1bc8"
     },
     {
       "id": "ioann_zlatoust_pokajanie",

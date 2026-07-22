@@ -1,4 +1,8 @@
+import json
+from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 
 from tools import import_patristic_books as importer
 
@@ -36,6 +40,36 @@ class ImportPatristicBooksTest(unittest.TestCase):
     def test_missing_note_text_is_an_error(self) -> None:
         with self.assertRaisesRegex(ValueError, "нет текста примечания"):
             importer.resolve_notes(["note7"], {}, "sample")
+
+    def test_tests_only_preserves_existing_book_text(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "sample.json"
+            original = {
+                "id": "sample",
+                "version": 1,
+                "chapters_count": 1,
+                "chapters": [{
+                    "number": 1,
+                    "title": "Глава",
+                    "paragraphs": ["Проверенный текст."],
+                    "scripture_refs": [],
+                }],
+            }
+            path.write_text(json.dumps(original, ensure_ascii=False), encoding="utf-8")
+
+            def attach(_book_id, chapters):
+                chapters[0]["test"] = [{"question": "Вопрос?"}]
+
+            with patch.object(importer, "attach_authored_tests", side_effect=attach):
+                importer.embed_tests_in_existing_book(
+                    {"id": "sample", "count": 1, "version": 2}, root
+                )
+
+            updated = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(updated["version"], 2)
+            self.assertEqual(updated["chapters"][0]["paragraphs"], ["Проверенный текст."])
+            self.assertEqual(updated["chapters"][0]["test"], [{"question": "Вопрос?"}])
 
 
 if __name__ == "__main__":
