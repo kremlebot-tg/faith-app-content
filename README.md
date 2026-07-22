@@ -76,6 +76,7 @@ python3 tools/embed_book_tests.py \
 
 ```sh
 python3 tools/clean_feofan_put.py
+python3 tools/clean_feofan_dukhovnaja.py
 python3 tools/clean_lestvitsa.py
 ```
 

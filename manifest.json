@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-22",
+  "last_updated": "2026-07-23",
   "library": [
     {
       "id": "afanasij_voploshhenie",
@@ -100,10 +100,10 @@
       "place": "Россия",
       "chapters_count": 80,
       "chapter_label": "Письмо",
-      "size_bytes": 809026,
+      "size_bytes": 809006,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.2/feofan_dukhovnaja_zhizn.json",
-      "sha256": "47a63edc0abcf74c671eaa749a8ffcb010ef6d9cc6b849cc9d5ea6436ee22920"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.2/feofan_dukhovnaja_zhizn.json",
+      "sha256": "779cecfe2039f3e74e76010995cc4acb45ae07099c5784a329eda22b0acf809a"
     },
     {
       "id": "ignatij_prinoshenie",
