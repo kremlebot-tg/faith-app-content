@@ -61,10 +61,10 @@
       "place": "Синай",
       "chapters_count": 30,
       "chapter_label": "Степень",
-      "size_bytes": 993798,
+      "size_bytes": 993515,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.0/ioann_lestvichnik.json",
-      "sha256": "e96a754c48500df72de1078c56355d8a5c374f5ca559d7b922accf7dd563b75f"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.1/ioann_lestvichnik.json",
+      "sha256": "37f583c98f3e979e94a607c3957c843190dac276138921b1f5297831731b9893"
     },
     {
       "id": "ioann_damaskin",
