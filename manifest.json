@@ -3,6 +3,45 @@
   "last_updated": "2026-07-22",
   "library": [
     {
+      "id": "afanasij_voploshhenie",
+      "author": "Афанасий Великий",
+      "work": "Слово о воплощении Бога-Слова",
+      "century": "IV",
+      "place": "Александрия",
+      "chapters_count": 9,
+      "chapter_label": "Глава",
+      "size_bytes": 227153,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.1.0/afanasij_voploshhenie.json",
+      "sha256": "040619f6d5ed9d9739f456a8eb7165f1be1f18f37cdff18b2cfa345d36596d8f"
+    },
+    {
+      "id": "makarij_duhovnye_besedy",
+      "author": "Макарий Великий",
+      "work": "Духовные беседы",
+      "century": "IV",
+      "place": "Египет",
+      "chapters_count": 50,
+      "chapter_label": "Беседа",
+      "size_bytes": 890707,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.1.0/makarij_duhovnye_besedy.json",
+      "sha256": "4bd4cabbfa10794fcd394feca6a88391dee70fffbfbb6bbc3bdcc4df1360f9eb"
+    },
+    {
+      "id": "ioann_zlatoust_pokajanie",
+      "author": "Иоанн Златоуст",
+      "work": "Беседы о покаянии",
+      "century": "IV",
+      "place": "Антиохия, вероятно",
+      "chapters_count": 9,
+      "chapter_label": "Беседа",
+      "size_bytes": 414426,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.1.0/ioann_zlatoust_pokajanie.json",
+      "sha256": "51ab4bcd007e6998213c9aea76b08f289155581f5bf68cc64d89ec2a072830f4"
+    },
+    {
       "id": "avva_dorofey",
       "author": "Авва Дорофей",
       "work": "Душеполезные поучения",
@@ -10,7 +49,7 @@
       "place": "Палестина",
       "chapters_count": 22,
       "chapter_label": "Поучение",
-      "size_bytes": 530000,
+      "size_bytes": 530159,
       "bundled": true,
       "bundle_path": "assets/library/avva_dorofey.json"
     },
