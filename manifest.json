@@ -49,7 +49,7 @@
       "place": "Палестина",
       "chapters_count": 22,
       "chapter_label": "Поучение",
-      "size_bytes": 530159,
+      "size_bytes": 530158,
       "bundled": true,
       "bundle_path": "assets/library/avva_dorofey.json"
     },
@@ -61,10 +61,10 @@
       "place": "Синай",
       "chapters_count": 30,
       "chapter_label": "Степень",
-      "size_bytes": 880277,
+      "size_bytes": 993798,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.2/ioann_lestvichnik.json",
-      "sha256": "82f4da9e7355c44a359b8c7d3c465a8f3ff6671b332ab6524ed86f4ca8f80784"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.0/ioann_lestvichnik.json",
+      "sha256": "e96a754c48500df72de1078c56355d8a5c374f5ca559d7b922accf7dd563b75f"
     },
     {
       "id": "ioann_damaskin",
@@ -87,10 +87,10 @@
       "place": "Россия",
       "chapters_count": 33,
       "chapter_label": "Глава",
-      "size_bytes": 978347,
+      "size_bytes": 1085997,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.1/feofan_put_ko_spaseniyu.json",
-      "sha256": "8aa223232aaa3286646e6de659a60d644d4bd8d1ecc5b1feb708bd9c35c997f2"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.0/feofan_put_ko_spaseniyu.json",
+      "sha256": "875ed476a76162ef2ecb9c6e4558a6b6b16e3e2e39ebca3d793a12416d952325"
     },
     {
       "id": "feofan_dukhovnaja_zhizn",
