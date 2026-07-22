@@ -119,7 +119,34 @@ def main() -> int:
         }
         book_numbers = set(embedded)
         seen_numbers: set[int] = set()
+        excluded_numbers: set[int] = set()
         correct_positions: list[int] = []
+        for item in source.get("excluded_chapters", []):
+            if not isinstance(item, dict):
+                errors.append(
+                    f"{source_path.name}: исключённая глава требует number и reason"
+                )
+                continue
+            number = item.get("number")
+            reason = item.get("reason")
+            if (
+                not isinstance(number, int)
+                or not isinstance(reason, str)
+                or not reason.strip()
+            ):
+                errors.append(
+                    f"{source_path.name}: исключённая глава требует number и reason"
+                )
+                continue
+            if number in excluded_numbers:
+                errors.append(
+                    f"{source_path.name}: исключённая глава {number} повторяется"
+                )
+            excluded_numbers.add(number)
+            if embedded.get(number):
+                errors.append(
+                    f"{source_path.name}: исключённая глава {number} содержит встроенный тест"
+                )
         for chapter in source.get("chapters", []):
             number = chapter["number"]
             if number in seen_numbers:
@@ -145,9 +172,15 @@ def main() -> int:
                 )
                 if correct_position is not None:
                     correct_positions.append(correct_position)
-        if seen_numbers != book_numbers:
-            missing = sorted(book_numbers - seen_numbers)
-            extra = sorted(seen_numbers - book_numbers)
+        overlap = seen_numbers & excluded_numbers
+        if overlap:
+            errors.append(
+                f"{source_path.name}: главы одновременно проверяются и исключены {sorted(overlap)}"
+            )
+        accounted = seen_numbers | excluded_numbers
+        if accounted != book_numbers:
+            missing = sorted(book_numbers - accounted)
+            extra = sorted(accounted - book_numbers)
             errors.append(
                 f"{source_path.name}: неполное покрытие глав, "
                 f"пропущены={missing}, лишние={extra}"

@@ -65,6 +65,48 @@ class EmbedBookTestsTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, r"пропущены=\[2\]"):
             embed_book_tests(self.root, "sample")
 
+    def test_allows_documented_exclusion_and_removes_old_test(self) -> None:
+        self.book["chapters"][1]["test"] = [{"question": "Устаревший вопрос?"}]
+        (self.root / "sample.json").write_text(
+            json.dumps(self.book, ensure_ascii=False), encoding="utf-8"
+        )
+        path = self.root / "content_tests" / "sample.json"
+        path.write_text(
+            json.dumps(
+                {
+                    "book_id": "sample",
+                    "chapters": [{"number": 1, "test": []}],
+                    "excluded_chapters": [
+                        {"number": 2, "reason": "Редакторское приложение"}
+                    ],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+
+        _, raw = embed_book_tests(self.root, "sample")
+        updated = json.loads(raw)
+
+        self.assertNotIn("test", updated["chapters"][1])
+
+    def test_rejects_exclusion_without_reason(self) -> None:
+        path = self.root / "content_tests" / "sample.json"
+        path.write_text(
+            json.dumps(
+                {
+                    "book_id": "sample",
+                    "chapters": [{"number": 1, "test": []}],
+                    "excluded_chapters": [{"number": 2, "reason": ""}],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(ValueError, "требует number и reason"):
+            embed_book_tests(self.root, "sample")
+
     def test_updates_manifest_from_exact_release_bytes(self) -> None:
         self.write_tests([
             {"number": 1, "test": []},

@@ -29,7 +29,10 @@ def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def authored_tests(root: Path, book: dict[str, Any]) -> dict[int, list[dict[str, Any]]]:
+def authored_tests(
+    root: Path,
+    book: dict[str, Any],
+) -> tuple[dict[int, list[dict[str, Any]]], set[int]]:
     book_id = book["id"]
     path = root / "content_tests" / f"{book_id}.json"
     if not path.exists():
@@ -47,14 +50,39 @@ def authored_tests(root: Path, book: dict[str, Any]) -> dict[int, list[dict[str,
             raise ValueError(f"Глава {number} повторяется в {path.name}")
         by_number[number] = chapter.get("test", [])
 
+    excluded: set[int] = set()
+    for item in source.get("excluded_chapters", []):
+        if not isinstance(item, dict):
+            raise ValueError(
+                f"Исключённая глава в {path.name} требует number и reason"
+            )
+        number = item.get("number")
+        reason = item.get("reason")
+        if (
+            not isinstance(number, int)
+            or not isinstance(reason, str)
+            or not reason.strip()
+        ):
+            raise ValueError(
+                f"Исключённая глава в {path.name} требует number и reason"
+            )
+        if number in excluded:
+            raise ValueError(f"Исключённая глава {number} повторяется в {path.name}")
+        excluded.add(number)
+
+    overlap = set(by_number) & excluded
+    if overlap:
+        raise ValueError(f"Главы одновременно проверяются и исключены: {sorted(overlap)}")
+
     book_numbers = {chapter["number"] for chapter in book["chapters"]}
-    if set(by_number) != book_numbers:
-        missing = sorted(book_numbers - set(by_number))
-        extra = sorted(set(by_number) - book_numbers)
+    accounted = set(by_number) | excluded
+    if accounted != book_numbers:
+        missing = sorted(book_numbers - accounted)
+        extra = sorted(accounted - book_numbers)
         raise ValueError(
             f"Неполное покрытие {book_id}: пропущены={missing}, лишние={extra}"
         )
-    return by_number
+    return by_number, excluded
 
 
 def embed_book_tests(root: Path, book_id: str) -> tuple[Path, bytes]:
@@ -68,9 +96,13 @@ def embed_book_tests(root: Path, book_id: str) -> tuple[Path, bytes]:
         raise ValueError(f"Некорректное число глав в {path.name}")
 
     preserved = without_tests(book)
-    tests = authored_tests(root, book)
+    tests, excluded = authored_tests(root, book)
     for chapter in book["chapters"]:
-        chapter["test"] = tests[chapter["number"]]
+        number = chapter["number"]
+        if number in excluded:
+            chapter.pop("test", None)
+        else:
+            chapter["test"] = tests[number]
     if without_tests(book) != preserved:
         raise AssertionError(f"Изменился основной текст книги {book_id}")
 
