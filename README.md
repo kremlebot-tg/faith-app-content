@@ -9,7 +9,7 @@
 
 ## Публикация обновления
 
-1. Обновить JSON книги и увеличить поле `version`.
+1. Обновить JSON книги; при изменении самого текста увеличить поле `version`.
 2. Обновить `size_bytes`, `download_url`, `sha256` и `last_updated` в манифесте.
 3. Проверить JSON, число глав и соответствие контрольной суммы.
 4. Создать новый тег и приложить к релизу `manifest.json` и изменённые книги.
@@ -31,7 +31,7 @@ python3 tools/prepare_release.py --validate-only
 
 ```sh
 python3 tools/import_patristic_books.py --book all --update-manifest
-python3 -m unittest tools.test_import_patristic_books
+python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/audit_book_tests.py
 python3 tools/prepare_release.py --validate-only
 ```
@@ -45,14 +45,24 @@ python3 tools/prepare_release.py --validate-only
 повторной загрузки источника:
 
 ```sh
-python3 tools/import_patristic_books.py \
-  --book makarij_duhovnye_besedy --tests-only --update-manifest
+python3 tools/embed_book_tests.py \
+  --book ioann_lestvichnik \
+  --release-tag v1.3.0 \
+  --release-date 2026-07-22 \
+  --update-manifest
 ```
 
-Режим `--tests-only` сохраняет метаданные, заголовки, абзацы, ссылки и сноски
-существующего JSON; изменяются только внутренняя версия книги и `chapters[].test`.
-Это позволяет воспроизводимо выпускать обновления тестов, даже если исходный
-сайт временно недоступен.
+Скрипт сохраняет метаданные, внутреннюю версию, заголовки, абзацы, ссылки и
+сноски существующего JSON; изменяются только `chapters[].test` и релизные поля
+манифеста. Это позволяет воспроизводимо выпускать обновления тестов, даже если
+исходный сайт временно недоступен.
+
+Каждый содержательный раздел книги должен иметь ровно три вопроса. Структурный
+заголовок без собственного текста, редакторское послесловие или отдельный
+богослужебный текст можно не тестировать только через явный список
+`excluded_chapters` с непустой причиной для каждого номера. Аудитор требует,
+чтобы все главы были либо проверены, либо документированно исключены, и не
+позволяет встроить тест в исключённый раздел.
 
 Если электронная публикация содержит спорную атрибуцию, оговорка сохраняется
 в `editorial_note` книги и `attribution_note` конкретной главы. Такие сведения
