@@ -16,7 +16,9 @@ class AuditBookTestsTest(unittest.TestCase):
             (root / "content_tests").mkdir()
             def question(correct_index: int) -> dict:
                 return {
-                    "question": "Что проверяется в содержательной главе?",
+                    "question": (
+                        f"Что проверяется в содержательной главе, вопрос {correct_index + 1}?"
+                    ),
                     "type": "choice",
                     "answers": [
                         {

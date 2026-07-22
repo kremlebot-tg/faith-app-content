@@ -120,6 +120,7 @@ def main() -> int:
         book_numbers = set(embedded)
         seen_numbers: set[int] = set()
         excluded_numbers: set[int] = set()
+        seen_prompts: dict[str, str] = {}
         correct_positions: list[int] = []
         for item in source.get("excluded_chapters", []):
             if not isinstance(item, dict):
@@ -164,9 +165,19 @@ def main() -> int:
                 )
             for index, question in enumerate(tests, 1):
                 questions += 1
+                location = f"{source_path.name}:глава {number}:вопрос {index}"
+                normalized_prompt = question.get("question", "").strip().casefold()
+                if normalized_prompt:
+                    previous = seen_prompts.get(normalized_prompt)
+                    if previous is not None:
+                        errors.append(
+                            f"{location}: вопрос повторяет формулировку из {previous}"
+                        )
+                    else:
+                        seen_prompts[normalized_prompt] = location
                 correct_position = audit_question(
                     question,
-                    f"{source_path.name}:глава {number}:вопрос {index}",
+                    location,
                     errors,
                     warnings,
                 )

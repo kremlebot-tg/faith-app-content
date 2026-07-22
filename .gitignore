@@ -1,3 +1,4 @@
 release/
 __pycache__/
 *.pyc
+content_tests/drafts/
