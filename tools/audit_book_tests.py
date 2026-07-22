@@ -14,8 +14,20 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 WORD_RE = re.compile(r"[A-Za-zА-Яа-яЁё0-9]+")
 SECOND_PERSON_RE = re.compile(r"\b(?:ты|тебя|тебе|тобой|твой|твоя|твоё|твои)\b", re.I)
-ANSWER_MARKERS = ("истин", "божествен", "настоящ", "сам ")
-DISTRACTOR_TELLS = ("только", "всегда", "никогда", "навсегда", "особого", "немедлен")
+ANSWER_MARKERS = (
+    (re.compile(r"\bистин\w*", re.I), "истин"),
+    (re.compile(r"\bбожествен\w*", re.I), "божествен"),
+    (re.compile(r"\bнастоящ\w*", re.I), "настоящ"),
+    (re.compile(r"\bсам\b", re.I), "сам"),
+)
+DISTRACTOR_TELLS = (
+    (re.compile(r"\bтолько\b", re.I), "только"),
+    (re.compile(r"\bвсегда\b", re.I), "всегда"),
+    (re.compile(r"\bникогда\b", re.I), "никогда"),
+    (re.compile(r"\bнавсегда\b", re.I), "навсегда"),
+    (re.compile(r"\bособого\b", re.I), "особого"),
+    (re.compile(r"\bнемедлен\w*", re.I), "немедлен"),
+)
 
 
 def words(text: str) -> list[str]:
@@ -78,20 +90,23 @@ def audit_question(
     correct_index = correct_indices[0]
     if lengths[correct_index] == max(lengths) and lengths.count(max(lengths)) == 1:
         errors.append(f"{location}: верный ответ единственный самый длинный {lengths}")
-    lowered = [answer["text"].lower() for answer in answers]
-    for marker in ANSWER_MARKERS:
-        if marker in lowered[correct_index] and not any(
-            marker in text for i, text in enumerate(lowered) if i != correct_index
+    for pattern, label in ANSWER_MARKERS:
+        if pattern.search(answer_texts[correct_index]) and not any(
+            pattern.search(text)
+            for i, text in enumerate(answer_texts)
+            if i != correct_index
         ):
             errors.append(
-                f"{location}: слово-маркер «{marker.strip()}» встречается только в верном ответе"
+                f"{location}: слово-маркер «{label}» встречается только в верном ответе"
             )
-    for marker in DISTRACTOR_TELLS:
-        if marker not in lowered[correct_index] and any(
-            marker in text for i, text in enumerate(lowered) if i != correct_index
+    for pattern, label in DISTRACTOR_TELLS:
+        if not pattern.search(answer_texts[correct_index]) and any(
+            pattern.search(text)
+            for i, text in enumerate(answer_texts)
+            if i != correct_index
         ):
             errors.append(
-                f"{location}: формальная подсказка «{marker}» встречается только в дистракторе"
+                f"{location}: формальная подсказка «{label}» встречается только в дистракторе"
             )
     if prompt.rstrip(".?!").lower() == answers[correct_index]["text"].rstrip(".?!").lower():
         warnings.append(f"{location}: вопрос повторяет верный ответ")

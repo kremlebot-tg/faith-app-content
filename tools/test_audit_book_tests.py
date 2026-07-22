@@ -10,6 +10,29 @@ from tools import audit_book_tests as auditor
 
 
 class AuditBookTestsTest(unittest.TestCase):
+    def test_tell_does_not_match_inside_another_word(self) -> None:
+        question = {
+            "question": "Какое утверждение соответствует тексту?",
+            "type": "choice",
+            "answers": [
+                {"text": "Первое краткое утверждение", "correct": True},
+                {"text": "Настолько же краткое утверждение", "correct": False},
+                {"text": "Третье краткое утверждение", "correct": False},
+            ],
+            "explanation": (
+                "Пояснение содержит достаточно слов и раскрывает смысл выбранного "
+                "утверждения без формальной подсказки в ответах."
+            ),
+        }
+        errors: list[str] = []
+
+        auditor.audit_question(question, "sample", errors, [])
+
+        self.assertFalse(
+            any("подсказка «только»" in message for message in errors),
+            errors,
+        )
+
     def test_documented_exclusion_completes_coverage(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
