@@ -87,10 +87,10 @@
       "place": "Россия",
       "chapters_count": 33,
       "chapter_label": "Глава",
-      "size_bytes": 1085997,
+      "size_bytes": 1085994,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.0/feofan_put_ko_spaseniyu.json",
-      "sha256": "875ed476a76162ef2ecb9c6e4558a6b6b16e3e2e39ebca3d793a12416d952325"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.3/feofan_put_ko_spaseniyu.json",
+      "sha256": "638d1b134dc52f69d466a9b96ca796ed91e12638dfb629ffe48604d91666d835"
     },
     {
       "id": "feofan_dukhovnaja_zhizn",
@@ -113,10 +113,10 @@
       "place": "Россия",
       "chapters_count": 60,
       "chapter_label": "Глава",
-      "size_bytes": 1647316,
+      "size_bytes": 1645082,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.2/ignatij_prinoshenie.json",
-      "sha256": "79aec2e5e1d1d6547aed7fe12f9ffe9efe75226fbcb888960ccddbb4b7a46a0c"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.3/ignatij_prinoshenie.json",
+      "sha256": "b10c6b5c1d35921b5ae139f0a36a29dce34af624ea42b51d8ff6fff3a64f0e5b"
     }
   ]
 }

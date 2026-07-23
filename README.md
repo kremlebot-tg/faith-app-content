@@ -78,6 +78,7 @@ python3 tools/embed_book_tests.py \
 python3 tools/clean_feofan_put.py
 python3 tools/clean_feofan_dukhovnaja.py
 python3 tools/clean_lestvitsa.py
+python3 tools/clean_ignatij_prinoshenie.py
 ```
 
 Это одноразовые миграции для зафиксированных исходных версий. На уже очищенном

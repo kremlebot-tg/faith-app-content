@@ -1,66 +1,94 @@
 from copy import deepcopy
+import hashlib
 import json
 from pathlib import Path
 import unittest
 
-from tools.clean_feofan_put import MARKER_RE, clean_book
+from tools.clean_feofan_put import clean_book, marker_matches
 
 
 ROOT = Path(__file__).resolve().parents[1]
+PUBLISHED_DIGEST = "638d1b134dc52f69d466a9b96ca796ed91e12638dfb629ffe48604d91666d835"
 
 
 class CleanFeofanPutTest(unittest.TestCase):
-    def test_removes_known_markers_and_repairs_ocr(self) -> None:
+    def test_removes_markers_after_question_mark_and_full_stop_only(self) -> None:
         original = {
-            "version": 2,
+            "version": 3,
             "chapters": [
                 {
-                    "title": "Заголовок1",
-                    "paragraphs": ["Первый текст2.", "До седин о6рящеши премудрость."],
+                    "title": "Заголовок",
+                    "paragraphs": [
+                        "Почему не требовать отчета?79",
+                        "Никто нас не учил этому».83",
+                        "Ссылки (Флп.3:13), (1Кор. 9,24), гл.12 и пункт 79 "
+                        "сохранятся.",
+                    ],
                     "scripture_refs": [{"text": "Ин. 3:16", "url": "example"}],
+                    "notes": ["Сноска сохранится."],
+                    "test": [{"question": "Вопрос?"}],
                 }
             ],
         }
 
-        cleaned = clean_book(deepcopy(original), [1, 2], {})
+        cleaned = clean_book(deepcopy(original), [79, 83])
 
-        self.assertEqual(cleaned["version"], 3)
+        self.assertEqual(cleaned["version"], 4)
         self.assertEqual(cleaned["chapters"][0]["title"], "Заголовок")
         self.assertEqual(cleaned["chapters"][0]["paragraphs"], [
-            "Первый текст.",
-            "До седин обрящеши премудрость.",
+            "Почему не требовать отчета?",
+            "Никто нас не учил этому».",
+            "Ссылки (Флп.3:13), (1Кор. 9,24), гл.12 и пункт 79 "
+            "сохранятся.",
         ])
-        self.assertEqual(cleaned["chapters"][0]["scripture_refs"], original["chapters"][0]["scripture_refs"])
+        for field in ("scripture_refs", "notes", "test"):
+            self.assertEqual(
+                cleaned["chapters"][0][field], original["chapters"][0][field]
+            )
 
     def test_rejects_unexpected_marker_sequence(self) -> None:
         book = {
-            "version": 2,
+            "version": 3,
             "chapters": [
                 {
-                    "title": "Заголовок1",
-                    "paragraphs": ["До седин о6рящеши премудрость."],
+                    "title": "Заголовок",
+                    "paragraphs": ["Текст?79", "Другой текст».83"],
                 }
             ],
         }
 
         with self.assertRaisesRegex(ValueError, "Неожиданная последовательность"):
-            clean_book(book, [1, 2], {})
+            clean_book(book, [79])
 
     def test_published_book_keeps_cleanup_and_liturgical_repairs(self) -> None:
-        book = json.loads(
-            (ROOT / "feofan_put_ko_spaseniyu.json").read_text(encoding="utf-8")
-        )
+        path = ROOT / "feofan_put_ko_spaseniyu.json"
+        raw = path.read_bytes()
+        book = json.loads(raw)
 
-        self.assertEqual(book["version"], 3)
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), PUBLISHED_DIGEST)
+        self.assertEqual(book["version"], 4)
         self.assertEqual(book["chapters_count"], 33)
+        self.assertEqual(
+            sum(len(chapter.get("test", [])) for chapter in book["chapters"]), 84
+        )
         for chapter in book["chapters"]:
             for text in [chapter["title"], *chapter["paragraphs"]]:
                 self.assertIsNone(
-                    MARKER_RE.search(text),
+                    next(marker_matches(text), None),
                     f"Слитая сноска в главе {chapter['number']}: {text[:80]}",
                 )
 
         by_number = {chapter["number"]: chapter for chapter in book["chapters"]}
+        self.assertIn(
+            "почему же не требовать от них отчета в том, что они слышали "
+            "в дому Господнем?",
+            " ".join(by_number[30]["paragraphs"]),
+        )
+        self.assertIn(
+            "Ибо нельзя нам оправдаться и говорить: «Никто нас не учил "
+            "этому».",
+            " ".join(by_number[30]["paragraphs"]),
+        )
         self.assertEqual(
             by_number[32]["paragraphs"],
             [
