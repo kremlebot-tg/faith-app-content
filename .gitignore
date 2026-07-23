@@ -1,4 +1,5 @@
 release/
 __pycache__/
 *.pyc
-content_tests/drafts/
+content_tests/drafts/*
+!content_tests/drafts/feofan_dukhovnaja_zhizn_*.json
