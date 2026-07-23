@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 content_tests/drafts/*
 !content_tests/drafts/feofan_dukhovnaja_zhizn_*.json
+!content_tests/drafts/ioann_damaskin_*.json
