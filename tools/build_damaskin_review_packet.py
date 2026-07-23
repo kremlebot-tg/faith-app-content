@@ -148,6 +148,7 @@ def render_chunk(
     commit: str,
     source_sha: str,
     drafts_sha: str,
+    risk_tags: dict[int, tuple[str, ...]] = RISK_TAGS,
 ) -> str:
     first = int(chapters[0]["number"])
     last = int(chapters[-1]["number"])
@@ -167,7 +168,7 @@ def render_chunk(
     for chapter in chapters:
         number = int(chapter["number"])
         chapter_id = f"ИД{number:03d}"
-        tags = RISK_TAGS.get(number, ("общая богословская точность",))
+        tags = risk_tags.get(number, ("общая богословская точность",))
         lines.extend(
             [
                 f"## {chapter_id} · {chapter['title']}",
