@@ -149,6 +149,7 @@ def render_chunk(
     source_sha: str,
     drafts_sha: str,
     risk_tags: dict[int, tuple[str, ...]] = RISK_TAGS,
+    chapter_notes: dict[int, str] | None = None,
 ) -> str:
     first = int(chapters[0]["number"])
     last = int(chapters[-1]["number"])
@@ -175,6 +176,18 @@ def render_chunk(
                 "",
                 "**Риск-теги:** " + "; ".join(f"`{tag}`" for tag in tags),
                 "",
+            ]
+        )
+        note = (chapter_notes or {}).get(number)
+        if note:
+            lines.extend(
+                [
+                    f"**Редакторская оговорка:** {note}",
+                    "",
+                ]
+            )
+        lines.extend(
+            [
                 "**Фрагмент источника:**",
                 "",
                 f"> {source_excerpt(chapter)}",
