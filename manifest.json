@@ -113,10 +113,10 @@
       "place": "Россия",
       "chapters_count": 60,
       "chapter_label": "Глава",
-      "size_bytes": 1645082,
+      "size_bytes": 1646407,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.3/ignatij_prinoshenie.json",
-      "sha256": "b10c6b5c1d35921b5ae139f0a36a29dce34af624ea42b51d8ff6fff3a64f0e5b"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.4/ignatij_prinoshenie.json",
+      "sha256": "982312c60a4c10fca3a22d949126ed4ad67ec8cdc1499a430e385d26256c61ff"
     }
   ]
 }

@@ -5,10 +5,11 @@ from pathlib import Path
 import unittest
 
 from tools.clean_ignatij_prinoshenie import clean_book, marker_matches
+from tools.redistribute_ignatij_notes import NOTE_RANGES, TARGET_DIGEST
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLISHED_DIGEST = "b10c6b5c1d35921b5ae139f0a36a29dce34af624ea42b51d8ff6fff3a64f0e5b"
+PUBLISHED_DIGEST = TARGET_DIGEST
 
 
 class CleanIgnatijPrinoshenieTest(unittest.TestCase):
@@ -60,13 +61,13 @@ class CleanIgnatijPrinoshenieTest(unittest.TestCase):
         ):
             clean_book(book, [1, 2, 3])
 
-    def test_published_book_has_exact_cleanup_and_preserves_all_notes(self) -> None:
+    def test_published_book_has_cleanup_and_redistributed_notes(self) -> None:
         path = ROOT / "ignatij_prinoshenie.json"
         raw = path.read_bytes()
         book = json.loads(raw)
 
         self.assertEqual(hashlib.sha256(raw).hexdigest(), PUBLISHED_DIGEST)
-        self.assertEqual(book["version"], 3)
+        self.assertEqual(book["version"], 4)
         self.assertEqual(book["chapters_count"], 60)
         self.assertEqual(
             sum(len(chapter.get("notes", [])) for chapter in book["chapters"]),
@@ -78,7 +79,10 @@ class CleanIgnatijPrinoshenieTest(unittest.TestCase):
                 for chapter in book["chapters"]
                 if chapter.get("notes")
             ],
-            [(1, 37), (59, 744)],
+            [
+                (chapter, end - start + 1)
+                for chapter, (start, end) in NOTE_RANGES.items()
+            ],
         )
         for chapter in book["chapters"]:
             for text in [chapter["title"], *chapter["paragraphs"]]:
@@ -88,6 +92,31 @@ class CleanIgnatijPrinoshenieTest(unittest.TestCase):
                 )
 
         by_number = {chapter["number"]: chapter for chapter in book["chapters"]}
+        self.assertEqual(
+            by_number[1]["notes"][-1],
+            "Алфавитный патерик и Достопамятные сказания, "
+            "статья о авве Агафоне.",
+        )
+        self.assertEqual(
+            by_number[2]["notes"][0],
+            "Никифора Монашествующего слово. Добротолюбие, ч. 2.",
+        )
+        self.assertEqual(by_number[36]["notes"][-1], "Беседа 37.")
+        self.assertTrue(
+            by_number[37]["notes"][0].startswith(
+                "Древнеобразное изложение преподобным Марком"
+            )
+        )
+        self.assertEqual(
+            by_number[59]["notes"],
+            [
+                "Алфавитный патерик, буква А.",
+                "Образ изложения заимствован из евангельской притчи. Мф.\u200922:11.",
+                "Образ изложения заимствован из евангельской притчи. Мф.\u200922:11.",
+            ],
+        )
+        for chapter_number in (4, 6, 22, 35, 60):
+            self.assertNotIn("notes", by_number[chapter_number])
         self.assertIn(
             "по свидетельству Святого Евангелия (Лк.\u200918:14)",
             " ".join(by_number[1]["paragraphs"]),
