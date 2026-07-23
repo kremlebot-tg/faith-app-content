@@ -3,7 +3,7 @@
 - Автор: Авва Дорофей
 - Версия книги: 1
 - Репозиторий: `faith_app`
-- Базовый commit входных данных: `ecb7ad5099bbda84e17b5bc36bf84ec881d750e6`
+- Базовый commit входных данных: `d4e81f311dc1394f557a019acdd5e1f4f5903cdf`
 - SHA-256 текста книги: `7fb44bc49d1d126349139d4d8739f48735ffbb007b4814eb4d7e5e4bac6e2888`
 - Источник: [https://azbyka.ru/otechnik/Dorofej/dushepoleznye-pouchenija-i-poslanija/](https://azbyka.ru/otechnik/Dorofej/dushepoleznye-pouchenija-i-poslanija/)
 - Лицензия в метаданных: `public domain`

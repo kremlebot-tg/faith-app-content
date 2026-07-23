@@ -34,11 +34,21 @@ class BookStructureTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Structural section contains"):
             validate_book(book, "sample.json")
 
+        empty_attribution = sample_book()
+        empty_attribution["chapters"][0]["attribution_note"] = ""
+        with self.assertRaisesRegex(ValueError, "Structural section contains"):
+            validate_book(empty_attribution, "sample.json")
+
     def test_rejects_empty_or_unknown_readable_node(self) -> None:
         empty = sample_book()
         empty["chapters"][1]["paragraphs"] = []
         with self.assertRaisesRegex(ValueError, "Empty readable chapter"):
             validate_book(empty, "sample.json")
+
+        blank = sample_book()
+        blank["chapters"][1]["paragraphs"] = ["   "]
+        with self.assertRaisesRegex(ValueError, "Empty readable chapter"):
+            validate_book(blank, "sample.json")
 
         unknown = sample_book()
         unknown["chapters"][0]["kind"] = "heading"

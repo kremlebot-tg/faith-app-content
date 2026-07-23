@@ -3,7 +3,7 @@
 - Автор: Иоанн Лествичник
 - Версия книги: 3
 - Репозиторий: `faith-app-content`
-- Базовый commit входных данных: `2d2a9a794d8ff6d51d2994776d379d74b175e395`
+- Базовый commit входных данных: `dacb8e65008e8af1f1bbe3a9cc95b27315296688`
 - SHA-256 текста книги: `37f583c98f3e979e94a607c3957c843190dac276138921b1f5297831731b9893`
 - Источник: [https://azbyka.ru/otechnik/Ioann_Lestvichnik/lestvitsa-ili-skrizhali-dukhovnye/](https://azbyka.ru/otechnik/Ioann_Lestvichnik/lestvitsa-ili-skrizhali-dukhovnye/)
 - Лицензия в метаданных: `public domain`

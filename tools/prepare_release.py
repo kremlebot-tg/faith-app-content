@@ -101,7 +101,7 @@ def validate_book(book: dict, name: str) -> None:
         if kind == "section":
             if (chapter["paragraphs"] or chapter.get("scripture_refs") or
                     chapter.get("notes") or chapter.get("test") or
-                    chapter.get("attribution_note")):
+                    chapter.get("attribution_note") is not None):
                 raise ValueError(
                     f"Structural section contains content in {name}, "
                     f"chapter {chapter['number']}"
@@ -110,7 +110,8 @@ def validate_book(book: dict, name: str) -> None:
             raise ValueError(
                 f"Unknown chapter kind in {name}, chapter {chapter['number']}: {kind}"
             )
-        elif not chapter["paragraphs"]:
+        elif (not chapter["paragraphs"] or
+                any(not str(value).strip() for value in chapter["paragraphs"])):
             raise ValueError(
                 f"Empty readable chapter in {name}, chapter {chapter['number']}"
             )
