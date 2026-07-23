@@ -103,10 +103,10 @@
       "place": "Россия",
       "chapters_count": 80,
       "chapter_label": "Письмо",
-      "size_bytes": 809006,
+      "size_bytes": 1109065,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.2/feofan_dukhovnaja_zhizn.json",
-      "sha256": "779cecfe2039f3e74e76010995cc4acb45ae07099c5784a329eda22b0acf809a"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.6/feofan_dukhovnaja_zhizn.json",
+      "sha256": "82980cd0cd0c4defc5a357d4573bd438b93c3696794ddf78dd2427d1a7a8baa9"
     },
     {
       "id": "ignatij_prinoshenie",

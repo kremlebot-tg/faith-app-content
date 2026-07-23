@@ -8,7 +8,7 @@ from tools.clean_feofan_dukhovnaja import MARKER_RE, clean_book
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLISHED_DIGEST = "779cecfe2039f3e74e76010995cc4acb45ae07099c5784a329eda22b0acf809a"
+PUBLISHED_DIGEST = "82980cd0cd0c4defc5a357d4573bd438b93c3696794ddf78dd2427d1a7a8baa9"
 
 
 class CleanFeofanDukhovnajaTest(unittest.TestCase):
@@ -68,6 +68,10 @@ class CleanFeofanDukhovnajaTest(unittest.TestCase):
         self.assertEqual(hashlib.sha256(raw).hexdigest(), PUBLISHED_DIGEST)
         self.assertEqual(book["version"], 3)
         self.assertEqual(book["chapters_count"], 80)
+        self.assertEqual(
+            sum(len(chapter.get("test", [])) for chapter in book["chapters"]),
+            240,
+        )
         self.assertEqual(
             sum(len(chapter.get("notes", [])) for chapter in book["chapters"]), 15
         )
