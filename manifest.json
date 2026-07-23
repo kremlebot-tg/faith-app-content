@@ -86,11 +86,14 @@
       "century": "XIX",
       "place": "Россия",
       "chapters_count": 33,
+      "section_numbers": [
+        9
+      ],
       "chapter_label": "Глава",
-      "size_bytes": 1085994,
+      "size_bytes": 1086019,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.3/feofan_put_ko_spaseniyu.json",
-      "sha256": "638d1b134dc52f69d466a9b96ca796ed91e12638dfb629ffe48604d91666d835"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.5/feofan_put_ko_spaseniyu.json",
+      "sha256": "bb70c415b7c64a3b17d76fb84f72c62a2e83e145a7d3c5e449e8b147df5809c1"
     },
     {
       "id": "feofan_dukhovnaja_zhizn",

@@ -1,10 +1,10 @@
 # Путь ко спасению
 
 - Автор: Феофан Затворник
-- Версия книги: 4
+- Версия книги: 5
 - Репозиторий: `faith-app-content`
 - Базовый commit входных данных: `2d2a9a794d8ff6d51d2994776d379d74b175e395`
-- SHA-256 текста книги: `638d1b134dc52f69d466a9b96ca796ed91e12638dfb629ffe48604d91666d835`
+- SHA-256 текста книги: `bb70c415b7c64a3b17d76fb84f72c62a2e83e145a7d3c5e449e8b147df5809c1`
 - Источник: [https://azbyka.ru/otechnik/Feofan_Zatvornik/put-ko-spaseniju/](https://azbyka.ru/otechnik/Feofan_Zatvornik/put-ko-spaseniju/)
 - Лицензия в метаданных: `public domain`
 - Глав с тестами: 28

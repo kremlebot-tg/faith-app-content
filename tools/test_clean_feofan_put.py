@@ -8,7 +8,7 @@ from tools.clean_feofan_put import clean_book, marker_matches
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLISHED_DIGEST = "638d1b134dc52f69d466a9b96ca796ed91e12638dfb629ffe48604d91666d835"
+PUBLISHED_DIGEST = "bb70c415b7c64a3b17d76fb84f72c62a2e83e145a7d3c5e449e8b147df5809c1"
 
 
 class CleanFeofanPutTest(unittest.TestCase):
@@ -66,7 +66,7 @@ class CleanFeofanPutTest(unittest.TestCase):
         book = json.loads(raw)
 
         self.assertEqual(hashlib.sha256(raw).hexdigest(), PUBLISHED_DIGEST)
-        self.assertEqual(book["version"], 4)
+        self.assertEqual(book["version"], 5)
         self.assertEqual(book["chapters_count"], 33)
         self.assertEqual(
             sum(len(chapter.get("test", [])) for chapter in book["chapters"]), 84

@@ -97,6 +97,23 @@ def validate_book(book: dict, name: str) -> None:
 
     forbidden = ("Telegram-каналы", "t.me/", "* * *")
     for chapter in chapters:
+        kind = chapter.get("kind", "chapter")
+        if kind == "section":
+            if (chapter["paragraphs"] or chapter.get("scripture_refs") or
+                    chapter.get("notes") or chapter.get("test") or
+                    chapter.get("attribution_note")):
+                raise ValueError(
+                    f"Structural section contains content in {name}, "
+                    f"chapter {chapter['number']}"
+                )
+        elif kind != "chapter":
+            raise ValueError(
+                f"Unknown chapter kind in {name}, chapter {chapter['number']}: {kind}"
+            )
+        elif not chapter["paragraphs"]:
+            raise ValueError(
+                f"Empty readable chapter in {name}, chapter {chapter['number']}"
+            )
         for paragraph in chapter["paragraphs"]:
             if any(marker in paragraph for marker in forbidden):
                 raise ValueError(
@@ -138,6 +155,12 @@ def validate_manifest(root: Path) -> None:
         validate_book(book, name)
         if item["chapters_count"] != len(book["chapters"]):
             raise ValueError(f"Manifest chapter mismatch: {name}")
+        sections = [
+            chapter["number"] for chapter in book["chapters"]
+            if chapter.get("kind") == "section"
+        ]
+        if item.get("section_numbers", []) != sections:
+            raise ValueError(f"Manifest section mismatch: {name}")
         if item.get("size_bytes") != len(raw):
             raise ValueError(f"Manifest size mismatch: {name}")
         if item.get("sha256") != digest(raw):
