@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import dataclass
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -15,6 +16,14 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = ROOT / "reviews" / "00_REGISTRY.md"
 VERDICT_MARKER = "**Вердикт:**"
+DRAFT_PACKET_METADATA = {
+    "ioann_damaskin": "reviews/ioann_damaskin/00_README.md",
+    "ignatij_prinoshenie": "reviews/ignatij_prinoshenie/00_PACKET.md",
+}
+DRAFTS_SHA_PATTERN = re.compile(
+    r"^- SHA-256 комплекта черновиков: `([0-9a-f]{64})`$",
+    re.MULTILINE,
+)
 
 
 @dataclass(frozen=True)
@@ -156,6 +165,42 @@ def count_source_questions(root: Path, entry: ReviewCoverage) -> int:
     return total
 
 
+def combined_drafts_sha256(root: Path, book_id: str) -> str:
+    paths = sorted(
+        (root / "content_tests" / "drafts").glob(f"{book_id}_*.json")
+    )
+    if not paths:
+        raise ValueError(f"{book_id}: черновики не найдены")
+    digest = hashlib.sha256()
+    for path in paths:
+        digest.update(path.name.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def validate_draft_packet_digest(
+    root: Path,
+    book_id: str,
+    metadata_file: str,
+) -> None:
+    path = root / metadata_file
+    if not path.is_file():
+        raise ValueError(f"{book_id}: нет файла метаданных {metadata_file}")
+    match = DRAFTS_SHA_PATTERN.search(path.read_text(encoding="utf-8"))
+    if match is None:
+        raise ValueError(
+            f"{book_id}: в {metadata_file} нет SHA-256 комплекта черновиков"
+        )
+    actual = combined_drafts_sha256(root, book_id)
+    if match.group(1) != actual:
+        raise ValueError(
+            f"{book_id}: пакет рецензии устарел, "
+            f"зафиксирован={match.group(1)}, актуален={actual}"
+        )
+
+
 def packet_stats(
     root: Path,
     entry: ReviewCoverage,
@@ -200,6 +245,13 @@ def audit(root: Path) -> dict[str, tuple[int, int]]:
     for entry in COVERAGE:
         source_questions = count_source_questions(root, entry)
         verdicts, ids = packet_stats(root, entry)
+        metadata_file = DRAFT_PACKET_METADATA.get(entry.book_id)
+        if metadata_file is not None:
+            validate_draft_packet_digest(
+                root,
+                entry.book_id,
+                metadata_file,
+            )
         if source_questions != entry.expected_questions:
             raise ValueError(
                 f"{entry.book_id}: в источнике {source_questions} вопросов, "

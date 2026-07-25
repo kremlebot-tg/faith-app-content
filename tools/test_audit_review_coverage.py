@@ -1,3 +1,4 @@
+import hashlib
 from pathlib import Path
 import tempfile
 import unittest
@@ -39,6 +40,42 @@ class ReviewCoverageAuditTest(unittest.TestCase):
             verdicts, ids = review.packet_stats(root, altered)
             self.assertEqual(verdicts, entry.expected_questions - 1)
             self.assertEqual(len(ids), entry.expected_questions)
+
+    def test_detects_stale_draft_packet_digest(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            drafts = root / "content_tests" / "drafts"
+            drafts.mkdir(parents=True)
+            draft = drafts / "sample_01.json"
+            draft.write_text('{"book_id":"sample"}\n', encoding="utf-8")
+            metadata = root / "reviews" / "sample" / "00_PACKET.md"
+            metadata.parent.mkdir(parents=True)
+            metadata.write_text(
+                "- SHA-256 комплекта черновиков: `" + "0" * 64 + "`\n",
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(ValueError, "пакет рецензии устарел"):
+                review.validate_draft_packet_digest(
+                    root,
+                    "sample",
+                    "reviews/sample/00_PACKET.md",
+                )
+
+            digest = hashlib.sha256()
+            digest.update(draft.name.encode("utf-8"))
+            digest.update(b"\0")
+            digest.update(draft.read_bytes())
+            digest.update(b"\0")
+            metadata.write_text(
+                f"- SHA-256 комплекта черновиков: `{digest.hexdigest()}`\n",
+                encoding="utf-8",
+            )
+            review.validate_draft_packet_digest(
+                root,
+                "sample",
+                "reviews/sample/00_PACKET.md",
+            )
 
 
 if __name__ == "__main__":
