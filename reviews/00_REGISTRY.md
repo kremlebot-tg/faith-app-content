@@ -1,15 +1,15 @@
-<!-- review-coverage-registry: content=edee28bb2414f1f4c4f846e8d283f9e77314e1d6 -->
+<!-- review-coverage-registry: content=6d2c4a32000378d6fa5a437394d05311ced7a2a1 -->
 # Реестр богословской рецензии тестов
 
-Реестр охватывает все девять книг из `manifest.json`: 681
-опубликованный вопрос и 480 вопросов в черновиках. Для каждого вопроса
+Реестр охватывает все девять книг из `manifest.json`: 1161
+опубликованный вопрос и 0 вопросов в черновиках. Для каждого вопроса
 существует стабильный ID и отдельное поле вердикта.
 
 Наличие пакета не означает, что рецензия завершена. Пока заполненный вердикт
 богословски грамотного человека не зафиксирован в репозитории, статус
 человеческой рецензии остаётся «ожидается».
 
-- Входной commit: `edee28bb2414f1f4c4f846e8d283f9e77314e1d6`
+- Входной commit: `6d2c4a32000378d6fa5a437394d05311ced7a2a1`
 - Всего подготовлено к проверке: 1161 вопросов.
 
 | Книга | Статус тестов | Вопросы | Пакет | Человеческая рецензия |
@@ -19,10 +19,10 @@
 | Иоанн Златоуст · «Беседы о покаянии» | опубликованы | 27 | [04_zlatoust.md](early_fathers/04_zlatoust.md) | ожидается |
 | Авва Дорофей · «Душеполезные поучения» | опубликованы | 63 | [03_avva_dorofey.md](v1.3.1/03_avva_dorofey.md) | ожидается |
 | Иоанн Лествичник · «Лествица» | опубликованы | 90 | [01_lestvitsa.md](v1.3.1/01_lestvitsa.md) | ожидается |
-| Иоанн Дамаскин · «Точное изложение православной веры» | черновики, не опубликованы | 300 | [01_chapters_001_025.md](ioann_damaskin/01_chapters_001_025.md)<br>[02_chapters_026_050.md](ioann_damaskin/02_chapters_026_050.md)<br>[03_chapters_051_075.md](ioann_damaskin/03_chapters_051_075.md)<br>[04_chapters_076_100.md](ioann_damaskin/04_chapters_076_100.md) | ожидается |
+| Иоанн Дамаскин · «Точное изложение православной веры» | опубликованы | 300 | [01_chapters_001_025.md](ioann_damaskin/01_chapters_001_025.md)<br>[02_chapters_026_050.md](ioann_damaskin/02_chapters_026_050.md)<br>[03_chapters_051_075.md](ioann_damaskin/03_chapters_051_075.md)<br>[04_chapters_076_100.md](ioann_damaskin/04_chapters_076_100.md) | ожидается |
 | Феофан Затворник · «Путь ко спасению» | опубликованы | 84 | [02_feofan.md](v1.3.1/02_feofan.md) | ожидается |
 | Феофан Затворник · «Что есть духовная жизнь и как на неё настроиться?» | опубликованы | 240 | [01_letters_001_020.md](feofan_dukhovnaja_zhizn/01_letters_001_020.md)<br>[02_letters_021_040.md](feofan_dukhovnaja_zhizn/02_letters_021_040.md)<br>[03_letters_041_060.md](feofan_dukhovnaja_zhizn/03_letters_041_060.md)<br>[04_letters_061_080.md](feofan_dukhovnaja_zhizn/04_letters_061_080.md) | ожидается |
-| Игнатий (Брянчанинов) · «Приношение современному монашеству» | черновики, не опубликованы | 180 | [01_chapters_001_015.md](ignatij_prinoshenie/01_chapters_001_015.md)<br>[02_chapters_016_030.md](ignatij_prinoshenie/02_chapters_016_030.md)<br>[03_chapters_031_045.md](ignatij_prinoshenie/03_chapters_031_045.md)<br>[04_chapters_046_060.md](ignatij_prinoshenie/04_chapters_046_060.md) | ожидается |
+| Игнатий (Брянчанинов) · «Приношение современному монашеству» | опубликованы | 180 | [01_chapters_001_015.md](ignatij_prinoshenie/01_chapters_001_015.md)<br>[02_chapters_016_030.md](ignatij_prinoshenie/02_chapters_016_030.md)<br>[03_chapters_031_045.md](ignatij_prinoshenie/03_chapters_031_045.md)<br>[04_chapters_046_060.md](ignatij_prinoshenie/04_chapters_046_060.md) | ожидается |
 
 ## Контроль
 
