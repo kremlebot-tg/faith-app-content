@@ -9,7 +9,6 @@ from tools.redistribute_ignatij_notes import NOTE_RANGES, TARGET_DIGEST
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLISHED_DIGEST = TARGET_DIGEST
 
 
 class CleanIgnatijPrinoshenieTest(unittest.TestCase):
@@ -66,9 +65,22 @@ class CleanIgnatijPrinoshenieTest(unittest.TestCase):
         raw = path.read_bytes()
         book = json.loads(raw)
 
-        self.assertEqual(hashlib.sha256(raw).hexdigest(), PUBLISHED_DIGEST)
-        self.assertEqual(book["version"], 4)
+        base_book = deepcopy(book)
+        base_book["version"] = 4
+        for chapter in base_book["chapters"]:
+            chapter.pop("test", None)
+        base_raw = json.dumps(
+            base_book,
+            ensure_ascii=False,
+            indent=2,
+        ).encode("utf-8") + b"\n"
+        self.assertEqual(hashlib.sha256(base_raw).hexdigest(), TARGET_DIGEST)
+        self.assertEqual(book["version"], 5)
         self.assertEqual(book["chapters_count"], 60)
+        self.assertEqual(
+            sum(len(chapter.get("test", [])) for chapter in book["chapters"]),
+            180,
+        )
         self.assertEqual(
             sum(len(chapter.get("notes", [])) for chapter in book["chapters"]),
             781,

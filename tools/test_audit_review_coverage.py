@@ -14,8 +14,8 @@ class ReviewCoverageAuditTest(unittest.TestCase):
         self.assertEqual(sum(value[0] for value in result.values()), 1161)
         self.assertEqual(sum(value[1] for value in result.values()), 1161)
         registry = review.render_registry(review.ROOT, "a" * 40)
-        self.assertIn("681\nопубликованный вопрос", registry)
-        self.assertIn("480 вопросов в черновиках", registry)
+        self.assertIn("1161\nопубликованный вопрос", registry)
+        self.assertIn("0 вопросов в черновиках", registry)
         self.assertEqual(registry.count("| ожидается |"), 9)
 
     def test_detects_packet_with_missing_verdict(self) -> None:

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-23",
+  "last_updated": "2026-07-25",
   "library": [
     {
       "id": "afanasij_voploshhenie",
@@ -74,10 +74,10 @@
       "place": "Дамаск",
       "chapters_count": 100,
       "chapter_label": "Глава",
-      "size_bytes": 754265,
+      "size_bytes": 1104766,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.0.2/ioann_damaskin.json",
-      "sha256": "9c077c94db2b82b0e3dcebee1f457279c70473210049967e07df54426e79d80b"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.4.0/ioann_damaskin.json",
+      "sha256": "02fe742059dffdf928dd5de6eb555b5b77af13a921bea15621ff74b282996b1b"
     },
     {
       "id": "feofan_put_ko_spaseniyu",
@@ -116,10 +116,10 @@
       "place": "Россия",
       "chapters_count": 60,
       "chapter_label": "Глава",
-      "size_bytes": 1646407,
+      "size_bytes": 1869733,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.4/ignatij_prinoshenie.json",
-      "sha256": "982312c60a4c10fca3a22d949126ed4ad67ec8cdc1499a430e385d26256c61ff"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.4.0/ignatij_prinoshenie.json",
+      "sha256": "fade9b9e29607963cb6201c84e6f5e7ca494011715f6842b0c0d157308b30bb1"
     }
   ]
 }

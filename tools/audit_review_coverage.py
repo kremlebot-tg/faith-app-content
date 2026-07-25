@@ -77,7 +77,7 @@ COVERAGE = (
     ReviewCoverage(
         "ioann_damaskin",
         "ИД",
-        "черновики, не опубликованы",
+        "опубликованы",
         300,
         (
             "reviews/ioann_damaskin/01_chapters_001_025.md",
@@ -108,7 +108,7 @@ COVERAGE = (
     ReviewCoverage(
         "ignatij_prinoshenie",
         "ИП",
-        "черновики, не опубликованы",
+        "опубликованы",
         180,
         (
             "reviews/ignatij_prinoshenie/01_chapters_001_015.md",
