@@ -16,8 +16,13 @@ def load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def merge_drafts(root: Path, book_id: str) -> Path:
-    book_path = root / f"{book_id}.json"
+def merge_drafts(
+    root: Path,
+    book_id: str,
+    book_path: Path | None = None,
+    excluded_chapters: dict[int, str] | None = None,
+) -> Path:
+    book_path = book_path or root / f"{book_id}.json"
     if not book_path.exists():
         raise ValueError(f"Не найдена книга: {book_path}")
     book = load(book_path)
@@ -40,9 +45,16 @@ def merge_drafts(root: Path, book_id: str) -> Path:
                 raise ValueError(f"Глава {number} повторяется в редакционных партиях")
             by_number[number] = chapter
 
-    if set(by_number) != book_numbers:
-        missing = sorted(book_numbers - set(by_number))
-        extra = sorted(set(by_number) - book_numbers)
+    exclusions = excluded_chapters or {}
+    overlap = set(by_number) & set(exclusions)
+    if overlap:
+        raise ValueError(
+            f"Главы одновременно проверяются и исключены: {sorted(overlap)}"
+        )
+    accounted = set(by_number) | set(exclusions)
+    if accounted != book_numbers:
+        missing = sorted(book_numbers - accounted)
+        extra = sorted(accounted - book_numbers)
         raise ValueError(
             f"Неполное покрытие {book_id}: пропущены={missing}, лишние={extra}"
         )
@@ -51,6 +63,11 @@ def merge_drafts(root: Path, book_id: str) -> Path:
         "book_id": book_id,
         "chapters": [by_number[number] for number in sorted(by_number)],
     }
+    if exclusions:
+        output["excluded_chapters"] = [
+            {"number": number, "reason": exclusions[number]}
+            for number in sorted(exclusions)
+        ]
     output_path = root / "content_tests" / f"{book_id}.json"
     output_path.write_text(
         json.dumps(output, ensure_ascii=False, indent=2) + "\n",
@@ -62,8 +79,34 @@ def merge_drafts(root: Path, book_id: str) -> Path:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--book", required=True)
+    parser.add_argument(
+        "--book-path",
+        type=Path,
+        help="Путь к JSON книги, если она встроена в приложение",
+    )
+    parser.add_argument(
+        "--exclude",
+        action="append",
+        default=[],
+        metavar="NUMBER:REASON",
+        help="Явно исключить структурную главу с непустой причиной",
+    )
     args = parser.parse_args()
-    path = merge_drafts(ROOT, args.book)
+    exclusions: dict[int, str] = {}
+    for value in args.exclude:
+        number_text, separator, reason = value.partition(":")
+        if not separator or not number_text.isdigit() or not reason.strip():
+            parser.error("--exclude требует формат NUMBER:REASON")
+        number = int(number_text)
+        if number in exclusions:
+            parser.error(f"глава {number} исключена дважды")
+        exclusions[number] = reason.strip()
+    path = merge_drafts(
+        ROOT,
+        args.book,
+        args.book_path.resolve() if args.book_path else None,
+        exclusions,
+    )
     source = load(path)
     questions = sum(len(chapter["test"]) for chapter in source["chapters"])
     print(

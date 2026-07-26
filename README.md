@@ -60,9 +60,14 @@ python3 tools/audit_draft_corpus.py
 
 После публикации отдельный аудит повторяет эти проверки сразу для всех девяти
 книг. Он берёт объединённые файлы из `content_tests/`, а для встроенной книги
-аввы Дорофея — зафиксированные редакционные партии:
+аввы Дорофея — объединённый файл, собранный из зафиксированных редакционных
+партий:
 
 ```sh
+python3 tools/merge_draft_tests.py \
+  --book avva_dorofey \
+  --book-path ../faith_app/assets/library/avva_dorofey.json \
+  --exclude "22:Редакторский раздел примечаний без самостоятельного поучения"
 python3 tools/audit_published_corpus.py
 ```
 

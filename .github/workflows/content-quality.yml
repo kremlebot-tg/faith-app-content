@@ -13,10 +13,21 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: faith-app-content
 
     steps:
-      - name: Checkout
+      - name: Checkout content
         uses: actions/checkout@v4
+        with:
+          path: faith-app-content
+
+      - name: Checkout app
+        uses: actions/checkout@v4
+        with:
+          repository: kremlebot-tg/faith-app
+          path: faith_app
 
       - name: Set up Python
         uses: actions/setup-python@v5
