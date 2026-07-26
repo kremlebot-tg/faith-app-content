@@ -1,0 +1,42 @@
+name: Content quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run tool tests
+        run: python3 -m unittest discover -s tools -p "test_*.py"
+
+      - name: Audit published book tests
+        run: python3 tools/audit_book_tests.py
+
+      - name: Audit editorial draft corpora
+        run: python3 tools/audit_draft_corpus.py
+
+      - name: Audit all published questions together
+        run: python3 tools/audit_published_corpus.py
+
+      - name: Audit theological review coverage
+        run: python3 tools/audit_review_coverage.py
+
+      - name: Validate manifest and release files
+        run: python3 tools/prepare_release.py --validate-only
