@@ -16,6 +16,13 @@ CONTENT_ROOT = TOOLS_DIR.parent
 APP_ROOT = CONTENT_ROOT.parent / "faith_app"
 GENERATED_DIR = CONTENT_ROOT / "reviews" / "v1.3.1"
 MODULE_PATH = TOOLS_DIR / "build_review_packet.py"
+HAS_APP_FIXTURES = all(
+    (APP_ROOT / path).is_file()
+    for path in (
+        "assets/library/avva_dorofey.json",
+        "assets/library/avva_dorofey_tests.json",
+    )
+)
 
 SPEC = importlib.util.spec_from_file_location("build_review_packet", MODULE_PATH)
 assert SPEC is not None and SPEC.loader is not None
@@ -33,6 +40,10 @@ class BuildReviewPacketTest(unittest.TestCase):
         self.assertTrue(paragraph.startswith(excerpt[:-1]))
         self.assertEqual(chapter["paragraphs"][0], paragraph)
 
+    @unittest.skipUnless(
+        HAS_APP_FIXTURES,
+        "требуются приватные assets аввы Дорофея из соседнего faith_app",
+    )
     def test_current_inputs_have_expected_coverage(self) -> None:
         books = MODULE.load_books(
             CONTENT_ROOT,
@@ -53,6 +64,10 @@ class BuildReviewPacketTest(unittest.TestCase):
             },
         )
 
+    @unittest.skipUnless(
+        HAS_APP_FIXTURES,
+        "требуются приватные assets аввы Дорофея из соседнего faith_app",
+    )
     def test_render_is_byte_deterministic(self) -> None:
         kwargs = {
             "content_root": CONTENT_ROOT,
@@ -85,6 +100,10 @@ class BuildReviewPacketTest(unittest.TestCase):
             }
         self.assertEqual(disk, first)
 
+    @unittest.skipUnless(
+        HAS_APP_FIXTURES,
+        "требуются приватные assets аввы Дорофея из соседнего faith_app",
+    )
     def test_checked_in_packet_matches_generator(self) -> None:
         readme = (GENERATED_DIR / "00_README.md").read_text(encoding="utf-8")
         marker = re.search(
