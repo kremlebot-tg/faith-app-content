@@ -77,6 +77,33 @@ class ReviewCoverageAuditTest(unittest.TestCase):
                 "reviews/sample/00_PACKET.md",
             )
 
+    def test_combined_content_tests_are_a_standalone_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            tests = root / "content_tests"
+            tests.mkdir()
+            (tests / "sample.json").write_text(
+                """
+                {
+                  "book_id": "sample",
+                  "chapters": [
+                    {"number": 1, "test": [{}, {}, {}]},
+                    {"number": 2, "test": [{}, {}, {}]}
+                  ]
+                }
+                """,
+                encoding="utf-8",
+            )
+            entry = review.ReviewCoverage(
+                "sample",
+                "С",
+                "опубликованы",
+                6,
+                (),
+            )
+
+            self.assertEqual(review.count_source_questions(root, entry), 6)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -148,6 +148,16 @@ def count_source_questions(root: Path, entry: ReviewCoverage) -> int:
         if embedded:
             return embedded
 
+    combined_path = root / "content_tests" / f"{entry.book_id}.json"
+    if combined_path.is_file():
+        combined = load_json(combined_path)
+        if combined.get("book_id") != entry.book_id:
+            raise ValueError(f"{combined_path.name}: неверный book_id")
+        return sum(
+            len(chapter.get("test", []))
+            for chapter in combined.get("chapters", [])
+        )
+
     total = 0
     seen: set[int] = set()
     for path in sorted(

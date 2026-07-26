@@ -23,12 +23,6 @@ jobs:
         with:
           path: faith-app-content
 
-      - name: Checkout app
-        uses: actions/checkout@v4
-        with:
-          repository: kremlebot-tg/faith-app
-          path: faith_app
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:

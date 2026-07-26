@@ -153,6 +153,70 @@ class AuditBookTestsTest(unittest.TestCase):
             self.assertEqual(result, 0, output.getvalue())
             self.assertIn("books=1", output.getvalue())
 
+    def test_bundled_book_is_audited_without_private_app_checkout(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "faith-app-content"
+            (root / "content_tests").mkdir(parents=True)
+
+            def question(correct_index: int) -> dict:
+                return {
+                    "question": (
+                        f"Как раскрывается смысл встроенной книги, вопрос {correct_index + 1}?"
+                    ),
+                    "type": "choice",
+                    "answers": [
+                        {
+                            "text": f"{label} содержательный ответ",
+                            "correct": index == correct_index,
+                        }
+                        for index, label in enumerate(("Первый", "Второй", "Третий"))
+                    ],
+                    "explanation": (
+                        "Пояснение раскрывает смысл встроенной книги и остаётся "
+                        "достаточно полным для строгого автоматического аудита."
+                    ),
+                }
+
+            source = {
+                "book_id": "sample",
+                "chapters": [
+                    {
+                        "number": 1,
+                        "test": [question(index) for index in range(3)],
+                    }
+                ],
+                "excluded_chapters": [
+                    {"number": 2, "reason": "Структурное примечание без урока"}
+                ],
+            }
+            (root / "content_tests" / "sample.json").write_text(
+                json.dumps(source, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            (root / "manifest.json").write_text(
+                json.dumps(
+                    {
+                        "library": [
+                            {
+                                "id": "sample",
+                                "bundled": True,
+                                "bundle_path": "assets/library/sample.json",
+                                "chapters_count": 2,
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            output = io.StringIO()
+            with patch.object(auditor, "ROOT", root), contextlib.redirect_stdout(output):
+                result = auditor.main()
+
+            self.assertEqual(result, 0, output.getvalue())
+            self.assertIn("books=1", output.getvalue())
+            self.assertIn("errors=0", output.getvalue())
+
 
 if __name__ == "__main__":
     unittest.main()

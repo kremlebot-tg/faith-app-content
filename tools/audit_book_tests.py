@@ -151,40 +151,55 @@ def main() -> int:
     for source_path in sorted((ROOT / "content_tests").glob("*.json")):
         source = load(source_path)
         book_id = str(source["book_id"])
+        manifest_entry = books_by_id.get(book_id)
         book_path, separate_tests_path = book_and_tests_paths(
             ROOT,
             book_id,
-            books_by_id.get(book_id),
+            manifest_entry,
         )
         if not book_path.exists():
-            errors.append(f"{source_path.name}: нет соответствующего файла книги")
-            continue
-        book = load(book_path)
-        books += 1
-        if separate_tests_path is not None:
-            if not separate_tests_path.is_file():
+            if not manifest_entry or not manifest_entry.get("bundled"):
+                errors.append(f"{source_path.name}: нет соответствующего файла книги")
+                continue
+            chapter_count = manifest_entry.get("chapters_count")
+            if not isinstance(chapter_count, int) or chapter_count < 1:
                 errors.append(
-                    f"{source_path.name}: нет встроенного файла тестов приложения"
+                    f"{source_path.name}: для встроенной книги нужен chapters_count"
                 )
                 continue
-            published_source = load(separate_tests_path)
-            if published_source.get("book_id") != book_id:
-                errors.append(
-                    f"{separate_tests_path.name}: неверный book_id"
-                )
+            book = None
+            book_numbers = set(range(1, chapter_count + 1))
             embedded = {
                 chapter["number"]: chapter.get("test", [])
-                for chapter in published_source.get("chapters", [])
+                for chapter in source.get("chapters", [])
             }
         else:
-            embedded = {
-                chapter["number"]: chapter.get("test", [])
-                for chapter in book["chapters"]
+            book = load(book_path)
+            book_numbers = {
+                chapter["number"]
+                for chapter in book.get("chapters", [])
             }
-        book_numbers = {
-            chapter["number"]
-            for chapter in book.get("chapters", [])
-        }
+            if separate_tests_path is not None:
+                if not separate_tests_path.is_file():
+                    errors.append(
+                        f"{source_path.name}: нет встроенного файла тестов приложения"
+                    )
+                    continue
+                published_source = load(separate_tests_path)
+                if published_source.get("book_id") != book_id:
+                    errors.append(
+                        f"{separate_tests_path.name}: неверный book_id"
+                    )
+                embedded = {
+                    chapter["number"]: chapter.get("test", [])
+                    for chapter in published_source.get("chapters", [])
+                }
+            else:
+                embedded = {
+                    chapter["number"]: chapter.get("test", [])
+                    for chapter in book["chapters"]
+                }
+        books += 1
         seen_numbers: set[int] = set()
         excluded_numbers: set[int] = set()
         seen_prompts: dict[str, str] = {}
