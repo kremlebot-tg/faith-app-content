@@ -61,6 +61,16 @@ COVERAGE = (
         ("reviews/early_fathers/04_zlatoust.md",),
     ),
     ReviewCoverage(
+        "kirill_ierusalimskij_oglasitelnye",
+        "КИ",
+        "опубликованы",
+        72,
+        (
+            "reviews/kirill_ierusalimskij/01_chapters_001_012.md",
+            "reviews/kirill_ierusalimskij/02_chapters_013_024.md",
+        ),
+    ),
+    ReviewCoverage(
         "avva_dorofey",
         "Д",
         "опубликованы",
@@ -312,7 +322,7 @@ def render_registry(root: Path, commit: str) -> str:
     return f"""<!-- review-coverage-registry: content={commit} -->
 # Реестр богословской рецензии тестов
 
-Реестр охватывает все девять книг из `manifest.json`: {published}
+Реестр охватывает все {len(COVERAGE)} книг из `manifest.json`: {published}
 опубликованный вопрос и {drafts} вопросов в черновиках. Для каждого вопроса
 существует стабильный ID и отдельное поле вердикта.
 

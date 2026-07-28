@@ -127,6 +127,35 @@ BOOKS: dict[str, dict[str, Any]] = {
             "преподобного Макария Египетского."
         ),
     },
+    "kirill_ierusalimskij_oglasitelnye": {
+        "id": "kirill_ierusalimskij_oglasitelnye",
+        "author": "Кирилл Иерусалимский",
+        "work": "Огласительные и тайноводственные поучения",
+        "century": "IV",
+        "place": "Иерусалим",
+        "chapter_label": "Поучение",
+        "mode": "cyril_series",
+        "count": 24,
+        "expected_notes": 8,
+        "url": "https://azbyka.ru/otechnik/Kirill_Ierusalimskij/oglasit/",
+        "mystagogical_url": (
+            "https://azbyka.ru/otechnik/Kirill_Ierusalimskij/"
+            "tajnovodstvennye-pouchenija/"
+        ),
+        "translator": "Перевод Ярославской духовной семинарии",
+        "source_edition": (
+            "Святаго отца нашего Кирилла, архиепископа Иерусалимскаго, "
+            "огласительныя и тайноводственныя поучения. "
+            "Москва: Синодальная типография, 1900."
+        ),
+        "editorial_note": (
+            "Корпус включает предогласительное, восемнадцать огласительных "
+            "и пять тайноводственных поучений. Орфография электронной "
+            "публикации приближена к современной; исторические перечни "
+            "ересей и состав библейских книг передают церковную ситуацию "
+            "Иерусалима IV века."
+        ),
+    },
 }
 
 
@@ -164,7 +193,8 @@ def note_references(fragment: str) -> list[str]:
 
 def clean_content_text(fragment: str) -> str:
     """Убирает экранные номера сносок, сохраняя сам текст абзаца."""
-    return clean_text(NOTE_REFERENCE_RE.sub("", fragment))
+    value = clean_text(NOTE_REFERENCE_RE.sub("", fragment))
+    return re.sub(r"\s+([,.;:!?])", r"\1", value)
 
 
 def extract_notes(body: str) -> dict[str, str]:
@@ -368,6 +398,148 @@ def build_numbered_page_chapters(config: dict[str, Any]) -> list[dict[str, Any]]
     return chapters
 
 
+def _slice_from_anchor(page: str, anchor: str) -> str:
+    marker = f'<a id="{anchor}"'
+    start = page.find(marker)
+    if start < 0:
+        raise ValueError(f"Не найден якорь {anchor}")
+    end = len(page)
+    for tail_marker in TAIL_MARKERS:
+        position = page.find(tail_marker, start)
+        if position >= 0:
+            end = min(end, position)
+    return page[start:end]
+
+
+def _chapter_from_fragment(
+    *,
+    number: int,
+    title: str,
+    fragment: str,
+    context: str,
+) -> tuple[dict[str, Any], set[str], int]:
+    note_texts = extract_notes(fragment)
+    content_without_note_blocks = NOTE_BLOCK_RE.sub("", fragment)
+    paragraph_matches = list(PARAGRAPH_RE.finditer(content_without_note_blocks))
+    paragraphs = [
+        clean_content_text(match.group(1))
+        for match in paragraph_matches
+        if clean_content_text(match.group(1))
+    ]
+    if "Примечания" in paragraphs:
+        notes_index = paragraphs.index("Примечания")
+        if notes_index > 0 and paragraphs[notes_index - 1] == "* * *":
+            notes_index -= 1
+        paragraphs = paragraphs[:notes_index]
+    refs = deduplicate_refs([
+        ref
+        for match in paragraph_matches
+        for ref in scripture_refs(match.group(0))
+    ])
+    note_ids = [
+        note_id
+        for match in paragraph_matches
+        for note_id in note_references(match.group(0))
+    ]
+    notes = resolve_notes(note_ids, note_texts, context)
+    if set(note_ids) != set(note_texts):
+        missing = sorted(set(note_texts) - set(note_ids))
+        raise ValueError(f"{context}: непривязанные примечания {missing}")
+    chapter: dict[str, Any] = {
+        "number": number,
+        "title": title,
+        "paragraphs": paragraphs,
+        "scripture_refs": refs,
+    }
+    if notes:
+        chapter["notes"] = notes
+    return chapter, set(note_ids), len(note_texts)
+
+
+def build_cyril_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
+    chapters: list[dict[str, Any]] = []
+    note_count = 0
+
+    root_page = fetch(config["url"])
+    predoglas_fragment = _slice_from_anchor(root_page, "0_2")
+    predoglas, _, notes = _chapter_from_fragment(
+        number=1,
+        title="Поучение предогласительное",
+        fragment=predoglas_fragment,
+        context=f'{config["id"]}:1',
+    )
+    chapters.append(predoglas)
+    note_count += notes
+
+    for source_number in range(1, 19):
+        page = fetch(f'{config["url"]}{source_number}')
+        page_title, _, _ = ordered_elements(page)
+        _, body = content_region(page)
+        chapter, _, notes = _chapter_from_fragment(
+            number=len(chapters) + 1,
+            title=page_title,
+            fragment=body,
+            context=f'{config["id"]}:{len(chapters) + 1}',
+        )
+        chapters.append(chapter)
+        note_count += notes
+        time.sleep(0.25)
+
+    mystagogical_page = fetch(config["mystagogical_url"])
+    _, raw_elements, note_texts = ordered_elements(mystagogical_page)
+    elements = strip_note_section(raw_elements)
+    current_title: str | None = None
+    paragraphs: list[str] = []
+    refs: list[dict[str, str]] = []
+    note_ids: list[str] = []
+    used_note_ids: set[str] = set()
+
+    def flush_mystagogical() -> None:
+        nonlocal paragraphs, refs, note_ids
+        if current_title is None:
+            return
+        chapter: dict[str, Any] = {
+            "number": len(chapters) + 1,
+            "title": current_title,
+            "paragraphs": paragraphs,
+            "scripture_refs": deduplicate_refs(refs),
+        }
+        notes = resolve_notes(note_ids, note_texts, config["id"])
+        if notes:
+            chapter["notes"] = notes
+            used_note_ids.update(note_ids)
+        chapters.append(chapter)
+        paragraphs = []
+        refs = []
+        note_ids = []
+
+    for element in elements:
+        if element["kind"] == "heading":
+            flush_mystagogical()
+            current_title = element["text"]
+            note_ids.extend(element["note_refs"])
+        elif current_title is not None:
+            if not element["text"].startswith((
+                "1. Библия. Книги Священного Писания",
+                "2. Библия. Книги Священного Писания",
+            )):
+                paragraphs.append(element["text"])
+            refs.extend(element["refs"])
+            note_ids.extend(element["note_refs"])
+    flush_mystagogical()
+    if set(note_texts) != used_note_ids:
+        missing = sorted(set(note_texts) - used_note_ids)
+        raise ValueError(f'{config["id"]}: непривязанные примечания {missing}')
+    note_count += len(note_texts)
+
+    if note_count != config["expected_notes"]:
+        raise ValueError(
+            f'{config["id"]}: ожидалось примечаний {config["expected_notes"]}, '
+            f"получено {note_count}"
+        )
+    return chapters
+
+
 def attach_authored_tests(book_id: str, chapters: list[dict[str, Any]]) -> None:
     source = Path(__file__).resolve().parent.parent / "content_tests" / f"{book_id}.json"
     if not source.exists():
@@ -464,6 +636,8 @@ def embed_tests_in_existing_book(config: dict[str, Any], output_dir: Path) -> Pa
 def build_book(config: dict[str, Any], output_dir: Path) -> Path:
     if config["mode"] == "headings":
         chapters = build_heading_chapters(config)
+    elif config["mode"] == "cyril_series":
+        chapters = build_cyril_chapters(config)
     else:
         chapters = build_numbered_page_chapters(config)
 

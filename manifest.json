@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-25",
+  "last_updated": "2026-07-28",
   "library": [
     {
       "id": "afanasij_voploshhenie",
@@ -40,6 +40,19 @@
       "bundled": false,
       "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.1.0/ioann_zlatoust_pokajanie.json",
       "sha256": "51ab4bcd007e6998213c9aea76b08f289155581f5bf68cc64d89ec2a072830f4"
+    },
+    {
+      "id": "kirill_ierusalimskij_oglasitelnye",
+      "author": "Кирилл Иерусалимский",
+      "work": "Огласительные и тайноводственные поучения",
+      "century": "IV",
+      "place": "Иерусалим",
+      "chapters_count": 24,
+      "chapter_label": "Поучение",
+      "size_bytes": 1159162,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.0/kirill_ierusalimskij_oglasitelnye.json",
+      "sha256": "7a2c64acb27395d3064c2abb0ae5dff5a95fd958abd64732642581e602623399"
     },
     {
       "id": "avva_dorofey",

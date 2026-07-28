@@ -41,6 +41,41 @@ class ImportPatristicBooksTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "нет текста примечания"):
             importer.resolve_notes(["note7"], {}, "sample")
 
+    def test_slice_from_anchor_stops_before_page_tail(self) -> None:
+        page = (
+            '<p>Предисловие.</p><a id="0_2"></a>'
+            '<p id="p1">Текст поучения.</p>'
+            '<div class="related-header">Рекомендации</div>'
+        )
+
+        fragment = importer._slice_from_anchor(page, "0_2")
+
+        self.assertIn("Текст поучения.", fragment)
+        self.assertNotIn("Предисловие.", fragment)
+        self.assertNotIn("Рекомендации", fragment)
+
+    def test_chapter_fragment_keeps_refs_and_attached_notes(self) -> None:
+        fragment = """
+        <p id="p1">Первый текст
+        <a href="https://azbyka.ru/biblia/?Mt.1:1">Мф.1:1</a>
+        <a href="#note1" id="note1_return"><sup>1</sup></a>.</p>
+        <a id="note1"></a><div class="note"><p>Примечание.</p></div>
+        """
+
+        chapter, used_notes, note_count = importer._chapter_from_fragment(
+            number=3,
+            title="Поучение",
+            fragment=fragment,
+            context="sample:3",
+        )
+
+        self.assertEqual(chapter["number"], 3)
+        self.assertEqual(chapter["paragraphs"], ["Первый текст Мф.1:1."])
+        self.assertEqual(chapter["notes"], ["Примечание."])
+        self.assertEqual(chapter["scripture_refs"][0]["text"], "Мф.1:1")
+        self.assertEqual(used_notes, {"note1"})
+        self.assertEqual(note_count, 1)
+
     def test_tests_only_preserves_existing_book_text(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
