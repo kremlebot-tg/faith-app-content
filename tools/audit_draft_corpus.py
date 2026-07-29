@@ -12,9 +12,9 @@ import sys
 from typing import Any
 
 if __package__:
-    from tools.audit_book_tests import audit_question
+    from tools.audit_book_tests import audit_question, question_type
 else:
-    from audit_book_tests import audit_question
+    from audit_book_tests import audit_question, question_type
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,7 +61,14 @@ def audit_corpus(
             {
                 "chapters": 0,
                 "questions": 0,
-                "correct_positions": [0, 0, 0],
+                "keyed_positions": [0, 0, 0],
+                "fourth_keyed_answers": 0,
+                "question_types": {
+                    "choice": 0,
+                    "matching": 0,
+                    "ordering": 0,
+                    "cloze": 0,
+                },
                 "files": 0,
             },
         )
@@ -74,7 +81,14 @@ def audit_corpus(
             {
                 "chapters": 0,
                 "questions": 0,
-                "correct_positions": [0, 0, 0],
+                "keyed_positions": [0, 0, 0],
+                "fourth_keyed_answers": 0,
+                "question_types": {
+                    "choice": 0,
+                    "matching": 0,
+                    "ordering": 0,
+                    "cloze": 0,
+                },
                 "files": len(paths),
             },
         )
@@ -90,7 +104,8 @@ def audit_corpus(
     seen_answer_sets: dict[tuple[str, ...], str] = {}
     prompt_stems: Counter[str] = Counter()
     explanation_stems: Counter[str] = Counter()
-    correct_positions: Counter[int] = Counter()
+    keyed_positions: Counter[int] = Counter()
+    type_counts: Counter[str] = Counter()
     question_count = 0
 
     for path in paths:
@@ -111,27 +126,38 @@ def audit_corpus(
                 )
             else:
                 seen_chapters[number] = location
-            tests = chapter.get("test", [])
+            raw_tests = chapter.get("test", [])
+            tests = raw_tests if isinstance(raw_tests, list) else []
+            if not isinstance(raw_tests, list):
+                errors.append(f"{location}: test должен быть массивом")
             if len(tests) != 3:
                 errors.append(f"{location}: требуется ровно 3 вопроса")
             for index, question in enumerate(tests, start=1):
                 question_count += 1
                 question_location = f"{location}:вопрос {index}"
+                kind = question_type(question)
+                if kind is not None:
+                    type_counts[kind] += 1
                 correct_index = audit_question(
                     question,
                     question_location,
                     errors,
                     warnings,
                 )
-                if correct_index is not None:
-                    correct_positions[correct_index] += 1
+                if correct_index is not None and kind in {"choice", "cloze"}:
+                    keyed_positions[correct_index] += 1
 
-                prompt = normalized(str(question.get("question", "")))
-                explanation = normalized(str(question.get("explanation", "")))
+                question_object = question if isinstance(question, dict) else {}
+                prompt = normalized(str(question_object.get("question", "")))
+                explanation = normalized(
+                    str(question_object.get("explanation", ""))
+                )
+                raw_answers = question_object.get("answers", [])
+                answer_items = raw_answers if isinstance(raw_answers, list) else []
                 answers = tuple(
                     sorted(
                         normalized(str(answer.get("text", "")))
-                        for answer in question.get("answers", [])
+                        for answer in answer_items
                         if isinstance(answer, dict)
                     )
                 )
@@ -183,10 +209,10 @@ def audit_corpus(
             f"ожидалось {corpus.question_count}"
         )
 
-    position_counts = [correct_positions[index] for index in range(3)]
+    position_counts = [keyed_positions[index] for index in range(3)]
     if position_counts and max(position_counts) - min(position_counts) > 1:
         errors.append(
-            f"{corpus.book_id}: несбалансированы позиции верных ответов "
+            f"{corpus.book_id}: несбалансированы позиции ключей choice/cloze "
             f"{position_counts}"
         )
 
@@ -212,7 +238,12 @@ def audit_corpus(
     stats = {
         "chapters": len(actual_chapters),
         "questions": question_count,
-        "correct_positions": position_counts,
+        "keyed_positions": position_counts,
+        "fourth_keyed_answers": keyed_positions[3],
+        "question_types": {
+            kind: type_counts[kind]
+            for kind in ("choice", "matching", "ordering", "cloze")
+        },
         "files": len(paths),
     }
     return errors, warnings, stats
@@ -228,7 +259,9 @@ def main() -> int:
         print(
             f"book={corpus.book_id} files={stats['files']} "
             f"chapters={stats['chapters']} questions={stats['questions']} "
-            f"correct_positions={stats['correct_positions']} "
+            f"keyed_positions={stats['keyed_positions']} "
+            f"fourth_keyed_answers={stats['fourth_keyed_answers']} "
+            f"types={stats['question_types']} "
             f"errors={len(errors)} warnings={len(warnings)}"
         )
     for message in all_errors:

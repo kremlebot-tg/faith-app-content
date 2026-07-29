@@ -11,9 +11,9 @@ import sys
 from typing import Any
 
 if __package__:
-    from tools.audit_book_tests import audit_question
+    from tools.audit_book_tests import audit_question, question_type
 else:
-    from audit_book_tests import audit_question
+    from audit_book_tests import audit_question, question_type
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -56,7 +56,8 @@ def audit_published_corpus(
     seen_answer_sets: dict[tuple[str, ...], str] = {}
     prompt_stems: Counter[str] = Counter()
     explanation_stems: Counter[str] = Counter()
-    correct_positions: Counter[int] = Counter()
+    keyed_positions: Counter[int] = Counter()
+    type_counts: Counter[str] = Counter()
     question_count = 0
 
     for book_id in book_ids:
@@ -84,26 +85,38 @@ def audit_published_corpus(
                 else:
                     seen_chapters[number] = path.name
 
-                for index, question in enumerate(chapter.get("test", []), start=1):
+                raw_tests = chapter.get("test", [])
+                tests = raw_tests if isinstance(raw_tests, list) else []
+                if not isinstance(raw_tests, list):
+                    errors.append(f"{location}: test должен быть массивом")
+                for index, question in enumerate(tests, start=1):
                     question_count += 1
                     question_location = f"{location}:вопрос {index}"
+                    kind = question_type(question)
+                    if kind is not None:
+                        type_counts[kind] += 1
                     correct_index = audit_question(
                         question,
                         question_location,
                         errors,
                         warnings,
                     )
-                    if correct_index is not None:
-                        correct_positions[correct_index] += 1
+                    if correct_index is not None and kind in {"choice", "cloze"}:
+                        keyed_positions[correct_index] += 1
 
-                    prompt = normalized(str(question.get("question", "")))
+                    question_object = question if isinstance(question, dict) else {}
+                    prompt = normalized(str(question_object.get("question", "")))
                     explanation = normalized(
-                        str(question.get("explanation", ""))
+                        str(question_object.get("explanation", ""))
+                    )
+                    raw_answers = question_object.get("answers", [])
+                    answer_items = (
+                        raw_answers if isinstance(raw_answers, list) else []
                     )
                     answers = tuple(
                         sorted(
                             normalized(str(answer.get("text", "")))
-                            for answer in question.get("answers", [])
+                            for answer in answer_items
                             if isinstance(answer, dict)
                         )
                     )
@@ -139,10 +152,10 @@ def audit_published_corpus(
                             " ".join(explanation_words[:5])
                         ] += 1
 
-    position_counts = [correct_positions[index] for index in range(3)]
+    position_counts = [keyed_positions[index] for index in range(3)]
     if position_counts and max(position_counts) - min(position_counts) > 1:
         errors.append(
-            "в полном корпусе несбалансированы позиции верных ответов "
+            "в полном корпусе несбалансированы позиции ключей choice/cloze "
             f"{position_counts}"
         )
 
@@ -162,7 +175,12 @@ def audit_published_corpus(
     stats = {
         "books": len(book_ids),
         "questions": question_count,
-        "correct_positions": position_counts,
+        "keyed_positions": position_counts,
+        "fourth_keyed_answers": keyed_positions[3],
+        "question_types": {
+            kind: type_counts[kind]
+            for kind in ("choice", "matching", "ordering", "cloze")
+        },
         "prompt_duplicates": 0
         if not errors
         else sum("вопрос повторяет" in error for error in errors),
@@ -180,7 +198,9 @@ def main() -> int:
     errors, warnings, stats = audit_published_corpus(ROOT)
     print(
         f"books={stats['books']} questions={stats['questions']} "
-        f"correct_positions={stats['correct_positions']} "
+        f"keyed_positions={stats['keyed_positions']} "
+        f"fourth_keyed_answers={stats['fourth_keyed_answers']} "
+        f"types={stats['question_types']} "
         f"prompt_duplicates={stats['prompt_duplicates']} "
         f"explanation_duplicates={stats['explanation_duplicates']} "
         f"answer_set_duplicates={stats['answer_set_duplicates']} "

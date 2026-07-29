@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Build a deterministic Markdown packet for human theological review.
 
-The generator deliberately copies questions, answers, and explanations without
-editing them.  It adds only review metadata, compact source excerpts, and empty
-verdict fields.
+The generator deliberately copies questions, task payloads, and explanations
+without editing them. It adds only review metadata, compact source excerpts,
+and empty verdict fields.
 """
 
 from __future__ import annotations
@@ -15,6 +15,11 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
+
+try:
+    from tools.audit_book_tests import audit_question, question_type
+except ModuleNotFoundError:
+    from audit_book_tests import audit_question, question_type
 
 
 CONTENT_ROOT = Path(__file__).resolve().parents[1]
@@ -186,31 +191,16 @@ def _validate_book(book: ReviewBook) -> None:
         questions = book.tests_by_chapter[number]
         if len(questions) != 3:
             raise ValueError(
-                f"{book.slug} chapter {number}: expected 3 questions, got {len(questions)}"
+                f"{book.slug} chapter {number}: expected 3 questions, "
+                f"got {len(questions)}"
             )
         for index, question in enumerate(questions, start=1):
-            if not str(question.get("question", "")).strip():
-                raise ValueError(
-                    f"{book.slug} chapter {number}, question {index}: empty question"
-                )
-            answers = question.get("answers")
-            if not isinstance(answers, list) or len(answers) < 2:
-                raise ValueError(
-                    f"{book.slug} chapter {number}, question {index}: invalid answers"
-                )
-            if sum(answer.get("correct") is True for answer in answers) != 1:
-                raise ValueError(
-                    f"{book.slug} chapter {number}, question {index}: "
-                    "expected exactly one correct answer"
-                )
-            if any(not str(answer.get("text", "")).strip() for answer in answers):
-                raise ValueError(
-                    f"{book.slug} chapter {number}, question {index}: empty answer"
-                )
-            if not str(question.get("explanation", "")).strip():
-                raise ValueError(
-                    f"{book.slug} chapter {number}, question {index}: empty explanation"
-                )
+            location = f"{book.slug} chapter {number}, question {index}"
+            errors: list[str] = []
+            warnings: list[str] = []
+            audit_question(question, location, errors, warnings)
+            if errors:
+                raise ValueError("; ".join(errors))
 
 
 def load_books(
@@ -309,6 +299,73 @@ def _answer_label(index: int) -> str:
     return alphabet[index]
 
 
+def _render_question(question_id: str, question: dict[str, Any]) -> list[str]:
+    kind = question_type(question)
+    if kind is None:
+        raise ValueError(f"{question_id}: unknown question type")
+
+    lines = [
+        f"### {question_id}",
+        "",
+        f"**Вопрос:** {question['question']}",
+        "",
+    ]
+    context = question.get("context")
+    if isinstance(context, str) and context.strip():
+        lines.extend([f"**Контекст:** {context.strip()}", ""])
+
+    if kind in {"choice", "cloze"}:
+        if kind == "cloze":
+            lines.extend(
+                [
+                    "**Тип:** заполнение пропуска",
+                    "",
+                    f"**Фраза с пропуском:** {question['prompt']}",
+                    "",
+                ]
+            )
+        answers = question["answers"]
+        correct_index = next(
+            index
+            for index, answer in enumerate(answers)
+            if answer["correct"] is True
+        )
+        for answer_index, answer in enumerate(answers):
+            lines.append(f"- {_answer_label(answer_index)}. {answer['text']}")
+        lines.extend(["", f"**Ключ:** {_answer_label(correct_index)}", ""])
+    elif kind == "matching":
+        lines.extend(["**Тип:** сопоставление", "", "**Ключ:**", ""])
+        for pair in question["pairs"]:
+            lines.append(f"- {pair['left']} → {pair['right']}")
+        lines.append("")
+    else:
+        lines.extend(
+            [
+                "**Тип:** восстановление порядка",
+                "",
+                "**Ключ:**",
+                "",
+            ]
+        )
+        for index, item in enumerate(question["items"], start=1):
+            lines.append(f"{index}. {item}")
+        lines.append("")
+
+    lines.extend(
+        [
+            f"**Объяснение:** {question['explanation']}",
+            "",
+            "**Вердикт:** ☐ принять ☐ исправить ☐ снять вопрос",
+            "",
+            "**Замечание / предлагаемая правка:**",
+            "",
+            "---",
+            "",
+        ]
+    )
+    return lines
+
+
 def _render_book(book: ReviewBook) -> str:
     data = book.data
     source_sha = _sha256(book.source_path)
@@ -360,38 +417,7 @@ def _render_book(book: ReviewBook) -> str:
             book.tests_by_chapter[number], start=1
         ):
             question_id = f"{chapter_id}.{question_index}"
-            correct_index = next(
-                index
-                for index, answer in enumerate(question["answers"])
-                if answer["correct"] is True
-            )
-            lines.extend(
-                [
-                    f"### {question_id}",
-                    "",
-                    f"**Вопрос:** {question['question']}",
-                    "",
-                ]
-            )
-            for answer_index, answer in enumerate(question["answers"]):
-                lines.append(
-                    f"- {_answer_label(answer_index)}. {answer['text']}"
-                )
-            lines.extend(
-                [
-                    "",
-                    f"**Ключ:** {_answer_label(correct_index)}",
-                    "",
-                    f"**Объяснение:** {question['explanation']}",
-                    "",
-                    "**Вердикт:** ☐ принять ☐ исправить ☐ снять вопрос",
-                    "",
-                    "**Замечание / предлагаемая правка:**",
-                    "",
-                    "---",
-                    "",
-                ]
-            )
+            lines.extend(_render_question(question_id, question))
         lines.extend(
             [
                 f"**Итог {chapter_id}:** ☐ проверено полностью; иных "
@@ -449,7 +475,8 @@ def _render_readme(
         "3. не превращён ли монашеский совет в безусловное правило для мирянина;",
         "4. не оправдывает ли формулировка насилие, духовное давление, отказ от "
         "лечения или сокрытие опасности;",
-        "5. остаются ли дистракторы неверными без карикатуры и двусмысленности.",
+        "5. остаются ли дистракторы неверными без карикатуры и двусмысленности, "
+        "а пары и порядок — однозначными.",
         "",
         "## Приоритетные зоны",
         "",
@@ -490,9 +517,9 @@ def _render_readme(
         "## Устройство файлов",
         "",
         "В каждой главе приведены риск-теги, короткий начальный фрагмент "
-        "первоисточника, три вопроса со всеми вариантами, ключом и объяснением, "
-        "а также пустые поля вердикта. Для проверки контекста следует переходить "
-        "по ссылке на полный источник в начале файла книги.",
+        "первоисточника, три задания с вариантами, парами или порядком, ключом "
+        "и объяснением, а также пустые поля вердикта. Для проверки контекста "
+        "следует переходить по ссылке на полный источник в начале файла книги.",
     ]
     return "\n".join(lines).rstrip() + "\n"
 

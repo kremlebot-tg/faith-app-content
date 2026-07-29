@@ -10,7 +10,10 @@ from pathlib import Path
 import sys
 from typing import Any
 
-from audit_book_tests import audit_question
+if __package__:
+    from tools.audit_book_tests import audit_question, question_type
+else:
+    from audit_book_tests import audit_question, question_type
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,7 +36,7 @@ def audit_draft(path: Path) -> tuple[list[str], list[str], int, int]:
     book_numbers = {chapter["number"] for chapter in book["chapters"]}
     seen_numbers: set[int] = set()
     seen_prompts: dict[str, str] = {}
-    correct_positions: list[int] = []
+    keyed_positions: Counter[int] = Counter()
     question_count = 0
 
     for chapter in source.get("chapters", []):
@@ -44,7 +47,10 @@ def audit_draft(path: Path) -> tuple[list[str], list[str], int, int]:
         if number in seen_numbers:
             errors.append(f"{path.name}: глава {number} повторяется")
         seen_numbers.add(number)
-        tests = chapter.get("test", [])
+        raw_tests = chapter.get("test", [])
+        tests = raw_tests if isinstance(raw_tests, list) else []
+        if not isinstance(raw_tests, list):
+            errors.append(f"{path.name}: глава {number}: test должен быть массивом")
         if len(tests) != 3:
             errors.append(
                 f"{path.name}: глава {number} должна содержать ровно 3 вопроса"
@@ -52,7 +58,17 @@ def audit_draft(path: Path) -> tuple[list[str], list[str], int, int]:
         for index, question in enumerate(tests, 1):
             question_count += 1
             location = f"{path.name}:глава {number}:вопрос {index}"
-            normalized_prompt = question.get("question", "").strip().casefold()
+            kind = question_type(question)
+            raw_prompt = (
+                question.get("question")
+                if isinstance(question, dict)
+                else None
+            )
+            normalized_prompt = (
+                raw_prompt.strip().casefold()
+                if isinstance(raw_prompt, str)
+                else ""
+            )
             if normalized_prompt:
                 previous = seen_prompts.get(normalized_prompt)
                 if previous is not None:
@@ -67,17 +83,16 @@ def audit_draft(path: Path) -> tuple[list[str], list[str], int, int]:
                 errors,
                 warnings,
             )
-            if correct_index is not None:
-                correct_positions.append(correct_index)
+            if correct_index is not None and kind in {"choice", "cloze"}:
+                keyed_positions[correct_index] += 1
 
     if not seen_numbers:
         errors.append(f"{path.name}: редакционная партия не содержит глав")
-    if correct_positions:
-        distribution = Counter(correct_positions)
-        counts = [distribution[index] for index in range(3)]
+    if keyed_positions:
+        counts = [keyed_positions[index] for index in range(3)]
         if max(counts) - min(counts) > 1:
             errors.append(
-                f"{path.name}: несбалансированы позиции верных ответов {counts}"
+                f"{path.name}: несбалансированы позиции ключей {counts}"
             )
     return errors, warnings, len(seen_numbers), question_count
 
