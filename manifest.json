@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-28",
+  "last_updated": "2026-07-29",
   "library": [
     {
       "id": "afanasij_voploshhenie",
@@ -23,10 +23,10 @@
       "place": "Египет",
       "chapters_count": 50,
       "chapter_label": "Беседа",
-      "size_bytes": 1080425,
+      "size_bytes": 1080395,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.2.0/makarij_duhovnye_besedy.json",
-      "sha256": "d03849882f1139fc5f2117d006b3091d6ae3da39e98051a93fc350f5e69c1bc8"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/makarij_duhovnye_besedy.json",
+      "sha256": "2584af5616045ffbc28bd2614d2888c8b4722ea994eb0961e3cec74dd95f8fdb"
     },
     {
       "id": "ioann_zlatoust_pokajanie",
@@ -49,10 +49,10 @@
       "place": "Иерусалим",
       "chapters_count": 24,
       "chapter_label": "Поучение",
-      "size_bytes": 1159162,
+      "size_bytes": 1159131,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.0/kirill_ierusalimskij_oglasitelnye.json",
-      "sha256": "7a2c64acb27395d3064c2abb0ae5dff5a95fd958abd64732642581e602623399"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/kirill_ierusalimskij_oglasitelnye.json",
+      "sha256": "b4d3a206e9921a139a6d857c1dec2cc411db7a4b3b04745872d2f36d58ab8855"
     },
     {
       "id": "avva_dorofey",
@@ -74,10 +74,10 @@
       "place": "Синай",
       "chapters_count": 30,
       "chapter_label": "Степень",
-      "size_bytes": 993515,
+      "size_bytes": 993468,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.1/ioann_lestvichnik.json",
-      "sha256": "37f583c98f3e979e94a607c3957c843190dac276138921b1f5297831731b9893"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/ioann_lestvichnik.json",
+      "sha256": "9ad2a9dc8ae357d959f8600e32675aa6e11782ca0c76675fe4807c7ec05b3954"
     },
     {
       "id": "ioann_damaskin",
@@ -87,10 +87,10 @@
       "place": "Дамаск",
       "chapters_count": 100,
       "chapter_label": "Глава",
-      "size_bytes": 1104766,
+      "size_bytes": 1104750,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.4.0/ioann_damaskin.json",
-      "sha256": "02fe742059dffdf928dd5de6eb555b5b77af13a921bea15621ff74b282996b1b"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/ioann_damaskin.json",
+      "sha256": "e886fa41941deea2c38749e2133a02090da0ea181537d9351877a577ce54e673"
     },
     {
       "id": "feofan_put_ko_spaseniyu",
@@ -116,10 +116,10 @@
       "place": "Россия",
       "chapters_count": 80,
       "chapter_label": "Письмо",
-      "size_bytes": 1109065,
+      "size_bytes": 1109068,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.6/feofan_dukhovnaja_zhizn.json",
-      "sha256": "82980cd0cd0c4defc5a357d4573bd438b93c3696794ddf78dd2427d1a7a8baa9"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/feofan_dukhovnaja_zhizn.json",
+      "sha256": "cb3b548e801894701231320843bd3f416b00aaf891b9a074714a6a983bb04a3b"
     },
     {
       "id": "ignatij_prinoshenie",
