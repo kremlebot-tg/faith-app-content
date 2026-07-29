@@ -1,4 +1,4 @@
-<!-- cyril-review-packet: content=4db8bfeb3b7c74408ec2845a2781c60e7a5f158b -->
+<!-- cyril-review-packet: content=01b89ddc85354c2536c8b69ec01cea07595aded1 -->
 # Богословская рецензия тестов к книге «Огласительные и тайноводственные поучения»
 
 Пакет фиксирует полный корпус из 24 поучений и 72 вопросов: предварительное
@@ -7,9 +7,9 @@
 богословская рецензия пока ожидается.
 
 - Автор: Кирилл Иерусалимский
-- Входной commit: `4db8bfeb3b7c74408ec2845a2781c60e7a5f158b`
-- SHA-256 книги: `7a2c64acb27395d3064c2abb0ae5dff5a95fd958abd64732642581e602623399`
-- SHA-256 комплекта черновиков: `63e916ac6844851c92586875404d81ea9ea6f61ec2b725885b575818af54c527`
+- Входной commit: `01b89ddc85354c2536c8b69ec01cea07595aded1`
+- SHA-256 книги: `b4d3a206e9921a139a6d857c1dec2cc411db7a4b3b04745872d2f36d58ab8855`
+- SHA-256 комплекта черновиков: `b45383ef112330ed130c0167692aad9f3a9c42215ed8d34d7af65b262cb37686`
 - Источник: [https://azbyka.ru/otechnik/Kirill_Ierusalimskij/oglasit/](https://azbyka.ru/otechnik/Kirill_Ierusalimskij/oglasit/)
 
 ## Файлы
@@ -33,7 +33,7 @@
 сообщения:
 
 ```text
-Версия: content 4db8bfe
+Версия: content 01b89dd
 Проверенный блок: КИ001–КИ012
 ID: КИ023.2
 Уровень: BLOCKER / MAJOR / MINOR / STYLE

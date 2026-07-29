@@ -1,4 +1,4 @@
-<!-- feofan-spiritual-review-packet: content=a3c44034c1f8faa643f1a3e969016e2bef2a8d4f -->
+<!-- feofan-spiritual-review-packet: content=01b89ddc85354c2536c8b69ec01cea07595aded1 -->
 # Богословская рецензия тестов к книге «Что есть духовная жизнь и как на неё настроиться?»
 
 Пакет фиксирует опубликованный комплект: 80 писем и
@@ -7,11 +7,11 @@
 постпубликационной человеческой проверки богословской точности, пастырской
 безопасности и ясности.
 
-- Входной commit: `a3c44034c1f8faa643f1a3e969016e2bef2a8d4f`
+- Входной commit: `01b89ddc85354c2536c8b69ec01cea07595aded1`
 - Версия книги: `3`
-- SHA-256 книги: `82980cd0cd0c4defc5a357d4573bd438b93c3696794ddf78dd2427d1a7a8baa9`
-- SHA-256 объединённого файла тестов: `0ee8c5966a3988840ca3f195e0bad4733a36ecbfce8d06e61aa59965891910f6`
-- SHA-256 комплекта черновиков: `be8ae828e53b760d28020329ef6edf0486be2cb4e6c43bcfc6db8fd8e7c27658`
+- SHA-256 книги: `cb3b548e801894701231320843bd3f416b00aaf891b9a074714a6a983bb04a3b`
+- SHA-256 объединённого файла тестов: `ee180b15b3c64d3bc66ec220d43cf5c851c7c015ab45a7f26d96479dd59deb2c`
+- SHA-256 комплекта черновиков: `893faa4724609e2ef1fcd1c9ccdcc91c1081a72d65d5217b370e0aff285ffed6`
 - Источник: [https://azbyka.ru/otechnik/Feofan_Zatvornik/chto-est-dukhovnaja-zhizn-i-kak-na-nee-nastroitsja/](https://azbyka.ru/otechnik/Feofan_Zatvornik/chto-est-dukhovnaja-zhizn-i-kak-na-nee-nastroitsja/)
 
 ## Файлы
@@ -38,7 +38,7 @@
 сообщения:
 
 ```text
-Версия: content a3c4403; книга v3
+Версия: content 01b89dd; книга v3
 Проверенный блок: ФД001–ФД020
 ID: ФД021.2
 Уровень: BLOCKER / MAJOR / MINOR / STYLE

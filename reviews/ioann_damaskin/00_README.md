@@ -1,4 +1,4 @@
-<!-- damaskin-review-packet: content=08eddcacee633ba0b4f0303b9305b211d8189b40 -->
+<!-- damaskin-review-packet: content=01b89ddc85354c2536c8b69ec01cea07595aded1 -->
 # Богословская рецензия тестов к книге «Точное изложение православной веры»
 
 Пакет фиксирует полный комплект: 100 глав и 300 вопросов. Он предназначен для
@@ -7,9 +7,9 @@
 предпроверки. Специализированная человеческая рецензия продолжается; найденные
 замечания должны выпускаться исправляющим обновлением.
 
-- Входной commit: `08eddcacee633ba0b4f0303b9305b211d8189b40`
-- SHA-256 книги: `9c077c94db2b82b0e3dcebee1f457279c70473210049967e07df54426e79d80b`
-- SHA-256 комплекта черновиков: `7924b590ac8faba7d3f2ee089f9a76c881d20a80caa0f8884f1dbf6104bf4cba`
+- Входной commit: `01b89ddc85354c2536c8b69ec01cea07595aded1`
+- SHA-256 книги: `e886fa41941deea2c38749e2133a02090da0ea181537d9351877a577ce54e673`
+- SHA-256 комплекта черновиков: `b0157bbfc518ebc5f95f11da290aa0ccb140724725207c97dee792ad31440c8c`
 - Источник: [http://www.orthlib.ru/John_of_Damascus/vera.html](http://www.orthlib.ru/John_of_Damascus/vera.html)
 
 ## Файлы
@@ -34,7 +34,7 @@
 сообщения. Формат одного замечания:
 
 ```text
-Версия: content 08eddca
+Версия: content 01b89dd
 Проверенный блок: ИД001–ИД025
 ID: ИД044.2
 Уровень: BLOCKER / MAJOR / MINOR / STYLE
