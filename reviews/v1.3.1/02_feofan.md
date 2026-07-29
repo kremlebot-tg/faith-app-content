@@ -3,7 +3,7 @@
 - Автор: Феофан Затворник
 - Версия книги: 5
 - Репозиторий: `faith-app-content`
-- Базовый commit входных данных: `01b89ddc85354c2536c8b69ec01cea07595aded1`
+- Базовый commit входных данных: `6598b339a72bda750e032bd76ac83a2d21c8c148`
 - SHA-256 текста книги: `bb70c415b7c64a3b17d76fb84f72c62a2e83e145a7d3c5e449e8b147df5809c1`
 - Источник: [https://azbyka.ru/otechnik/Feofan_Zatvornik/put-ko-spaseniju/](https://azbyka.ru/otechnik/Feofan_Zatvornik/put-ko-spaseniju/)
 - Лицензия в метаданных: `public domain`
