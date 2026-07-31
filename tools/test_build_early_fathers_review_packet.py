@@ -20,11 +20,13 @@ class EarlyFathersReviewPacketTest(unittest.TestCase):
                 "02_makarij_001_025.md",
                 "03_makarij_026_050.md",
                 "04_zlatoust.md",
+                "05_zlatoust_svjashhenstvo.md",
+                "06_zlatoust_bytie.md",
             },
         )
         body = "\n".join(rendered.values())
-        self.assertEqual(body.count("**Вердикт:**"), 204)
-        self.assertEqual(body.count("**Итог "), 68)
+        self.assertEqual(body.count("**Вердикт:**"), 246)
+        self.assertEqual(body.count("**Итог "), 82)
         self.assertIn("### АВ001.1", body)
         self.assertIn("### МБ050.3", body)
         self.assertIn("### ИЗ009.3", body)

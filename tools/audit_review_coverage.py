@@ -61,6 +61,20 @@ COVERAGE = (
         ("reviews/early_fathers/04_zlatoust.md",),
     ),
     ReviewCoverage(
+        "ioann_zlatoust_svjashhenstvo",
+        "ИС",
+        "опубликованы",
+        18,
+        ("reviews/early_fathers/05_zlatoust_svjashhenstvo.md",),
+    ),
+    ReviewCoverage(
+        "ioann_zlatoust_bytie",
+        "ИБ",
+        "опубликованы",
+        24,
+        ("reviews/early_fathers/06_zlatoust_bytie.md",),
+    ),
+    ReviewCoverage(
         "kirill_ierusalimskij_oglasitelnye",
         "КИ",
         "опубликованы",

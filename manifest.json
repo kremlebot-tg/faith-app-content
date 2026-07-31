@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "last_updated": "2026-07-29",
+  "schema_version": 2,
+  "last_updated": "2026-07-31",
   "library": [
     {
       "id": "afanasij_voploshhenie",
@@ -40,6 +40,32 @@
       "bundled": false,
       "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.1.0/ioann_zlatoust_pokajanie.json",
       "sha256": "51ab4bcd007e6998213c9aea76b08f289155581f5bf68cc64d89ec2a072830f4"
+    },
+    {
+      "id": "ioann_zlatoust_svjashhenstvo",
+      "author": "Иоанн Златоуст",
+      "work": "О священстве",
+      "century": "IV",
+      "place": "Антиохия",
+      "chapters_count": 6,
+      "chapter_label": "Слово",
+      "size_bytes": 401692,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.6.0/ioann_zlatoust_svjashhenstvo.json",
+      "sha256": "c683ed1cd75eb31eb037a5e5ce995784a67ba6213f083ca5b135a12e77ae99bf"
+    },
+    {
+      "id": "ioann_zlatoust_bytie",
+      "author": "Иоанн Златоуст",
+      "work": "Восемь слов на Книгу Бытия",
+      "century": "IV",
+      "place": "Антиохия",
+      "chapters_count": 8,
+      "chapter_label": "Слово",
+      "size_bytes": 242518,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.6.0/ioann_zlatoust_bytie.json",
+      "sha256": "2ee587c159b3542ab745d896c6ee6970f24586c4861836add8a0d1a891cbd442"
     },
     {
       "id": "kirill_ierusalimskij_oglasitelnye",

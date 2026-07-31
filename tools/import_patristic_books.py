@@ -60,6 +60,50 @@ TEXT_REPLACEMENTS = {
 
 
 BOOKS: dict[str, dict[str, Any]] = {
+    "ioann_zlatoust_svjashhenstvo": {
+        "id": "ioann_zlatoust_svjashhenstvo",
+        "author": "Иоанн Златоуст",
+        "work": "О священстве",
+        "century": "IV",
+        "place": "Антиохия",
+        "chapter_label": "Слово",
+        "mode": "headings",
+        "count": 6,
+        "expected_notes": 7,
+        "url": "https://azbyka.ru/otechnik/Ioann_Zlatoust/o_svyashenstve/",
+        "chapter_titles": [
+            "Избрание и отказ",
+            "Пастырство как дело любви",
+            "Высота священного служения",
+            "Избрание и искусство слова",
+            "Проповедь без человекоугодия",
+            "Пастырство и монашеский подвиг",
+        ],
+        "translator": "Перевод Санкт-Петербургской духовной академии",
+        "source_edition": (
+            "Творения святого отца нашего Иоанна Златоуста. Т. 1. "
+            "Санкт-Петербург, 1895. С. 395–475."
+        ),
+    },
+    "ioann_zlatoust_bytie": {
+        "id": "ioann_zlatoust_bytie",
+        "author": "Иоанн Златоуст",
+        "work": "Восемь слов на Книгу Бытия",
+        "century": "IV",
+        "place": "Антиохия",
+        "chapter_label": "Слово",
+        "mode": "headings",
+        "count": 8,
+        "expected_notes": 114,
+        "drop_leading_chapters": 1,
+        "url": "https://azbyka.ru/otechnik/Ioann_Zlatoust/slova_01",
+        "title_strip": r"^Слово\s+\d+\.\s*",
+        "translator": "Перевод Санкт-Петербургской духовной академии",
+        "source_edition": (
+            "Полное собрание творений святителя Иоанна Златоуста. Т. 4, "
+            "кн. 2. Санкт-Петербург, 1898. С. 726–775."
+        ),
+    },
     "ioann_zlatoust_pokajanie": {
         "id": "ioann_zlatoust_pokajanie",
         "author": "Иоанн Златоуст",
@@ -351,6 +395,20 @@ def build_heading_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
             f'{config["id"]}: ожидалось примечаний {config["expected_notes"]}, '
             f'получено {len(note_texts)}'
         )
+    drop_leading = config.get("drop_leading_chapters", 0)
+    if drop_leading:
+        chapters = chapters[drop_leading:]
+        for number, chapter in enumerate(chapters, start=1):
+            chapter["number"] = number
+    chapter_titles = config.get("chapter_titles")
+    if chapter_titles:
+        if len(chapter_titles) != len(chapters):
+            raise ValueError(
+                f'{config["id"]}: число редакционных заголовков не совпадает '
+                f'с числом глав'
+            )
+        for chapter, title in zip(chapters, chapter_titles):
+            chapter["title"] = title
     return chapters
 
 

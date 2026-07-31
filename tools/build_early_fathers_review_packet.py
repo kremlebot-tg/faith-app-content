@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a deterministic review packet for three released patristic books."""
+"""Build a deterministic review packet for selected early patristic books."""
 
 from __future__ import annotations
 
@@ -108,6 +108,16 @@ ZLATOUST_RISKS = {
     9: ("сомнительная атрибуция, Евхаристия, Суд и церковное собрание",),
 }
 
+PRIESTHOOD_RISKS = {
+    number: ("священство, пастырская ответственность и границы применения",)
+    for number in range(1, 7)
+}
+
+GENESIS_RISKS = {
+    number: ("толкование Бытия, свобода и исторический язык проповеди",)
+    for number in range(1, 9)
+}
+
 
 CONFIGS = (
     ReviewConfig(
@@ -145,6 +155,24 @@ CONFIGS = (
         9,
         "беседы",
         ZLATOUST_RISKS,
+    ),
+    ReviewConfig(
+        "ioann_zlatoust_svjashhenstvo",
+        "ИС",
+        "05_zlatoust_svjashhenstvo.md",
+        1,
+        6,
+        "слова",
+        PRIESTHOOD_RISKS,
+    ),
+    ReviewConfig(
+        "ioann_zlatoust_bytie",
+        "ИБ",
+        "06_zlatoust_bytie.md",
+        1,
+        8,
+        "слова",
+        GENESIS_RISKS,
     ),
 )
 
@@ -201,6 +229,8 @@ def render_index(
         "afanasij_voploshhenie",
         "makarij_duhovnye_besedy",
         "ioann_zlatoust_pokajanie",
+        "ioann_zlatoust_svjashhenstvo",
+        "ioann_zlatoust_bytie",
     ):
         book = books[book_id]
         source_sha, tests_sha = hashes[book_id]
@@ -211,9 +241,9 @@ def render_index(
         )
     table = "\n".join(rows)
     return f"""<!-- early-fathers-review-packet: content={commit} -->
-# Богословская рецензия тестов к трём книгам
+# Богословская рецензия тестов к пяти книгам
 
-Пакет фиксирует 68 глав и 204 вопроса из уже опубликованных книг. Генератор
+Пакет фиксирует 82 главы и 246 вопросов из подготовленных книг. Генератор
 подтвердил полное совпадение встроенных и редакционных тестов.
 
 - Входной commit: `{commit}`
@@ -230,6 +260,10 @@ def render_index(
 - [03_makarij_026_050.md](03_makarij_026_050.md) — преподобный Макарий,
   беседы 26–50.
 - [04_zlatoust.md](04_zlatoust.md) — святитель Иоанн Златоуст, беседы 1–9.
+- [05_zlatoust_svjashhenstvo.md](05_zlatoust_svjashhenstvo.md) — святитель
+  Иоанн Златоуст, слова о священстве 1–6.
+- [06_zlatoust_bytie.md](06_zlatoust_bytie.md) — святитель Иоанн Златоуст,
+  слова на Книгу Бытия 1–8.
 
 ## Обязательные оговорки
 
@@ -255,7 +289,7 @@ def render_index(
 
 ```text
 Версия: content {commit[:7]}
-Проверенный блок: АВ001–АВ009 / МБ001–МБ025 / МБ026–МБ050 / ИЗ001–ИЗ009
+Проверенный блок: АВ001–АВ009 / МБ001–МБ025 / МБ026–МБ050 / ИЗ001–ИЗ009 / ИС001–ИС006 / ИБ001–ИБ008
 ID: МБ015.2
 Уровень: BLOCKER / MAJOR / MINOR / STYLE
 Поле: вопрос / ответ A–C / объяснение
