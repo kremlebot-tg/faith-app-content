@@ -60,6 +60,38 @@ TEXT_REPLACEMENTS = {
 
 
 BOOKS: dict[str, dict[str, Any]] = {
+    "grigorij_nisskij_bolshoe_oglasitelnoe": {
+        "id": "grigorij_nisskij_bolshoe_oglasitelnoe",
+        "author": "Григорий Нисский",
+        "work": "Большое огласительное слово",
+        "century": "IV",
+        "place": "Нисса, Каппадокия",
+        "chapter_label": "Глава",
+        "mode": "headings",
+        "count": 40,
+        "expected_notes": 0,
+        "drop_leading_chapters": 1,
+        "url": (
+            "https://azbyka.ru/otechnik/Grigorij_Nisskij/"
+            "bolshoe-oglasitelnoe-slovo/"
+        ),
+        "title_strip": r"^Глава\s+\d+\s*",
+        "translator": "Перевод Московской духовной академии",
+        "source_edition": (
+            "Творения святого Григория Нисского. Ч. 4. "
+            "Москва: типография В. Готье, 1862. [1], 399 с."
+        ),
+        "editorial_note": (
+            "Слово создано как руководство для оглашения взрослых и "
+            "отвечает на вопросы религиозной среды IV века. Образ выкупа "
+            "и сокрытого под человеческой природой Божества принадлежит "
+            "древней образной речи об Искуплении и не исчерпывает учения "
+            "Церкви. Рассуждения святителя о конечном восстановлении "
+            "следует читать в полноте церковного Предания: мнение о "
+            "неизбежном спасении всех не является догматом Православной "
+            "Церкви. Историческая полемика сохранена как часть источника."
+        ),
+    },
     "grigorij_bogoslov_pyat_slov": {
         "id": "grigorij_bogoslov_pyat_slov",
         "author": "Григорий Богослов",
