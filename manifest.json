@@ -146,6 +146,19 @@
       "sha256": "b0e5776fb01590117884c3fcfb7a0fe63726661ad52d4920fd3fea18db72fda1"
     },
     {
+      "id": "ioann_kassian_pervye_desjat_sobesedovanij",
+      "author": "Иоанн Кассиан Римлянин",
+      "work": "Первые десять собеседований египетских подвижников",
+      "century": "V",
+      "place": "Египет и Массилия",
+      "chapters_count": 10,
+      "chapter_label": "Собеседование",
+      "size_bytes": 846696,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.12.0/ioann_kassian_pervye_desjat_sobesedovanij.json",
+      "sha256": "b6d1410a4d5c2847715cd40af86880fa86b80634b0279187ddcb4261cc370ee6"
+    },
+    {
       "id": "avva_dorofey",
       "author": "Авва Дорофей",
       "work": "Душеполезные поучения",
