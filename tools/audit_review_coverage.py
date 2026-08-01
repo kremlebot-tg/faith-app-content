@@ -37,6 +37,13 @@ class ReviewCoverage:
 
 COVERAGE = (
     ReviewCoverage(
+        "nikolaj_kavasila_sem_slov",
+        "НК",
+        "опубликованы",
+        21,
+        ("reviews/early_fathers/22_kavasila.md",),
+    ),
+    ReviewCoverage(
         "ioann_kassian_sobesedovanija_11_17",
         "ИКВ",
         "опубликованы",
