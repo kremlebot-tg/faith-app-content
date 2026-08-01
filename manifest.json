@@ -10,10 +10,10 @@
       "place": "Александрия",
       "chapters_count": 9,
       "chapter_label": "Глава",
-      "size_bytes": 260607,
+      "size_bytes": 259815,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.2.0/afanasij_voploshhenie.json",
-      "sha256": "7156752f8b1fa5068a6d5aa669797f060a55de6be4bf8545ddfdcfd6a8c92af5"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.3/afanasij_voploshhenie.json",
+      "sha256": "fbb0c114ad38c11c8f4ff39c636a2e39858d85f8b3b4e3ef25c1b7ae43692a52"
     },
     {
       "id": "makarij_duhovnye_besedy",
@@ -101,10 +101,10 @@
       "place": "Кесария Каппадокийская",
       "chapters_count": 30,
       "chapter_label": "Глава",
-      "size_bytes": 429263,
+      "size_bytes": 429161,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.7.0/vasilij_o_svjatom_duhe.json",
-      "sha256": "96ef56a5f5b7a28b2a9fd90e76230ba647f18d11ac4fa040afcf0616240b84e9"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.3/vasilij_o_svjatom_duhe.json",
+      "sha256": "a3d23659a6aa5e5706537259eaed37c6696cd78150030dde61b544140fb94350"
     },
     {
       "id": "grigorij_bogoslov_pyat_slov",
@@ -114,10 +114,10 @@
       "place": "Константинополь",
       "chapters_count": 5,
       "chapter_label": "Слово",
-      "size_bytes": 374934,
+      "size_bytes": 374580,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.8.0/grigorij_bogoslov_pyat_slov.json",
-      "sha256": "4db2086f6f5c602cf17b3161c4efe5884a7ac998aa961155f2aa6d34e91275ec"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.3/grigorij_bogoslov_pyat_slov.json",
+      "sha256": "332460710696b42385e3cdb23195cd539ac7aa4bf8adf7135fb52fdab40c2c18"
     },
     {
       "id": "grigorij_nisskij_bolshoe_oglasitelnoe",
@@ -166,10 +166,10 @@
       "place": "Египет и Массилия",
       "chapters_count": 10,
       "chapter_label": "Собеседование",
-      "size_bytes": 846696,
+      "size_bytes": 845803,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.12.0/ioann_kassian_pervye_desjat_sobesedovanij.json",
-      "sha256": "b6d1410a4d5c2847715cd40af86880fa86b80634b0279187ddcb4261cc370ee6"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.3/ioann_kassian_pervye_desjat_sobesedovanij.json",
+      "sha256": "be47b3f64a4e5cba71af89338c62dda635544aeb87c34691bf7b35139a2f21b6"
     },
     {
       "id": "ioann_kassian_sobesedovanija_11_17",

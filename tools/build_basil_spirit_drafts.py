@@ -22,6 +22,43 @@ def q(prompt: str, answers: tuple[str, str, str], correct: int, explanation: str
     }
 
 
+def matching(prompt: str, pairs: tuple[tuple[str, str], ...], explanation: str) -> dict:
+    return {
+        "question": prompt,
+        "type": "matching",
+        "pairs": [{"left": left, "right": right} for left, right in pairs],
+        "explanation": explanation,
+    }
+
+
+def ordering(prompt: str, items: tuple[str, ...], explanation: str) -> dict:
+    return {
+        "question": prompt,
+        "type": "ordering",
+        "items": list(items),
+        "explanation": explanation,
+    }
+
+
+def cloze(
+    question: str,
+    prompt: str,
+    answers: tuple[str, str, str],
+    correct: int,
+    explanation: str,
+) -> dict:
+    return {
+        "question": question,
+        "type": "cloze",
+        "prompt": prompt,
+        "answers": [
+            {"text": text, "correct": index == correct}
+            for index, text in enumerate(answers)
+        ],
+        "explanation": explanation,
+    }
+
+
 CHAPTERS_01_10 = [
     [
         ("Почему Василий исследует даже краткие слова богословия?", ("Точность речи помогает хранить смысл веры", "Редкие слова делают проповедь убедительнее", "Каждый предлог содержит отдельный догмат"), 0, "Святитель не обожествляет грамматику, но видит связь исповедания и молитвенного языка. Малое словесное различие важно, когда через него намеренно искажают веру."),
@@ -229,6 +266,53 @@ REPLACEMENTS = {
 }
 
 
+MIXED_OVERRIDES = {
+    9: {
+        0: matching(
+            "Соотнесите именования Духа с открываемым ими действием.",
+            (
+                ("Животворящий", "дарует жизнь творению"),
+                ("Освящающий", "приобщает человека святости"),
+                ("Утешитель", "укрепляет и ведёт к Богу"),
+            ),
+            "Василий собирает свидетельства Писания о Духе. Жизнь, освящение и ведение к Богу не принадлежат твари по природе и открывают Божественное достоинство Духа.",
+        ),
+    },
+    16: {
+        1: ordering(
+            "Расположите уровни, на которых Василий показывает действие Святого Духа.",
+            (
+                "Создание и устроение мира",
+                "Домостроительство спасения человека",
+                "Раздаяние даров в Церкви",
+                "Ожидаемое воскресение и Суд",
+            ),
+            "Святитель прослеживает действие Духа во всём Божием домостроительстве. Дух не относится к одному историческому моменту, но действует нераздельно с Отцом и Сыном.",
+        ),
+    },
+    18: {
+        2: matching(
+            "Соотнесите части троичного исповедания с их смыслом.",
+            (
+                ("Одна природа", "единство Божества"),
+                ("Три Ипостаси", "реальное различие Лиц"),
+                ("Единоначалие Отца", "личное Начало без умаления Сына и Духа"),
+            ),
+            "Троичность не означает многобожия, а единство не смешивает Лица. Василий сохраняет одну Божественную природу, три Ипостаси и единоначалие Отца.",
+        ),
+    },
+    27: {
+        0: cloze(
+            "Как называется живая церковная передача апостольской веры?",
+            "Наряду с записанным свидетельством Церковь хранит апостольское ___.",
+            ("Предание", "мнение", "исследование"),
+            0,
+            "Василий различает записанное учение и переданное в церковной практике. Писание и апостольское Предание принадлежат одной церковной памяти и не являются конкурирующими откровениями.",
+        ),
+    },
+}
+
+
 def main() -> None:
     batches = (
         (1, 10, CHAPTERS_01_10),
@@ -236,15 +320,15 @@ def main() -> None:
         (21, 30, CHAPTERS_21_30),
     )
     for first, last, chapters in batches:
+        rendered_chapters = []
+        for number, questions in enumerate(chapters, start=first):
+            tests = [q(*item) for item in questions]
+            for index, replacement in MIXED_OVERRIDES.get(number, {}).items():
+                tests[index] = replacement
+            rendered_chapters.append({"number": number, "test": tests})
         payload = {
             "book_id": "vasilij_o_svjatom_duhe",
-            "chapters": [
-                {
-                    "number": number,
-                    "test": [q(*item) for item in questions],
-                }
-                for number, questions in enumerate(chapters, start=first)
-            ],
+            "chapters": rendered_chapters,
         }
         path = (
             ROOT
