@@ -136,6 +136,31 @@ class ImportPatristicBooksTest(unittest.TestCase):
             ["Первое слово", "Пятое слово"],
         )
 
+    def test_hesychasm_pages_strip_navigation_and_repair_transcription(self) -> None:
+        config = {
+            "id": "sample",
+            "count": 1,
+            "url": "https://example.test/txt",
+        }
+        page = """
+        <h2>Слово первое. О жизни</h2>
+        <p>Благодать Бо-жия и содела-лись живыми.</p>
+        <p>Последний абзац. СОДЕРЖАНИЕ ВПЕРЕД http://www.hesychasm.ru/index.htm</p>
+        <script>Md.write('<p>Счётчик</p>')</script></body>
+        """
+
+        with (
+            patch.object(importer, "fetch_cp1251", return_value=page),
+            patch.object(importer.time, "sleep"),
+        ):
+            chapters = importer.build_hesychasm_chapters(config)
+
+        self.assertEqual(chapters[0]["title"], "О жизни")
+        self.assertEqual(chapters[0]["paragraphs"], [
+            "Благодать Божия и соделались живыми.",
+            "Последний абзац.",
+        ])
+
 
 if __name__ == "__main__":
     unittest.main()

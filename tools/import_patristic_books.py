@@ -57,9 +57,57 @@ TEXT_REPLACEMENTS = {
     'окончание беседы переведено по изд. Флосса.':
         'Окончание беседы переведено по изд. Флосса.',
 }
+HESYCHASM_TEXT_REPLACEMENTS = {
+    "Бо-жия": "Божия",
+    "та-мо": "тамо",
+    "врачевст-вом": "врачевством",
+    "содела-лись": "соделались",
+    "при-идох": "приидох",
+    "вы познании": "в познании",
+    "не-возможно": "невозможно",
+    "ко-гда": "когда",
+    "посредст-вом": "посредством",
+    "действо-ванию": "действованию",
+    "об-держащее": "обдержащее",
+    "злочести-вые": "злочестивые",
+    "пре-высшим": "превысшим",
+    "прими-риться": "примириться",
+    "благо-мысленных": "благомысленных",
+    "со-блаженствовали": "соблаженствовали",
+    "благо-рассуждению": "благорассуждению",
+    "нужд-ницами": "нуждницами",
+    "дпя": "для",
+    "слово}": "слово)",
+}
 
 
 BOOKS: dict[str, dict[str, Any]] = {
+    "nikolaj_kavasila_sem_slov": {
+        "id": "nikolaj_kavasila_sem_slov",
+        "author": "Николай Кавасила",
+        "work": "Семь слов о жизни во Христе",
+        "century": "XIV",
+        "place": "Фессалоники",
+        "chapter_label": "Слово",
+        "mode": "hesychasm_pages",
+        "count": 7,
+        "url": "https://www.hesychasm.ru/library/nkavas/txt",
+        "translator": "Русский перевод издания 1857 года",
+        "source_edition": (
+            "Николая Кавасилы, архиепископа Фессалоникийского, семь слов "
+            "о жизни во Христе. Москва, 1857."
+        ),
+        "editorial_note": (
+            "Трактат раскрывает церковную жизнь как дар Христа, сообщаемый "
+            "в Крещении, Миропомазании и Евхаристии и сохраняемый свободным "
+            "ответом человека. Таинства не являются ни одним лишь символом, "
+            "ни автоматической гарантией духовной зрелости. Рассуждение "
+            "об освящении престола описывает византийский чин и не служит "
+            "практической инструкцией для мирянина. Строгие высказывания "
+            "о грехе следует читать вместе с учением автора о милости, "
+            "покаянии и восстановлении человека во Христе."
+        ),
+    },
     "ioann_kassian_sobesedovanija_18_24": {
         "id": "ioann_kassian_sobesedovanija_18_24",
         "author": "Иоанн Кассиан Римлянин",
@@ -458,6 +506,25 @@ def fetch(url: str) -> str:
     raise RuntimeError(f"Не удалось загрузить {url}: {last_error}")
 
 
+def fetch_cp1251(url: str) -> str:
+    """Загрузить старую HTML-транскрипцию в исходной Windows-1251."""
+    last_error = ""
+    for attempt in range(3):
+        result = subprocess.run(
+            [
+                "curl", "-fsSL", "--max-time", "40", "--retry", "2",
+                "-A", USER_AGENT, url,
+            ],
+            capture_output=True,
+            timeout=50,
+        )
+        if result.returncode == 0 and result.stdout:
+            return result.stdout.decode("cp1251")
+        last_error = result.stderr.decode("utf-8", "ignore").strip()
+        time.sleep(attempt + 1)
+    raise RuntimeError(f"Не удалось загрузить {url}: {last_error}")
+
+
 def clean_text(fragment: str) -> str:
     value = re.sub(r"<br\s*/?>", " ", fragment, flags=re.I)
     value = re.sub(r"<[^>]+>", "", value)
@@ -708,6 +775,49 @@ def build_numbered_page_chapters(config: dict[str, Any]) -> list[dict[str, Any]]
     return chapters
 
 
+def build_hesychasm_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
+    """Импортировать семь отдельных страниц старой HTML-транскрипции."""
+    chapters: list[dict[str, Any]] = []
+    heading_re = re.compile(r"<h2[^>]*>(.*?)</h2>", re.S | re.I)
+    paragraph_re = re.compile(r"<p\b[^>]*>(.*?)(?=<p\b|</div>|</body>)", re.S | re.I)
+    for index in range(config["count"]):
+        page = fetch_cp1251(f'{config["url"]}{index:02d}.htm')
+        page = re.sub(r"<script\b.*?</script>", "", page, flags=re.S | re.I)
+        page = re.sub(r"([А-Яа-яЁё])-\s*\r?\n\s*([а-яё])", r"\1\2", page)
+        heading = heading_re.search(page)
+        if not heading:
+            raise ValueError(f'{config["id"]}:{index + 1}: нет заголовка')
+        title = clean_text(heading.group(1))
+        title = re.sub(r"^Слово\s+\S+\.\s*", "", title, flags=re.I)
+        paragraphs = []
+        for match in paragraph_re.finditer(page, heading.end()):
+            value = clean_text(match.group(1))
+            if not value or value in {"Содержание", "Назад", "Далее"}:
+                continue
+            if "© Библиотека исихазма" in value or "Md.write" in value:
+                break
+            value = re.sub(
+                r"\s+СОДЕРЖАНИЕ(?:\s+(?:НАЗАД|ВПЕРЕД))*"
+                r"(?:\s+http://www\.hesychasm\.ru/index\.htm)?$",
+                "",
+                value,
+                flags=re.I,
+            )
+            for source, replacement in HESYCHASM_TEXT_REPLACEMENTS.items():
+                value = value.replace(source, replacement)
+            paragraphs.append(value)
+        if not paragraphs:
+            raise ValueError(f'{config["id"]}:{index + 1}: нет текста')
+        chapters.append({
+            "number": index + 1,
+            "title": title,
+            "paragraphs": paragraphs,
+            "scripture_refs": [],
+        })
+        time.sleep(0.25)
+    return chapters
+
+
 def _slice_from_anchor(page: str, anchor: str) -> str:
     marker = f'<a id="{anchor}"'
     start = page.find(marker)
@@ -948,6 +1058,8 @@ def build_book(config: dict[str, Any], output_dir: Path) -> Path:
         chapters = build_heading_chapters(config)
     elif config["mode"] == "cyril_series":
         chapters = build_cyril_chapters(config)
+    elif config["mode"] == "hesychasm_pages":
+        chapters = build_hesychasm_chapters(config)
     else:
         chapters = build_numbered_page_chapters(config)
 

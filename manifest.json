@@ -223,6 +223,19 @@
       "sha256": "e886fa41941deea2c38749e2133a02090da0ea181537d9351877a577ce54e673"
     },
     {
+      "id": "nikolaj_kavasila_sem_slov",
+      "author": "Николай Кавасила",
+      "work": "Семь слов о жизни во Христе",
+      "century": "XIV",
+      "place": "Фессалоники",
+      "chapters_count": 7,
+      "chapter_label": "Слово",
+      "size_bytes": 567804,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.14.0/nikolaj_kavasila_sem_slov.json",
+      "sha256": "711f69e048086df4da6ca19f3ce792d17d9e0243e36d76231c93c83324e42151"
+    },
+    {
       "id": "feofan_put_ko_spaseniyu",
       "author": "Феофан Затворник",
       "work": "Путь ко спасению",
