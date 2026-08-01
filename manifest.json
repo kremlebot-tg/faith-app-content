@@ -249,6 +249,19 @@
       "sha256": "711f69e048086df4da6ca19f3ce792d17d9e0243e36d76231c93c83324e42151"
     },
     {
+      "id": "amvrosij_optinskij_pisma_mirjanam",
+      "author": "Амвросий Оптинский",
+      "work": "Избранные письма к мирянам",
+      "century": "XIX",
+      "place": "Оптина пустынь",
+      "chapters_count": 12,
+      "chapter_label": "Письмо",
+      "size_bytes": 90402,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.16.0/amvrosij_optinskij_pisma_mirjanam.json",
+      "sha256": "0e07929bff17e6aaecde1d0306858efc5b7ad8db5ff41653ba0852620fd5422d"
+    },
+    {
       "id": "feofan_put_ko_spaseniyu",
       "author": "Феофан Затворник",
       "work": "Путь ко спасению",

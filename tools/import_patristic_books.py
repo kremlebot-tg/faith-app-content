@@ -82,6 +82,50 @@ HESYCHASM_TEXT_REPLACEMENTS = {
 
 
 BOOKS: dict[str, dict[str, Any]] = {
+    "amvrosij_optinskij_pisma_mirjanam": {
+        "id": "amvrosij_optinskij_pisma_mirjanam",
+        "author": "Амвросий Оптинский",
+        "work": "Избранные письма к мирянам",
+        "century": "XIX",
+        "place": "Оптина пустынь",
+        "chapter_label": "Письмо",
+        "mode": "anchor_sections",
+        "count": 12,
+        "source_numbers": [35, 45, 52, 60, 76, 121, 123, 130, 138, 142, 168, 184],
+        "url": (
+            "https://azbyka.ru/otechnik/Amvrosij_Optinskij/"
+            "perepiska-s-mirskimi-litsami/"
+        ),
+        "chapter_titles": [
+            "В посте должна быть мера",
+            "Как жить, чтобы спастись",
+            "Мир душевный и внешние обстоятельства",
+            "Как хранить мир души",
+            "Как приобретается смирение",
+            "О смущении и доверии Богу",
+            "О лености и препятствиях на молитве",
+            "Об истинной любви",
+            "Когда уступить, а когда объяснить",
+            "Основание семейного мира",
+            "Лечиться не грех",
+            "Молиться как умеешь",
+        ],
+        "translator": "Русский текст писем",
+        "source_edition": (
+            "Собрание писем блаженной памяти Оптинского старца "
+            "иеросхимонаха Амвросия к мирским особам. Сергиев Посад, 1908."
+        ),
+        "editorial_note": (
+            "В подборку включены двенадцать цельных писем, написанных конкретным "
+            "людям в обстоятельствах XIX века. Личный совет старца нельзя считать "
+            "универсальным предписанием без знания адресата. Смирение и прощение "
+            "не требуют оставаться в ситуации насилия, угрозы или принуждения; "
+            "при опасности нужна помощь близких и специалистов. Слова о смущении "
+            "и скорби не являются медицинским диагнозом. Молитва и пастырская "
+            "поддержка не заменяют лечение, а пост сообразуется со здоровьем, "
+            "обязанностями и благословением духовника."
+        ),
+    },
     "ioann_zlatoust_stagiriju": {
         "id": "ioann_zlatoust_stagiriju",
         "author": "Иоанн Златоуст",
@@ -808,6 +852,55 @@ def build_numbered_page_chapters(config: dict[str, Any]) -> list[dict[str, Any]]
     return chapters
 
 
+def build_anchor_section_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
+    """Импортировать выбранные цельные разделы одной большой страницы."""
+    page = fetch(config["url"])
+    source_numbers = config["source_numbers"]
+    chapter_titles = config.get("chapter_titles", [])
+    if len(source_numbers) != config["count"]:
+        raise ValueError(f'{config["id"]}: неверное число исходных разделов')
+    if chapter_titles and len(chapter_titles) != config["count"]:
+        raise ValueError(f'{config["id"]}: неверное число заголовков')
+
+    chapters: list[dict[str, Any]] = []
+    note_count = 0
+    for index, source_number in enumerate(source_numbers, start=1):
+        marker = f'<a id="0_{source_number}"></a>'
+        start = page.find(marker)
+        if start < 0:
+            raise ValueError(f'{config["id"]}: не найден раздел {source_number}')
+        next_marker = f'<a id="0_{source_number + 1}"></a>'
+        end = page.find(next_marker, start)
+        if end < 0:
+            raise ValueError(
+                f'{config["id"]}: не найден конец раздела {source_number}'
+            )
+        fragment = page[start:end]
+        heading = H1_RE.search(fragment.replace("<h2", "<h1", 1).replace("</h2>", "</h1>", 1))
+        if heading is None:
+            raise ValueError(f'{config["id"]}: нет заголовка раздела {source_number}')
+        source_title = clean_text(heading.group(1))
+        source_title = re.sub(r"^\d+\.\s*", "", source_title).strip()
+        title = chapter_titles[index - 1] if chapter_titles else source_title
+        chapter, _, notes = _chapter_from_fragment(
+            number=index,
+            title=title,
+            fragment=fragment,
+            context=f'{config["id"]}:{source_number}',
+        )
+        if not chapter["paragraphs"]:
+            raise ValueError(f'{config["id"]}:{source_number}: нет текста')
+        chapters.append(chapter)
+        note_count += notes
+
+    if note_count != config.get("expected_notes", note_count):
+        raise ValueError(
+            f'{config["id"]}: ожидалось примечаний {config["expected_notes"]}, '
+            f'получено {note_count}'
+        )
+    return chapters
+
+
 def build_hesychasm_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
     """Импортировать семь отдельных страниц старой HTML-транскрипции."""
     chapters: list[dict[str, Any]] = []
@@ -1089,6 +1182,8 @@ def embed_tests_in_existing_book(config: dict[str, Any], output_dir: Path) -> Pa
 def build_book(config: dict[str, Any], output_dir: Path) -> Path:
     if config["mode"] == "headings":
         chapters = build_heading_chapters(config)
+    elif config["mode"] == "anchor_sections":
+        chapters = build_anchor_section_chapters(config)
     elif config["mode"] == "cyril_series":
         chapters = build_cyril_chapters(config)
     elif config["mode"] == "hesychasm_pages":

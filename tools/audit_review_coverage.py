@@ -37,6 +37,13 @@ class ReviewCoverage:
 
 COVERAGE = (
     ReviewCoverage(
+        "amvrosij_optinskij_pisma_mirjanam",
+        "АО",
+        "опубликованы",
+        36,
+        ("reviews/early_fathers/24_ambrose_lay_letters.md",),
+    ),
+    ReviewCoverage(
         "ioann_zlatoust_stagiriju",
         "ИСТ",
         "опубликованы",
