@@ -120,6 +120,19 @@
       "sha256": "ed58b2a0ea65ad203f30a22d18da625a4f313122656a20d5078278e2fdd906c7"
     },
     {
+      "id": "efrem_sirin_izbrannye_slova",
+      "author": "Ефрем Сирин",
+      "work": "Избранные слова о духовной жизни",
+      "century": "IV",
+      "place": "Эдесса",
+      "chapters_count": 12,
+      "chapter_label": "Слово",
+      "size_bytes": 322120,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.10.0/efrem_sirin_izbrannye_slova.json",
+      "sha256": "558adcf2f1947898059dd4f4f75ca105b8053d704193dbfa46a96a99515d6f6a"
+    },
+    {
       "id": "avva_dorofey",
       "author": "Авва Дорофей",
       "work": "Душеполезные поучения",

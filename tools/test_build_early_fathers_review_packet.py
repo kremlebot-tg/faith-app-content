@@ -29,17 +29,20 @@ class EarlyFathersReviewPacketTest(unittest.TestCase):
                 "11_gregory_nyssa_011_020.md",
                 "12_gregory_nyssa_021_030.md",
                 "13_gregory_nyssa_031_040.md",
+                "14_ephrem_001_006.md",
+                "15_ephrem_007_012.md",
             },
         )
         body = "\n".join(rendered.values())
-        self.assertEqual(body.count("**Вердикт:**"), 471)
-        self.assertEqual(body.count("**Итог "), 157)
+        self.assertEqual(body.count("**Вердикт:**"), 507)
+        self.assertEqual(body.count("**Итог "), 169)
         self.assertIn("### АВ001.1", body)
         self.assertIn("### МБ050.3", body)
         self.assertIn("### ИЗ009.3", body)
         self.assertIn("### ВД030.3", body)
         self.assertIn("### ГБ005.3", body)
         self.assertIn("### ГН040.3", body)
+        self.assertIn("### ЕС012.3", body)
         self.assertIn("епископу Севериану Габальскому", body)
         self.assertIn("Атрибуция этой беседы", rendered["04_zlatoust.md"])
 

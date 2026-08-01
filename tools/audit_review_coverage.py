@@ -37,6 +37,16 @@ class ReviewCoverage:
 
 COVERAGE = (
     ReviewCoverage(
+        "efrem_sirin_izbrannye_slova",
+        "ЕС",
+        "опубликованы",
+        36,
+        (
+            "reviews/early_fathers/14_ephrem_001_006.md",
+            "reviews/early_fathers/15_ephrem_007_012.md",
+        ),
+    ),
+    ReviewCoverage(
         "afanasij_voploshhenie",
         "АВ",
         "опубликованы",
@@ -366,7 +376,7 @@ def render_registry(root: Path, commit: str) -> str:
 # Реестр богословской рецензии тестов
 
 Реестр охватывает все {len(COVERAGE)} книг из `manifest.json`: {published}
-опубликованный вопрос и {drafts} вопросов в черновиках. Для каждого вопроса
+опубликованных вопросов и {drafts} вопросов в черновиках. Для каждого вопроса
 существует стабильный ID и отдельное поле вердикта.
 
 Наличие пакета не означает, что рецензия завершена. Пока заполненный вердикт
