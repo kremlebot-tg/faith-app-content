@@ -288,6 +288,19 @@
       "sha256": "a4e5541c1f6bba3a4bd2ae2e05851f30ab84fce7e62817f4ad511ad60649eca8"
     },
     {
+      "id": "serafim_sarovskij_izbrannye_nastavlenija",
+      "author": "Серафим Саровский",
+      "work": "Избранные наставления",
+      "century": "XIX",
+      "place": "Саровская пустынь",
+      "chapters_count": 12,
+      "chapter_label": "Наставление",
+      "size_bytes": 72865,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.19.0/serafim_sarovskij_izbrannye_nastavlenija.json",
+      "sha256": "911ba7ac8e1179d28d1b8235f4f3345f40778acf470728f7de9a042a9ab20d07"
+    },
+    {
       "id": "feofan_put_ko_spaseniyu",
       "author": "Феофан Затворник",
       "work": "Путь ко спасению",

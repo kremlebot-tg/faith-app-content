@@ -37,6 +37,13 @@ class ReviewCoverage:
 
 COVERAGE = (
     ReviewCoverage(
+        "serafim_sarovskij_izbrannye_nastavlenija",
+        "СС",
+        "опубликованы",
+        36,
+        ("reviews/early_fathers/27_seraphim_instructions.md",),
+    ),
+    ReviewCoverage(
         "tihon_zadonskij_duhovnye_obrazy",
         "ТЗ",
         "опубликованы",

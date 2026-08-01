@@ -82,6 +82,35 @@ HESYCHASM_TEXT_REPLACEMENTS = {
 
 
 BOOKS: dict[str, dict[str, Any]] = {
+    "serafim_sarovskij_izbrannye_nastavlenija": {
+        "id": "serafim_sarovskij_izbrannye_nastavlenija",
+        "author": "Серафим Саровский",
+        "work": "Избранные наставления",
+        "century": "XIX",
+        "place": "Саровская пустынь",
+        "chapter_label": "Наставление",
+        "mode": "headings",
+        "count": 12,
+        "source_numbers": [1, 2, 3, 4, 8, 11, 12, 16, 17, 24, 26, 29],
+        "url": "https://azbyka.ru/otechnik/Serafim_Sarovskij/nastavlenija/",
+        "title_strip": r"^\d+\.\s*",
+        "expected_notes": 0,
+        "translator": "Русский текст в современной орфографии",
+        "source_edition": (
+            "Наставления преподобного Серафима Саровского. Текст сборника "
+            "по изданию Свято-Троицкого Серафимо-Дивеевского монастыря."
+        ),
+        "editorial_note": (
+            "В подборку вошли двенадцать цельных глав из традиционного сборника "
+            "наставлений преподобного Серафима. Текст передан учениками и позднейшими "
+            "составителями, поэтому не является стенограммой. Аскетические формулы "
+            "нельзя превращать в медицинские рекомендации или универсальные правила. "
+            "Прощение не требует оставаться в опасности, отказываться от границ или "
+            "помощи закона. Слова об отчаянии не заменяют психологическую и медицинскую "
+            "помощь; при угрозе жизни нужна немедленная поддержка. Пост сообразуется со "
+            "здоровьем, возрастом и обязанностями, а смирение не означает ненависти к себе."
+        ),
+    },
     "tihon_zadonskij_duhovnye_obrazy": {
         "id": "tihon_zadonskij_duhovnye_obrazy",
         "author": "Тихон Задонский",
@@ -851,6 +880,18 @@ def build_heading_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
     drop_leading = config.get("drop_leading_chapters", 0)
     if drop_leading:
         chapters = chapters[drop_leading:]
+        for number, chapter in enumerate(chapters, start=1):
+            chapter["number"] = number
+    source_numbers = config.get("source_numbers")
+    if source_numbers:
+        if len(source_numbers) != config["count"]:
+            raise ValueError(f'{config["id"]}: неверное число исходных глав')
+        if len(set(source_numbers)) != len(source_numbers):
+            raise ValueError(f'{config["id"]}: исходные главы повторяются')
+        try:
+            chapters = [chapters[number - 1] for number in source_numbers]
+        except IndexError as error:
+            raise ValueError(f'{config["id"]}: исходная глава вне диапазона') from error
         for number, chapter in enumerate(chapters, start=1):
             chapter["number"] = number
     chapter_titles = config.get("chapter_titles")
