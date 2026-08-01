@@ -282,10 +282,10 @@
       "place": "Задонск",
       "chapters_count": 12,
       "chapter_label": "Образ",
-      "size_bytes": 171914,
+      "size_bytes": 171226,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.18.0/tihon_zadonskij_duhovnye_obrazy.json",
-      "sha256": "a4e5541c1f6bba3a4bd2ae2e05851f30ab84fce7e62817f4ad511ad60649eca8"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.1/tihon_zadonskij_duhovnye_obrazy.json",
+      "sha256": "1ed7377e3d311d0bedbef29cece415a3125b71bdbdbdc33e1c247aa5aeeb95af"
     },
     {
       "id": "serafim_sarovskij_izbrannye_nastavlenija",
@@ -295,10 +295,10 @@
       "place": "Саровская пустынь",
       "chapters_count": 12,
       "chapter_label": "Наставление",
-      "size_bytes": 72865,
+      "size_bytes": 71852,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.19.0/serafim_sarovskij_izbrannye_nastavlenija.json",
-      "sha256": "911ba7ac8e1179d28d1b8235f4f3345f40778acf470728f7de9a042a9ab20d07"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.1/serafim_sarovskij_izbrannye_nastavlenija.json",
+      "sha256": "65c7a737f6c0e1faedc534bba6e9b6acdac7768c4d850614d0434758513aa884"
     },
     {
       "id": "dimitrij_rostovskij_izbrannye_pouchenija",
@@ -321,10 +321,10 @@
       "place": "Рим",
       "chapters_count": 12,
       "chapter_label": "Глава",
-      "size_bytes": 190313,
+      "size_bytes": 189629,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.0/grigorij_dvoeslov_izbrannye_glavy_o_pastyrstve.json",
-      "sha256": "17c34ab4aa169bb33506f0e82301e3a2f7daa945aa8f91b174de8c57657cefbf"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.1/grigorij_dvoeslov_izbrannye_glavy_o_pastyrstve.json",
+      "sha256": "7e6e46ff59ddf0707cfbf9b6a592d002208606afc5608ba4fd6ee9498e31b173"
     },
     {
       "id": "feofan_put_ko_spaseniyu",

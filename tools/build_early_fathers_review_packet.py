@@ -488,17 +488,7 @@ def tests_by_chapter(data: dict[str, Any]) -> dict[int, list[dict[str, Any]]]:
         if not isinstance(questions, list) or len(questions) != 3:
             raise ValueError(f"Глава {number}: требуется ровно три вопроса")
         for index, question in enumerate(questions, start=1):
-            answers = question.get("answers")
-            if not isinstance(answers, list) or len(answers) != 3:
-                raise ValueError(
-                    f"Глава {number}, вопрос {index}: требуется три ответа"
-                )
-            if sum(answer.get("correct") is True for answer in answers) != 1:
-                raise ValueError(
-                    f"Глава {number}, вопрос {index}: неверное число ключей"
-                )
-            if not str(question.get("explanation", "")).strip():
-                raise ValueError(f"Глава {number}, вопрос {index}: нет объяснения")
+            common.validate_question(question, f"Глава {number}, вопрос {index}")
         result[number] = questions
     return result
 

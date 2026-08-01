@@ -23,6 +23,43 @@ def q(prompt: str, answers: tuple[str, str, str], correct: int, explanation: str
     }
 
 
+def matching(prompt: str, pairs: tuple[tuple[str, str], ...], explanation: str) -> dict:
+    return {
+        "question": prompt,
+        "type": "matching",
+        "pairs": [{"left": left, "right": right} for left, right in pairs],
+        "explanation": explanation,
+    }
+
+
+def ordering(prompt: str, items: tuple[str, ...], explanation: str) -> dict:
+    return {
+        "question": prompt,
+        "type": "ordering",
+        "items": list(items),
+        "explanation": explanation,
+    }
+
+
+def cloze(
+    question: str,
+    prompt: str,
+    answers: tuple[str, str, str],
+    correct: int,
+    explanation: str,
+) -> dict:
+    return {
+        "question": question,
+        "type": "cloze",
+        "prompt": prompt,
+        "answers": [
+            {"text": text, "correct": index == correct}
+            for index, text in enumerate(answers)
+        ],
+        "explanation": explanation,
+    }
+
+
 CHAPTERS = [
     [
         q("Почему Григорий называет управление душами искусством из искусств?", ("Оно требует знания веры, опыта и ответственной подготовки", "Оно позволяет пастырю единолично решать духовную судьбу человека", "Оно ценится выше всех остальных обычных человеческих профессий"), 0, "Душевные раны часто скрыты, а неверное руководство способно причинить глубокий вред. Поэтому одного желания учить недостаточно: нужны церковное призвание, знание, зрелость и проверенная жизнь."),
@@ -87,6 +124,43 @@ CHAPTERS = [
 ]
 
 
+# Mixed-задания проверяют пастырское рассуждение, а не форму ответа.
+CHAPTERS[5][0] = matching(
+    "Соотнесите способ обращения со словом и его возможный плод.",
+    (
+        ("Необдуманная речь", "вводит слушателя в заблуждение"),
+        ("Виновное молчание", "оставляет без нужного наставления"),
+        ("Рассудительное слово", "служит правде и исцелению"),
+    ),
+    "Григорий требует различать не только содержание, но и время слова. Пастырская верность исключает и поспешную речь, и молчание, которым человек избегает необходимой ответственности.",
+)
+CHAPTERS[6][1] = matching(
+    "Соотнесите стороны пастырского служения с их действием.",
+    (
+        ("Сострадание", "разделяет бремя ближнего"),
+        ("Молитва", "приносит человеческую боль Богу"),
+        ("Рассуждение", "сохраняет помощь трезвой и посильной"),
+    ),
+    "Пастырь не выбирает между молитвой и участием. Обращение к Богу очищает помощь от суеты, а встреча с человеческой болью не позволяет молитве стать бегством от ближнего.",
+)
+CHAPTERS[9][0] = cloze(
+    "Чем должно питаться пастырское наставление?",
+    "Пастырское слово питается Божиим откровением в Священном ___.",
+    ("Писании", "служении", "рассуждении"),
+    0,
+    "Писание формирует ум и сердце пастыря внутри жизни Церкви. Оно не является сборником готовых реплик: текст требует контекста, Предания, молитвы и внимания к человеку.",
+)
+CHAPTERS[11][2] = ordering(
+    "Расположите путь проповеди делом и словом в смысловом порядке.",
+    (
+        "Услышать евангельское требование самому",
+        "Стараться воплощать его в собственной жизни",
+        "Свидетельствовать о нём словом и примером",
+    ),
+    "Пастырь остаётся учеником Христа и не ставит себя над проповедью. Он принимает слово, старается жить по нему и зовёт других не к себе, а на тот же евангельский путь.",
+)
+
+
 def main() -> None:
     if len(CHAPTERS) != 12 or any(len(chapter) != 3 for chapter in CHAPTERS):
         raise SystemExit("Требуется 12 глав по три вопроса")
@@ -97,9 +171,12 @@ def main() -> None:
             for index, questions in enumerate(CHAPTERS, start=1)
         ],
     }
+    rendered = json.dumps(data, ensure_ascii=False, indent=2) + "\n"
+    draft = ROOT / "content_tests" / "drafts" / f"{BOOK_ID}_01_12.json"
     target = ROOT / "content_tests" / f"{BOOK_ID}.json"
-    target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(target)
+    draft.write_text(rendered, encoding="utf-8")
+    target.write_text(rendered, encoding="utf-8")
+    print(f"{draft.name}: chapters=12 questions=36")
 
 
 if __name__ == "__main__":

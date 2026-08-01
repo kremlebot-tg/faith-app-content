@@ -64,6 +64,34 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def validate_question(question: dict[str, Any], location: str) -> None:
+    kind = question.get("type", "choice")
+    if not str(question.get("question", "")).strip():
+        raise ValueError(f"{location}: нет вопроса")
+    if not str(question.get("explanation", "")).strip():
+        raise ValueError(f"{location}: нет объяснения")
+    if kind in {"choice", "cloze"}:
+        answers = question.get("answers")
+        if not isinstance(answers, list) or len(answers) != 3:
+            raise ValueError(f"{location}: требуется три ответа")
+        if sum(answer.get("correct") is True for answer in answers) != 1:
+            raise ValueError(f"{location}: неверное число ключей")
+        if kind == "cloze" and str(question.get("prompt", "")).count("___") != 1:
+            raise ValueError(f"{location}: cloze требует один маркер ___")
+        return
+    if kind == "matching":
+        pairs = question.get("pairs")
+        if not isinstance(pairs, list) or len(pairs) != 3:
+            raise ValueError(f"{location}: matching требует три пары")
+        return
+    if kind == "ordering":
+        items = question.get("items")
+        if not isinstance(items, list) or not 3 <= len(items) <= 5:
+            raise ValueError(f"{location}: ordering требует от трёх до пяти элементов")
+        return
+    raise ValueError(f"{location}: неизвестный тип {kind!r}")
+
+
 def load_drafts(
     drafts_dir: Path,
     book_id: str,
@@ -88,19 +116,7 @@ def load_drafts(
             if not isinstance(questions, list) or len(questions) != 3:
                 raise ValueError(f"Глава {number}: требуется ровно три вопроса")
             for index, question in enumerate(questions, start=1):
-                answers = question.get("answers")
-                if not isinstance(answers, list) or len(answers) != 3:
-                    raise ValueError(
-                        f"Глава {number}, вопрос {index}: требуется три ответа"
-                    )
-                if sum(answer.get("correct") is True for answer in answers) != 1:
-                    raise ValueError(
-                        f"Глава {number}, вопрос {index}: неверное число ключей"
-                    )
-                if not str(question.get("explanation", "")).strip():
-                    raise ValueError(
-                        f"Глава {number}, вопрос {index}: нет объяснения"
-                    )
+                validate_question(question, f"Глава {number}, вопрос {index}")
             tests[number] = questions
 
     if set(tests) != expected_numbers:
@@ -195,25 +211,40 @@ def render_chunk(
             ]
         )
         for question_index, question in enumerate(tests[number], start=1):
-            correct_index = next(
-                index
-                for index, answer in enumerate(question["answers"])
-                if answer["correct"] is True
-            )
+            kind = question.get("type", "choice")
             lines.extend(
                 [
                     f"### {chapter_id}.{question_index}",
+                    "",
+                    f"**Тип:** {kind}",
                     "",
                     f"**Вопрос:** {question['question']}",
                     "",
                 ]
             )
-            for answer_index, answer in enumerate(question["answers"]):
-                lines.append(f"- {answer_label(answer_index)}. {answer['text']}")
+            if kind in {"choice", "cloze"}:
+                if kind == "cloze":
+                    lines.extend([f"**Фраза:** {question['prompt']}", ""])
+                correct_index = next(
+                    index
+                    for index, answer in enumerate(question["answers"])
+                    if answer["correct"] is True
+                )
+                for answer_index, answer in enumerate(question["answers"]):
+                    lines.append(f"- {answer_label(answer_index)}. {answer['text']}")
+                key = answer_label(correct_index)
+            elif kind == "matching":
+                for pair_index, pair in enumerate(question["pairs"], start=1):
+                    lines.append(f"- {pair_index}. {pair['left']} ↔ {pair['right']}")
+                key = "пары приведены в правильном соответствии"
+            else:
+                for item_index, item in enumerate(question["items"], start=1):
+                    lines.append(f"- {item_index}. {item}")
+                key = "элементы приведены в правильном порядке"
             lines.extend(
                 [
                     "",
-                    f"**Ключ:** {answer_label(correct_index)}",
+                    f"**Ключ:** {key}",
                     "",
                     f"**Объяснение:** {question['explanation']}",
                     "",
