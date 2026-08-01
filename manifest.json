@@ -275,6 +275,19 @@
       "sha256": "fc98586cced4beaa2eaa02b6cf0e678a96e540b69cda9cf84ccd70f103eef5a8"
     },
     {
+      "id": "tihon_zadonskij_duhovnye_obrazy",
+      "author": "Тихон Задонский",
+      "work": "Избранные духовные образы",
+      "century": "XVIII",
+      "place": "Задонск",
+      "chapters_count": 12,
+      "chapter_label": "Образ",
+      "size_bytes": 171914,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.18.0/tihon_zadonskij_duhovnye_obrazy.json",
+      "sha256": "a4e5541c1f6bba3a4bd2ae2e05851f30ab84fce7e62817f4ad511ad60649eca8"
+    },
+    {
       "id": "feofan_put_ko_spaseniyu",
       "author": "Феофан Затворник",
       "work": "Путь ко спасению",
