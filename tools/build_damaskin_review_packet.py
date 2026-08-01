@@ -212,16 +212,10 @@ def render_chunk(
         )
         for question_index, question in enumerate(tests[number], start=1):
             kind = question.get("type", "choice")
-            lines.extend(
-                [
-                    f"### {chapter_id}.{question_index}",
-                    "",
-                    f"**Тип:** {kind}",
-                    "",
-                    f"**Вопрос:** {question['question']}",
-                    "",
-                ]
-            )
+            lines.extend([f"### {chapter_id}.{question_index}", ""])
+            if kind != "choice":
+                lines.extend([f"**Тип:** {kind}", ""])
+            lines.extend([f"**Вопрос:** {question['question']}", ""])
             if kind in {"choice", "cloze"}:
                 if kind == "cloze":
                     lines.extend([f"**Фраза:** {question['prompt']}", ""])
