@@ -95,6 +95,13 @@ COVERAGE = (
         ),
     ),
     ReviewCoverage(
+        "grigorij_bogoslov_pyat_slov",
+        "ГБ",
+        "опубликованы",
+        15,
+        ("reviews/early_fathers/09_gregory_theology.md",),
+    ),
+    ReviewCoverage(
         "avva_dorofey",
         "Д",
         "опубликованы",

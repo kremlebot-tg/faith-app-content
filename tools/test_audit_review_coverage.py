@@ -10,13 +10,13 @@ class ReviewCoverageAuditTest(unittest.TestCase):
     def test_repository_has_complete_review_packet_coverage(self) -> None:
         result = review.audit(review.ROOT)
 
-        self.assertEqual(len(result), 13)
-        self.assertEqual(sum(value[0] for value in result.values()), 1365)
-        self.assertEqual(sum(value[1] for value in result.values()), 1365)
+        self.assertEqual(len(result), 14)
+        self.assertEqual(sum(value[0] for value in result.values()), 1380)
+        self.assertEqual(sum(value[1] for value in result.values()), 1380)
         registry = review.render_registry(review.ROOT, "a" * 40)
-        self.assertIn("1365\nопубликованный вопрос", registry)
+        self.assertIn("1380\nопубликованный вопрос", registry)
         self.assertIn("0 вопросов в черновиках", registry)
-        self.assertEqual(registry.count("| ожидается |"), 13)
+        self.assertEqual(registry.count("| ожидается |"), 14)
 
     def test_detects_packet_with_missing_verdict(self) -> None:
         entry = review.COVERAGE[0]

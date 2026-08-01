@@ -94,6 +94,19 @@
       "sha256": "96ef56a5f5b7a28b2a9fd90e76230ba647f18d11ac4fa040afcf0616240b84e9"
     },
     {
+      "id": "grigorij_bogoslov_pyat_slov",
+      "author": "Григорий Богослов",
+      "work": "Пять слов о богословии",
+      "century": "IV",
+      "place": "Константинополь",
+      "chapters_count": 5,
+      "chapter_label": "Слово",
+      "size_bytes": 374934,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.8.0/grigorij_bogoslov_pyat_slov.json",
+      "sha256": "4db2086f6f5c602cf17b3161c4efe5884a7ac998aa961155f2aa6d34e91275ec"
+    },
+    {
       "id": "avva_dorofey",
       "author": "Авва Дорофей",
       "work": "Душеполезные поучения",
