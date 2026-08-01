@@ -140,10 +140,10 @@
       "place": "Эдесса",
       "chapters_count": 12,
       "chapter_label": "Слово",
-      "size_bytes": 322120,
+      "size_bytes": 321368,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.10.0/efrem_sirin_izbrannye_slova.json",
-      "sha256": "558adcf2f1947898059dd4f4f75ca105b8053d704193dbfa46a96a99515d6f6a"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.2/efrem_sirin_izbrannye_slova.json",
+      "sha256": "0997becab1c94b5e06963d9163d21be135355b95ecc5f406c8a16b4cf21f1c3b"
     },
     {
       "id": "isaak_sirin_miloserdie_i_rassuzhdenie",
@@ -153,10 +153,10 @@
       "place": "Ниневия и Катар",
       "chapters_count": 12,
       "chapter_label": "Слово",
-      "size_bytes": 227712,
+      "size_bytes": 226989,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.11.0/isaak_sirin_miloserdie_i_rassuzhdenie.json",
-      "sha256": "b0e5776fb01590117884c3fcfb7a0fe63726661ad52d4920fd3fea18db72fda1"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.2/isaak_sirin_miloserdie_i_rassuzhdenie.json",
+      "sha256": "c5bb30a48cf7b3ae1835efccb66374c2718b054eacd9f39021d5cf45d3483d3b"
     },
     {
       "id": "ioann_kassian_pervye_desjat_sobesedovanij",
@@ -243,10 +243,10 @@
       "place": "Фессалоники",
       "chapters_count": 7,
       "chapter_label": "Слово",
-      "size_bytes": 567804,
+      "size_bytes": 567111,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.14.0/nikolaj_kavasila_sem_slov.json",
-      "sha256": "711f69e048086df4da6ca19f3ce792d17d9e0243e36d76231c93c83324e42151"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.2/nikolaj_kavasila_sem_slov.json",
+      "sha256": "ed33b957b0eebc0deed71b55496c8e96eb5cc40b256dfad0f305695c27730669"
     },
     {
       "id": "amvrosij_optinskij_pisma_mirjanam",
@@ -256,10 +256,10 @@
       "place": "Оптина пустынь",
       "chapters_count": 12,
       "chapter_label": "Письмо",
-      "size_bytes": 90402,
+      "size_bytes": 89817,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.16.0/amvrosij_optinskij_pisma_mirjanam.json",
-      "sha256": "0e07929bff17e6aaecde1d0306858efc5b7ad8db5ff41653ba0852620fd5422d"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.2/amvrosij_optinskij_pisma_mirjanam.json",
+      "sha256": "7ebe7f9918da2bbd0e71aed8a32173a662b93ef1be9ff573d17e1b5c2ec9034b"
     },
     {
       "id": "amvrosij_optinskij_pisma_o_seme",
