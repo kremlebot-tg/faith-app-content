@@ -102,6 +102,18 @@ COVERAGE = (
         ("reviews/early_fathers/09_gregory_theology.md",),
     ),
     ReviewCoverage(
+        "grigorij_nisskij_bolshoe_oglasitelnoe",
+        "ГН",
+        "опубликованы",
+        120,
+        (
+            "reviews/early_fathers/10_gregory_nyssa_001_010.md",
+            "reviews/early_fathers/11_gregory_nyssa_011_020.md",
+            "reviews/early_fathers/12_gregory_nyssa_021_030.md",
+            "reviews/early_fathers/13_gregory_nyssa_031_040.md",
+        ),
+    ),
+    ReviewCoverage(
         "avva_dorofey",
         "Д",
         "опубликованы",

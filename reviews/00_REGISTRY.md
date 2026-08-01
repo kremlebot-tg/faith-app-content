@@ -1,7 +1,7 @@
-<!-- review-coverage-registry: content=d52b4b811b69eec725d18b096a23556cf764e52b -->
+<!-- review-coverage-registry: content=36a7d72 -->
 # Реестр богословской рецензии тестов
 
-Реестр охватывает все 14 книг из `manifest.json`: 1380
+Реестр охватывает все 15 книг из `manifest.json`: 1500
 опубликованный вопрос и 0 вопросов в черновиках. Для каждого вопроса
 существует стабильный ID и отдельное поле вердикта.
 
@@ -9,8 +9,8 @@
 богословски грамотного человека не зафиксирован в репозитории, статус
 человеческой рецензии остаётся «ожидается».
 
-- Входной commit: `d52b4b811b69eec725d18b096a23556cf764e52b`
-- Всего подготовлено к проверке: 1380 вопросов.
+- Входной commit: `36a7d72`
+- Всего подготовлено к проверке: 1500 вопросов.
 
 | Книга | Статус тестов | Вопросы | Пакет | Человеческая рецензия |
 |---|---|---:|---|---|
@@ -22,6 +22,7 @@
 | Кирилл Иерусалимский · «Огласительные и тайноводственные поучения» | опубликованы | 72 | [01_chapters_001_012.md](kirill_ierusalimskij/01_chapters_001_012.md)<br>[02_chapters_013_024.md](kirill_ierusalimskij/02_chapters_013_024.md) | ожидается |
 | Василий Великий · «О Святом Духе» | опубликованы | 90 | [07_basil_spirit_001_015.md](early_fathers/07_basil_spirit_001_015.md)<br>[08_basil_spirit_016_030.md](early_fathers/08_basil_spirit_016_030.md) | ожидается |
 | Григорий Богослов · «Пять слов о богословии» | опубликованы | 15 | [09_gregory_theology.md](early_fathers/09_gregory_theology.md) | ожидается |
+| Григорий Нисский · «Большое огласительное слово» | опубликованы | 120 | [10_gregory_nyssa_001_010.md](early_fathers/10_gregory_nyssa_001_010.md)<br>[11_gregory_nyssa_011_020.md](early_fathers/11_gregory_nyssa_011_020.md)<br>[12_gregory_nyssa_021_030.md](early_fathers/12_gregory_nyssa_021_030.md)<br>[13_gregory_nyssa_031_040.md](early_fathers/13_gregory_nyssa_031_040.md) | ожидается |
 | Авва Дорофей · «Душеполезные поучения» | опубликованы | 63 | [03_avva_dorofey.md](v1.3.1/03_avva_dorofey.md) | ожидается |
 | Иоанн Лествичник · «Лествица» | опубликованы | 90 | [01_lestvitsa.md](v1.3.1/01_lestvitsa.md) | ожидается |
 | Иоанн Дамаскин · «Точное изложение православной веры» | опубликованы | 300 | [01_chapters_001_025.md](ioann_damaskin/01_chapters_001_025.md)<br>[02_chapters_026_050.md](ioann_damaskin/02_chapters_026_050.md)<br>[03_chapters_051_075.md](ioann_damaskin/03_chapters_051_075.md)<br>[04_chapters_076_100.md](ioann_damaskin/04_chapters_076_100.md) | ожидается |
