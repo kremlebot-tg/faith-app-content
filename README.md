@@ -95,6 +95,8 @@ python3 tools/audit_draft_tests.py \
   content_tests/drafts/vasilij_o_svjatom_duhe_01_10.json
 python3 tools/audit_draft_tests.py \
   content_tests/drafts/vasilij_o_svjatom_duhe_11_20.json
+python3 tools/audit_draft_tests.py \
+  content_tests/drafts/vasilij_o_svjatom_duhe_21_30.json
 python3 tools/audit_draft_corpus.py
 ```
 

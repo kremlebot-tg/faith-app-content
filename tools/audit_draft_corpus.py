@@ -35,9 +35,8 @@ CORPORA = (
     DraftCorpus("kirill_ierusalimskij_oglasitelnye", 24, 72),
     DraftCorpus(
         "vasilij_o_svjatom_duhe",
-        20,
-        60,
-        tuple(range(1, 21)),
+        30,
+        90,
     ),
 )
 
