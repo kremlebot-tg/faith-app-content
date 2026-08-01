@@ -68,6 +68,19 @@
       "sha256": "2ee587c159b3542ab745d896c6ee6970f24586c4861836add8a0d1a891cbd442"
     },
     {
+      "id": "ioann_zlatoust_stagiriju",
+      "author": "Иоанн Златоуст",
+      "work": "К Стагирию подвижнику",
+      "century": "IV",
+      "place": "Антиохия",
+      "chapters_count": 3,
+      "chapter_label": "Слово",
+      "size_bytes": 395155,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.15.0/ioann_zlatoust_stagiriju.json",
+      "sha256": "c6f24cde344ed8ac6fb5c938b88e382f2a950573aaa365c32949f185a1609611"
+    },
+    {
       "id": "kirill_ierusalimskij_oglasitelnye",
       "author": "Кирилл Иерусалимский",
       "work": "Огласительные и тайноводственные поучения",
