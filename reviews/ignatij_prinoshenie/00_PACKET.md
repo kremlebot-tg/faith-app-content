@@ -1,4 +1,4 @@
-<!-- ignatius-review-packet: content=cb65a09c7ef4adb11001b7f2c962d7cbb6a5f60a -->
+<!-- ignatius-review-packet: content=1ae21f27dad0365c5686dea65ffda59ea4d761fa -->
 # Богословская рецензия тестов к книге «Приношение современному монашеству»
 
 Пакет фиксирует полный комплект: 60 глав и 180
@@ -8,9 +8,9 @@
 предпроверки. Специализированная человеческая рецензия продолжается; найденные
 замечания должны выпускаться исправляющим обновлением.
 
-- Входной commit: `cb65a09c7ef4adb11001b7f2c962d7cbb6a5f60a`
-- SHA-256 книги: `982312c60a4c10fca3a22d949126ed4ad67ec8cdc1499a430e385d26256c61ff`
-- SHA-256 комплекта черновиков: `948ad391dade955f438592dea0b95d827e5d0f6afae9bbb4dc919e03b6c25bbc`
+- Входной commit: `1ae21f27dad0365c5686dea65ffda59ea4d761fa`
+- SHA-256 книги: `7c2ed54408ceebc9a50a02dfa729783c99a133ed93d3a5d5fb5e318dea3aafc3`
+- SHA-256 комплекта черновиков: `698103a440f0208f31b0b6a4d364a9183ebff58a20759dbda4e9e39b1cf0fd9f`
 - Источник: [https://azbyka.ru/otechnik/Ignatij_Brjanchaninov/prinoshenie-sovremennomu-monashestvu/](https://azbyka.ru/otechnik/Ignatij_Brjanchaninov/prinoshenie-sovremennomu-monashestvu/)
 - Редакторские предостережения: [00_README.md](00_README.md)
 
@@ -37,7 +37,7 @@
 сообщения. Формат одного замечания:
 
 ```text
-Версия: content cb65a09
+Версия: content 1ae21f2
 Проверенный блок: ИП001–ИП015
 ID: ИП021.2
 Уровень: BLOCKER / MAJOR / MINOR / STYLE
