@@ -93,6 +93,9 @@ python3 tools/audit_draft_tests.py \
 python3 tools/build_basil_spirit_drafts.py
 python3 tools/audit_draft_tests.py \
   content_tests/drafts/vasilij_o_svjatom_duhe_01_10.json
+python3 tools/audit_draft_tests.py \
+  content_tests/drafts/vasilij_o_svjatom_duhe_11_20.json
+python3 tools/audit_draft_corpus.py
 ```
 
 После завершения всех партий сквозной аудит проверяет полный корпус: покрытие

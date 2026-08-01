@@ -26,12 +26,19 @@ class DraftCorpus:
     book_id: str
     chapter_count: int
     question_count: int
+    chapter_numbers: tuple[int, ...] | None = None
 
 
 CORPORA = (
     DraftCorpus("ioann_damaskin", 100, 300),
     DraftCorpus("ignatij_prinoshenie", 60, 180),
     DraftCorpus("kirill_ierusalimskij_oglasitelnye", 24, 72),
+    DraftCorpus(
+        "vasilij_o_svjatom_duhe",
+        20,
+        60,
+        tuple(range(1, 21)),
+    ),
 )
 
 
@@ -97,6 +104,8 @@ def audit_corpus(
         int(chapter["number"])
         for chapter in book.get("chapters", [])
     }
+    if corpus.chapter_numbers is not None:
+        expected_chapters = set(corpus.chapter_numbers)
 
     seen_chapters: dict[int, str] = {}
     seen_prompts: dict[str, str] = {}
