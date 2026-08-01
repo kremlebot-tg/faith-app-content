@@ -8,7 +8,7 @@ from tools.clean_feofan_put import clean_book, marker_matches
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLISHED_DIGEST = "bb70c415b7c64a3b17d76fb84f72c62a2e83e145a7d3c5e449e8b147df5809c1"
+PUBLISHED_DIGEST = "326d58a67bb3966a4ed66c7e215fb0e0acf6da2b21e156d595d469ded54e12a0"
 
 
 class CleanFeofanPutTest(unittest.TestCase):

@@ -73,7 +73,7 @@ class MarkFeofanSectionTest(unittest.TestCase):
         )
         self.assertEqual(
             hashlib.sha256(raw).hexdigest(),
-            "bb70c415b7c64a3b17d76fb84f72c62a2e83e145a7d3c5e449e8b147df5809c1",
+            "326d58a67bb3966a4ed66c7e215fb0e0acf6da2b21e156d595d469ded54e12a0",
         )
 
 

@@ -8,7 +8,7 @@ from tools.clean_feofan_dukhovnaja import MARKER_RE, clean_book
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLISHED_DIGEST = "cb3b548e801894701231320843bd3f416b00aaf891b9a074714a6a983bb04a3b"
+PUBLISHED_DIGEST = "7d839513f731fdab4f9ed8409084571faa033ee335be5d534219b41fcd2f3ff0"
 
 
 class CleanFeofanDukhovnajaTest(unittest.TestCase):

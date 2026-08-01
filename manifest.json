@@ -217,10 +217,10 @@
       "place": "Синай",
       "chapters_count": 30,
       "chapter_label": "Степень",
-      "size_bytes": 993468,
+      "size_bytes": 992621,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/ioann_lestvichnik.json",
-      "sha256": "9ad2a9dc8ae357d959f8600e32675aa6e11782ca0c76675fe4807c7ec05b3954"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.7/ioann_lestvichnik.json",
+      "sha256": "cb4038134f5acd7f74b64b0c0d17c54819fe9371652411aa485cdfb591248635"
     },
     {
       "id": "ioann_damaskin",
@@ -337,10 +337,10 @@
         9
       ],
       "chapter_label": "Глава",
-      "size_bytes": 1086019,
+      "size_bytes": 1085223,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.3.5/feofan_put_ko_spaseniyu.json",
-      "sha256": "bb70c415b7c64a3b17d76fb84f72c62a2e83e145a7d3c5e449e8b147df5809c1"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.7/feofan_put_ko_spaseniyu.json",
+      "sha256": "326d58a67bb3966a4ed66c7e215fb0e0acf6da2b21e156d595d469ded54e12a0"
     },
     {
       "id": "feofan_dukhovnaja_zhizn",
@@ -350,10 +350,10 @@
       "place": "Россия",
       "chapters_count": 80,
       "chapter_label": "Письмо",
-      "size_bytes": 1109068,
+      "size_bytes": 1108411,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/feofan_dukhovnaja_zhizn.json",
-      "sha256": "cb3b548e801894701231320843bd3f416b00aaf891b9a074714a6a983bb04a3b"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.7/feofan_dukhovnaja_zhizn.json",
+      "sha256": "7d839513f731fdab4f9ed8409084571faa033ee335be5d534219b41fcd2f3ff0"
     },
     {
       "id": "ignatij_prinoshenie",
@@ -363,10 +363,10 @@
       "place": "Россия",
       "chapters_count": 60,
       "chapter_label": "Глава",
-      "size_bytes": 1869733,
+      "size_bytes": 1869192,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.4.0/ignatij_prinoshenie.json",
-      "sha256": "fade9b9e29607963cb6201c84e6f5e7ca494011715f6842b0c0d157308b30bb1"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.7/ignatij_prinoshenie.json",
+      "sha256": "7c2ed54408ceebc9a50a02dfa729783c99a133ed93d3a5d5fb5e318dea3aafc3"
     }
   ]
 }
