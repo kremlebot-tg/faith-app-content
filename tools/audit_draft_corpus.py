@@ -30,6 +30,7 @@ class DraftCorpus:
 
 
 CORPORA = (
+    DraftCorpus("isaak_sirin_miloserdie_i_rassuzhdenie", 12, 36),
     DraftCorpus("efrem_sirin_izbrannye_slova", 12, 36),
     DraftCorpus("grigorij_bogoslov_pyat_slov", 5, 15),
     DraftCorpus("grigorij_nisskij_bolshoe_oglasitelnoe", 40, 120),

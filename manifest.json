@@ -133,6 +133,19 @@
       "sha256": "558adcf2f1947898059dd4f4f75ca105b8053d704193dbfa46a96a99515d6f6a"
     },
     {
+      "id": "isaak_sirin_miloserdie_i_rassuzhdenie",
+      "author": "Исаак Сирин",
+      "work": "Избранные слова о милосердии и рассуждении",
+      "century": "VII",
+      "place": "Ниневия и Катар",
+      "chapters_count": 12,
+      "chapter_label": "Слово",
+      "size_bytes": 227712,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.11.0/isaak_sirin_miloserdie_i_rassuzhdenie.json",
+      "sha256": "b0e5776fb01590117884c3fcfb7a0fe63726661ad52d4920fd3fea18db72fda1"
+    },
+    {
       "id": "avva_dorofey",
       "author": "Авва Дорофей",
       "work": "Душеполезные поучения",

@@ -9,3 +9,4 @@ content_tests/drafts/*
 !content_tests/drafts/grigorij_bogoslov_pyat_slov_*.json
 !content_tests/drafts/grigorij_nisskij_bolshoe_oglasitelnoe_*.json
 !content_tests/drafts/efrem_sirin_izbrannye_slova_*.json
+!content_tests/drafts/isaak_sirin_miloserdie_i_rassuzhdenie_*.json
