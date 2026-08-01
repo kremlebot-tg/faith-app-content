@@ -314,6 +314,19 @@
       "sha256": "ca6fc24abbf99803f1bfae6c5ad2ebe31b89bea943452f049310a691afeaf13d"
     },
     {
+      "id": "grigorij_dvoeslov_izbrannye_glavy_o_pastyrstve",
+      "author": "Григорий Великий (Двоеслов)",
+      "work": "Избранные главы о пастырстве",
+      "century": "VI",
+      "place": "Рим",
+      "chapters_count": 12,
+      "chapter_label": "Глава",
+      "size_bytes": 190313,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.0/grigorij_dvoeslov_izbrannye_glavy_o_pastyrstve.json",
+      "sha256": "17c34ab4aa169bb33506f0e82301e3a2f7daa945aa8f91b174de8c57657cefbf"
+    },
+    {
       "id": "feofan_put_ko_spaseniyu",
       "author": "Феофан Затворник",
       "work": "Путь ко спасению",

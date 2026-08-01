@@ -37,6 +37,13 @@ class ReviewCoverage:
 
 COVERAGE = (
     ReviewCoverage(
+        "grigorij_dvoeslov_izbrannye_glavy_o_pastyrstve",
+        "ГД",
+        "опубликованы",
+        36,
+        ("reviews/early_fathers/29_gregory_pastoral_rule.md",),
+    ),
+    ReviewCoverage(
         "dimitrij_rostovskij_izbrannye_pouchenija",
         "ДР",
         "опубликованы",
