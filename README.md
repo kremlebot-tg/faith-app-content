@@ -108,7 +108,18 @@ python3 tools/audit_draft_corpus.py
 python3 tools/audit_draft_corpus.py
 ```
 
-После публикации отдельный аудит повторяет эти проверки сразу для всех двенадцати
+Пять богословских слов святителя Григория Богослова воспроизводимо
+импортируются из издания 1912 года и проверяются одной полной партией:
+
+```sh
+python3 tools/import_patristic_books.py --book grigorij_bogoslov_pyat_slov
+python3 tools/build_gregory_theological_orations_draft.py
+python3 tools/audit_draft_tests.py \
+  content_tests/drafts/grigorij_bogoslov_pyat_slov_01_05.json
+python3 tools/audit_draft_corpus.py
+```
+
+После публикации отдельный аудит повторяет эти проверки сразу для всех 13
 книг. Он берёт объединённые файлы из `content_tests/`, а для встроенной книги
 аввы Дорофея — объединённый файл, собранный из зафиксированных редакционных
 партий:

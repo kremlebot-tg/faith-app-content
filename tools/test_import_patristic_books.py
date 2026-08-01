@@ -106,6 +106,36 @@ class ImportPatristicBooksTest(unittest.TestCase):
             self.assertEqual(updated["chapters"][0]["paragraphs"], ["Проверенный текст."])
             self.assertEqual(updated["chapters"][0]["test"], [{"question": "Вопрос?"}])
 
+    def test_numbered_pages_can_use_nonsequential_source_numbers(self) -> None:
+        config = {
+            "id": "sample",
+            "count": 2,
+            "url": "https://example.test/book",
+            "source_numbers": [27, 31],
+            "chapter_titles": ["Первое слово", "Пятое слово"],
+            "expected_notes": 0,
+        }
+        pages = {
+            "https://example.test/book/27": "<h1>Слово 27</h1><p>Текст 27.</p>",
+            "https://example.test/book/31": "<h1>Слово 31</h1><p>Текст 31.</p>",
+        }
+
+        with (
+            patch.object(importer, "fetch", side_effect=pages.__getitem__) as fetch,
+            patch.object(importer.time, "sleep"),
+        ):
+            chapters = importer.build_numbered_page_chapters(config)
+
+        self.assertEqual(
+            [call.args[0] for call in fetch.call_args_list],
+            list(pages),
+        )
+        self.assertEqual([chapter["number"] for chapter in chapters], [1, 2])
+        self.assertEqual(
+            [chapter["title"] for chapter in chapters],
+            ["Первое слово", "Пятое слово"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -60,6 +60,38 @@ TEXT_REPLACEMENTS = {
 
 
 BOOKS: dict[str, dict[str, Any]] = {
+    "grigorij_bogoslov_pyat_slov": {
+        "id": "grigorij_bogoslov_pyat_slov",
+        "author": "Григорий Богослов",
+        "work": "Пять слов о богословии",
+        "century": "IV",
+        "place": "Константинополь",
+        "chapter_label": "Слово",
+        "mode": "numbered_pages",
+        "count": 5,
+        "expected_notes": 19,
+        "source_numbers": [27, 28, 29, 30, 31],
+        "url": "https://azbyka.ru/otechnik/Grigorij_Bogoslov/slovo",
+        "chapter_titles": [
+            "О мере и благоговении в богословии",
+            "О непостижимости Бога и путях богопознания",
+            "О Боге Сыне: вечное рождение",
+            "О Боге Сыне: язык Писания о Христе",
+            "О Святом Духе",
+        ],
+        "translator": "Перевод Московской духовной академии",
+        "source_edition": (
+            "Творения иже во святых отца нашего Григория Богослова, "
+            "архиепископа Константинопольского. Т. 1. "
+            "Санкт-Петербург: издание П. П. Сойкина, 1912. С. 17–680."
+        ),
+        "editorial_note": (
+            "Пять слов произнесены в Константинополе в период споров с "
+            "евномианами и другими арианствующими течениями. Резкая "
+            "полемическая речь сохранена как часть первоисточника; она не "
+            "является образцом общения с современным собеседником."
+        ),
+    },
     "vasilij_o_svjatom_duhe": {
         "id": "vasilij_o_svjatom_duhe",
         "author": "Василий Великий",
@@ -439,9 +471,15 @@ def build_heading_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
 def build_numbered_page_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
     chapters: list[dict[str, Any]] = []
     note_count = 0
-    for number in range(1, config["count"] + 1):
+    source_numbers = config.get(
+        "source_numbers",
+        list(range(1, config["count"] + 1)),
+    )
+    if len(source_numbers) != config["count"]:
+        raise ValueError(f'{config["id"]}: неверное число исходных страниц')
+    for number, source_number in enumerate(source_numbers, start=1):
         page_title, raw_elements, note_texts = ordered_elements(
-            fetch(f'{config["url"]}/{number}')
+            fetch(f'{config["url"]}/{source_number}')
         )
         elements = strip_note_section(raw_elements)
         title = re.sub(config.get("title_strip", ""), "", page_title).strip()
@@ -472,6 +510,15 @@ def build_numbered_page_chapters(config: dict[str, Any]) -> list[dict[str, Any]]
             chapter["notes"] = notes
         chapters.append(chapter)
         time.sleep(0.25)
+    chapter_titles = config.get("chapter_titles")
+    if chapter_titles:
+        if len(chapter_titles) != len(chapters):
+            raise ValueError(
+                f'{config["id"]}: число редакционных заголовков не совпадает '
+                f'с числом глав'
+            )
+        for chapter, title in zip(chapters, chapter_titles):
+            chapter["title"] = title
     if note_count != config.get("expected_notes", note_count):
         raise ValueError(
             f'{config["id"]}: ожидалось примечаний {config["expected_notes"]}, '
