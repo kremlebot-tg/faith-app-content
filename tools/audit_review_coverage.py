@@ -37,6 +37,20 @@ class ReviewCoverage:
 
 COVERAGE = (
     ReviewCoverage(
+        "ioann_kassian_sobesedovanija_11_17",
+        "ИКВ",
+        "опубликованы",
+        21,
+        ("reviews/early_fathers/20_cassian_011_017.md",),
+    ),
+    ReviewCoverage(
+        "ioann_kassian_sobesedovanija_18_24",
+        "ИКТ",
+        "опубликованы",
+        21,
+        ("reviews/early_fathers/21_cassian_018_024.md",),
+    ),
+    ReviewCoverage(
         "ioann_kassian_pervye_desjat_sobesedovanij",
         "ИК",
         "опубликованы",

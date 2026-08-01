@@ -11,3 +11,5 @@ content_tests/drafts/*
 !content_tests/drafts/efrem_sirin_izbrannye_slova_*.json
 !content_tests/drafts/isaak_sirin_miloserdie_i_rassuzhdenie_*.json
 !content_tests/drafts/ioann_kassian_pervye_desjat_sobesedovanij_*.json
+!content_tests/drafts/ioann_kassian_sobesedovanija_11_17_*.json
+!content_tests/drafts/ioann_kassian_sobesedovanija_18_24_*.json
