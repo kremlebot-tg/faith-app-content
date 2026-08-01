@@ -85,9 +85,8 @@ python3 tools/audit_draft_tests.py \
   content_tests/drafts/feofan_dukhovnaja_zhizn_01_10.json
 ```
 
-Следующее расширение каталога, трактат святителя Василия Великого «О Святом
-Духе», готовится тем же способом и не включается в `manifest.json` до полного
-покрытия всех 30 глав:
+Трактат святителя Василия Великого «О Святом Духе» собирается тем же способом
+из трёх редакционных партий:
 
 ```sh
 python3 tools/build_basil_spirit_drafts.py
@@ -97,6 +96,18 @@ python3 tools/audit_draft_tests.py \
   content_tests/drafts/vasilij_o_svjatom_duhe_11_20.json
 python3 tools/audit_draft_tests.py \
   content_tests/drafts/vasilij_o_svjatom_duhe_21_30.json
+python3 tools/audit_draft_corpus.py
+```
+
+«Большое огласительное слово» святителя Григория Нисского разделено на четыре
+партии по десять глав. Особого человеческого внимания требуют главы 22–26:
+древние образы выкупа и «приманки» нельзя превращать в исчерпывающую теорию
+Искупления, а мнение о неизбежном спасении всех не является догматом Церкви.
+
+```sh
+python3 tools/import_patristic_books.py \
+  --book grigorij_nisskij_bolshoe_oglasitelnoe
+python3 tools/build_gregory_nyssa_catechetical_drafts.py
 python3 tools/audit_draft_corpus.py
 ```
 
@@ -119,7 +130,7 @@ python3 tools/audit_draft_tests.py \
 python3 tools/audit_draft_corpus.py
 ```
 
-После публикации отдельный аудит повторяет эти проверки сразу для всех 14
+После публикации отдельный аудит повторяет эти проверки сразу для всех 15
 книг. Он берёт объединённые файлы из `content_tests/`, а для встроенной книги
 аввы Дорофея — объединённый файл, собранный из зафиксированных редакционных
 партий:

@@ -107,6 +107,19 @@
       "sha256": "4db2086f6f5c602cf17b3161c4efe5884a7ac998aa961155f2aa6d34e91275ec"
     },
     {
+      "id": "grigorij_nisskij_bolshoe_oglasitelnoe",
+      "author": "Григорий Нисский",
+      "work": "Большое огласительное слово",
+      "century": "IV",
+      "place": "Нисса, Каппадокия",
+      "chapters_count": 40,
+      "chapter_label": "Глава",
+      "size_bytes": 366917,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.9.0/grigorij_nisskij_bolshoe_oglasitelnoe.json",
+      "sha256": "ed58b2a0ea65ad203f30a22d18da625a4f313122656a20d5078278e2fdd906c7"
+    },
+    {
       "id": "avva_dorofey",
       "author": "Авва Дорофей",
       "work": "Душеполезные поучения",
