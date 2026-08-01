@@ -1,7 +1,7 @@
 # Слово о воплощении Бога-Слова · главы 1–9
 
 - Автор: Афанасий Великий
-- Входной commit: `9f225e0be071b0f325095c8129ca91fd36a7b309`
+- Входной commit: `dfc1930793d98ec7fb00653b4d0a3bcbff058a88`
 - SHA-256 книги: `7156752f8b1fa5068a6d5aa669797f060a55de6be4bf8545ddfdcfd6a8c92af5`
 - SHA-256 редакционного файла тестов: `9c6d252365a64203f350c86acc7d254f9f0acc1d4e825e77c40a0ae78d05f224`
 - Источник: [https://azbyka.ru/otechnik/Afanasij_Velikij/slovo-o-voploshhenii-boga-slova-i-o-prishestvii-ego-k-nam-vo-ploti](https://azbyka.ru/otechnik/Afanasij_Velikij/slovo-o-voploshhenii-boga-slova-i-o-prishestvii-ego-k-nam-vo-ploti)

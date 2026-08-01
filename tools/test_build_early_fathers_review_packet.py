@@ -24,15 +24,17 @@ class EarlyFathersReviewPacketTest(unittest.TestCase):
                 "06_zlatoust_bytie.md",
                 "07_basil_spirit_001_015.md",
                 "08_basil_spirit_016_030.md",
+                "09_gregory_theology.md",
             },
         )
         body = "\n".join(rendered.values())
-        self.assertEqual(body.count("**Вердикт:**"), 336)
-        self.assertEqual(body.count("**Итог "), 112)
+        self.assertEqual(body.count("**Вердикт:**"), 351)
+        self.assertEqual(body.count("**Итог "), 117)
         self.assertIn("### АВ001.1", body)
         self.assertIn("### МБ050.3", body)
         self.assertIn("### ИЗ009.3", body)
         self.assertIn("### ВД030.3", body)
+        self.assertIn("### ГБ005.3", body)
         self.assertIn("епископу Севериану Габальскому", body)
         self.assertIn("Атрибуция этой беседы", rendered["04_zlatoust.md"])
 
