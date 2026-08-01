@@ -1,7 +1,7 @@
 # О священстве · слова 1–6
 
 - Автор: Иоанн Златоуст
-- Входной commit: `HEAD`
+- Входной commit: `3537228`
 - SHA-256 книги: `37618057f2c38c404146bc63f83cb8672db5337c7a9fc5e7fb094a79f3a7111b`
 - SHA-256 редакционного файла тестов: `59b2a50ecf8a68a9f7b1d28d6f28ed3297e217fc92993bce8a9c41e46289aff5`
 - Источник: [https://azbyka.ru/otechnik/Ioann_Zlatoust/o_svyashenstve/](https://azbyka.ru/otechnik/Ioann_Zlatoust/o_svyashenstve/)
