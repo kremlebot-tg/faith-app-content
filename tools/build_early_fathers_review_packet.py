@@ -118,6 +118,11 @@ GENESIS_RISKS = {
     for number in range(1, 9)
 }
 
+BASIL_SPIRIT_RISKS = {
+    number: ("учение о Святом Духе, тринитарная терминология и историческая полемика",)
+    for number in range(1, 31)
+}
+
 
 CONFIGS = (
     ReviewConfig(
@@ -173,6 +178,24 @@ CONFIGS = (
         8,
         "слова",
         GENESIS_RISKS,
+    ),
+    ReviewConfig(
+        "vasilij_o_svjatom_duhe",
+        "ВД",
+        "07_basil_spirit_001_015.md",
+        1,
+        15,
+        "главы",
+        BASIL_SPIRIT_RISKS,
+    ),
+    ReviewConfig(
+        "vasilij_o_svjatom_duhe",
+        "ВД",
+        "08_basil_spirit_016_030.md",
+        16,
+        30,
+        "главы",
+        BASIL_SPIRIT_RISKS,
     ),
 )
 
@@ -231,6 +254,7 @@ def render_index(
         "ioann_zlatoust_pokajanie",
         "ioann_zlatoust_svjashhenstvo",
         "ioann_zlatoust_bytie",
+        "vasilij_o_svjatom_duhe",
     ):
         book = books[book_id]
         source_sha, tests_sha = hashes[book_id]
@@ -241,9 +265,9 @@ def render_index(
         )
     table = "\n".join(rows)
     return f"""<!-- early-fathers-review-packet: content={commit} -->
-# Богословская рецензия тестов к пяти книгам
+# Богословская рецензия тестов к шести книгам
 
-Пакет фиксирует 82 главы и 246 вопросов из подготовленных книг. Генератор
+Пакет фиксирует 112 глав и 336 вопросов из подготовленных книг. Генератор
 подтвердил полное совпадение встроенных и редакционных тестов.
 
 - Входной commit: `{commit}`
@@ -264,6 +288,10 @@ def render_index(
   Иоанн Златоуст, слова о священстве 1–6.
 - [06_zlatoust_bytie.md](06_zlatoust_bytie.md) — святитель Иоанн Златоуст,
   слова на Книгу Бытия 1–8.
+- [07_basil_spirit_001_015.md](07_basil_spirit_001_015.md) — святитель
+  Василий Великий, главы 1–15 трактата «О Святом Духе».
+- [08_basil_spirit_016_030.md](08_basil_spirit_016_030.md) — святитель
+  Василий Великий, главы 16–30 трактата «О Святом Духе».
 
 ## Обязательные оговорки
 
@@ -289,7 +317,7 @@ def render_index(
 
 ```text
 Версия: content {commit[:7]}
-Проверенный блок: АВ001–АВ009 / МБ001–МБ025 / МБ026–МБ050 / ИЗ001–ИЗ009 / ИС001–ИС006 / ИБ001–ИБ008
+Проверенный блок: АВ001–АВ009 / МБ001–МБ025 / МБ026–МБ050 / ИЗ001–ИЗ009 / ИС001–ИС006 / ИБ001–ИБ008 / ВД001–ВД015 / ВД016–ВД030
 ID: МБ015.2
 Уровень: BLOCKER / MAJOR / MINOR / STYLE
 Поле: вопрос / ответ A–C / объяснение
