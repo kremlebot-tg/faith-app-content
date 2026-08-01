@@ -85,6 +85,16 @@ COVERAGE = (
         ),
     ),
     ReviewCoverage(
+        "vasilij_o_svjatom_duhe",
+        "ВД",
+        "опубликованы",
+        90,
+        (
+            "reviews/early_fathers/07_basil_spirit_001_015.md",
+            "reviews/early_fathers/08_basil_spirit_016_030.md",
+        ),
+    ),
+    ReviewCoverage(
         "avva_dorofey",
         "Д",
         "опубликованы",

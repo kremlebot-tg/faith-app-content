@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "last_updated": "2026-07-31",
+  "last_updated": "2026-08-01",
   "library": [
     {
       "id": "afanasij_voploshhenie",
@@ -79,6 +79,19 @@
       "bundled": false,
       "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/kirill_ierusalimskij_oglasitelnye.json",
       "sha256": "b4d3a206e9921a139a6d857c1dec2cc411db7a4b3b04745872d2f36d58ab8855"
+    },
+    {
+      "id": "vasilij_o_svjatom_duhe",
+      "author": "Василий Великий",
+      "work": "О Святом Духе",
+      "century": "IV",
+      "place": "Кесария Каппадокийская",
+      "chapters_count": 30,
+      "chapter_label": "Глава",
+      "size_bytes": 429263,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.7.0/vasilij_o_svjatom_duhe.json",
+      "sha256": "96ef56a5f5b7a28b2a9fd90e76230ba647f18d11ac4fa040afcf0616240b84e9"
     },
     {
       "id": "avva_dorofey",
