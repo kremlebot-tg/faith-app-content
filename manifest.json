@@ -36,10 +36,10 @@
       "place": "Антиохия, вероятно",
       "chapters_count": 9,
       "chapter_label": "Беседа",
-      "size_bytes": 414426,
+      "size_bytes": 414219,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.1.0/ioann_zlatoust_pokajanie.json",
-      "sha256": "51ab4bcd007e6998213c9aea76b08f289155581f5bf68cc64d89ec2a072830f4"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.5/ioann_zlatoust_pokajanie.json",
+      "sha256": "0b9afa315a0ec70e3e3a6b3196c608044138f87eae6f96be4baf0c42d928169c"
     },
     {
       "id": "ioann_zlatoust_svjashhenstvo",
@@ -49,10 +49,10 @@
       "place": "Антиохия",
       "chapters_count": 6,
       "chapter_label": "Слово",
-      "size_bytes": 401692,
+      "size_bytes": 401947,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.6.0/ioann_zlatoust_svjashhenstvo.json",
-      "sha256": "c683ed1cd75eb31eb037a5e5ce995784a67ba6213f083ca5b135a12e77ae99bf"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.5/ioann_zlatoust_svjashhenstvo.json",
+      "sha256": "37618057f2c38c404146bc63f83cb8672db5337c7a9fc5e7fb094a79f3a7111b"
     },
     {
       "id": "ioann_zlatoust_bytie",
@@ -179,10 +179,10 @@
       "place": "Фиваида и Массилия",
       "chapters_count": 7,
       "chapter_label": "Собеседование",
-      "size_bytes": 552494,
+      "size_bytes": 552043,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.13.0/ioann_kassian_sobesedovanija_11_17.json",
-      "sha256": "a3edc20c34f44cc0848742b427c2ccec6e1644873e576d569148025588aef934"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.5/ioann_kassian_sobesedovanija_11_17.json",
+      "sha256": "d9292b06d840cc94707408701943dd84a12c5b2531282fee8b856535789c7014"
     },
     {
       "id": "ioann_kassian_sobesedovanija_18_24",
@@ -192,10 +192,10 @@
       "place": "Нижний Египет и Массилия",
       "chapters_count": 7,
       "chapter_label": "Собеседование",
-      "size_bytes": 592910,
+      "size_bytes": 592451,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.13.0/ioann_kassian_sobesedovanija_18_24.json",
-      "sha256": "5764b1d821768669bddc7d087499cc22cdf26a24d5fe65be882e21f47e056b49"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.5/ioann_kassian_sobesedovanija_18_24.json",
+      "sha256": "b53462b3d95d08eabcffcbe9bda864dfaa9f4efd0d90ef00394964caa4e30a7b"
     },
     {
       "id": "avva_dorofey",
