@@ -262,6 +262,19 @@
       "sha256": "0e07929bff17e6aaecde1d0306858efc5b7ad8db5ff41653ba0852620fd5422d"
     },
     {
+      "id": "amvrosij_optinskij_pisma_o_seme",
+      "author": "Амвросий Оптинский",
+      "work": "Избранные письма о семье и воспитании",
+      "century": "XIX",
+      "place": "Оптина пустынь",
+      "chapters_count": 12,
+      "chapter_label": "Письмо",
+      "size_bytes": 78143,
+      "bundled": false,
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.17.0/amvrosij_optinskij_pisma_o_seme.json",
+      "sha256": "fc98586cced4beaa2eaa02b6cf0e678a96e540b69cda9cf84ccd70f103eef5a8"
+    },
+    {
       "id": "feofan_put_ko_spaseniyu",
       "author": "Феофан Затворник",
       "work": "Путь ко спасению",
