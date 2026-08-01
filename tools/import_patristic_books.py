@@ -60,6 +60,30 @@ TEXT_REPLACEMENTS = {
 
 
 BOOKS: dict[str, dict[str, Any]] = {
+    "vasilij_o_svjatom_duhe": {
+        "id": "vasilij_o_svjatom_duhe",
+        "author": "Василий Великий",
+        "work": "О Святом Духе",
+        "century": "IV",
+        "place": "Кесария Каппадокийская",
+        "chapter_label": "Глава",
+        "mode": "headings",
+        "count": 30,
+        "expected_notes": 12,
+        "url": "https://azbyka.ru/otechnik/Vasilij_Velikij/o_svyatom_duhe/",
+        "title_strip": r"^Глава\s+\d+\.\s*",
+        "translator": "Перевод Московской духовной академии",
+        "source_edition": (
+            "Творения иже во святых отца нашего Василия Великого. "
+            "Ч. 3, кн. 2. Москва: типография А. Семена. С. 234–356."
+        ),
+        "editorial_note": (
+            "Трактат обращён к святителю Амфилохию Иконийскому и отвечает "
+            "на споры IV века о славословии и достоинстве Святого Духа. "
+            "Исторические обозначения противников сохранены как часть "
+            "первоисточника; они не являются языком современной полемики."
+        ),
+    },
     "ioann_zlatoust_svjashhenstvo": {
         "id": "ioann_zlatoust_svjashhenstvo",
         "author": "Иоанн Златоуст",

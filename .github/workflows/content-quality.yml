@@ -37,6 +37,12 @@ jobs:
       - name: Audit editorial draft corpora
         run: python3 tools/audit_draft_corpus.py
 
+      - name: Audit Basil editorial draft batches
+        run: |
+          for draft in content_tests/drafts/vasilij_o_svjatom_duhe_*.json; do
+            python3 tools/audit_draft_tests.py "$draft"
+          done
+
       - name: Audit all published questions together
         run: python3 tools/audit_published_corpus.py
 

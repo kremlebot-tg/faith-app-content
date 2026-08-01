@@ -5,3 +5,4 @@ content_tests/drafts/*
 !content_tests/drafts/feofan_dukhovnaja_zhizn_*.json
 !content_tests/drafts/ioann_damaskin_*.json
 !content_tests/drafts/kirill_ierusalimskij_oglasitelnye_*.json
+!content_tests/drafts/vasilij_o_svjatom_duhe_*.json

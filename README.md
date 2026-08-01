@@ -85,6 +85,16 @@ python3 tools/audit_draft_tests.py \
   content_tests/drafts/feofan_dukhovnaja_zhizn_01_10.json
 ```
 
+Следующее расширение каталога, трактат святителя Василия Великого «О Святом
+Духе», готовится тем же способом и не включается в `manifest.json` до полного
+покрытия всех 30 глав:
+
+```sh
+python3 tools/build_basil_spirit_drafts.py
+python3 tools/audit_draft_tests.py \
+  content_tests/drafts/vasilij_o_svjatom_duhe_01_10.json
+```
+
 После завершения всех партий сквозной аудит проверяет полный корпус: покрытие
 глав, повторы между разными файлами, уникальность наборов ответов, шаблонность
 начал вопросов и объяснений, а также общее распределение ключей:
