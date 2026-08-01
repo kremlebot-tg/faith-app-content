@@ -43,11 +43,12 @@ class EarlyFathersReviewPacketTest(unittest.TestCase):
                 "25_ambrose_family_letters.md",
                 "26_tikhon_spiritual_images.md",
                 "27_seraphim_instructions.md",
+                "28_demetrius_sermons.md",
             },
         )
         body = "\n".join(rendered.values())
-        self.assertEqual(body.count("**Вердикт:**"), 789)
-        self.assertEqual(body.count("**Итог "), 263)
+        self.assertEqual(body.count("**Вердикт:**"), 825)
+        self.assertEqual(body.count("**Итог "), 275)
         self.assertIn("### АВ001.1", body)
         self.assertIn("### МБ050.3", body)
         self.assertIn("### ИЗ009.3", body)
@@ -64,6 +65,7 @@ class EarlyFathersReviewPacketTest(unittest.TestCase):
         self.assertIn("### АОС012.3", body)
         self.assertIn("### ТЗ012.3", body)
         self.assertIn("### СС012.3", body)
+        self.assertIn("### ДР012.3", body)
         self.assertIn("епископу Севериану Габальскому", body)
         self.assertIn("Атрибуция этой беседы", rendered["04_zlatoust.md"])
 
