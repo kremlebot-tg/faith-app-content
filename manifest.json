@@ -23,10 +23,10 @@
       "place": "Египет",
       "chapters_count": 50,
       "chapter_label": "Беседа",
-      "size_bytes": 1080395,
+      "size_bytes": 1078791,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/makarij_duhovnye_besedy.json",
-      "sha256": "2584af5616045ffbc28bd2614d2888c8b4722ea994eb0961e3cec74dd95f8fdb"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.4/makarij_duhovnye_besedy.json",
+      "sha256": "7c3913034e061ab1d79537b396e704b222da98c38539fc7dc42b2621bc7ed8cd"
     },
     {
       "id": "ioann_zlatoust_pokajanie",
@@ -88,10 +88,10 @@
       "place": "Иерусалим",
       "chapters_count": 24,
       "chapter_label": "Поучение",
-      "size_bytes": 1159131,
+      "size_bytes": 1158609,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/kirill_ierusalimskij_oglasitelnye.json",
-      "sha256": "b4d3a206e9921a139a6d857c1dec2cc411db7a4b3b04745872d2f36d58ab8855"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.4/kirill_ierusalimskij_oglasitelnye.json",
+      "sha256": "6ac3cc2143da59473e214444006ee4ce2225c712d983277f5f29ad38d6b0e626"
     },
     {
       "id": "vasilij_o_svjatom_duhe",
@@ -127,10 +127,10 @@
       "place": "Нисса, Каппадокия",
       "chapters_count": 40,
       "chapter_label": "Глава",
-      "size_bytes": 366917,
+      "size_bytes": 366717,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.9.0/grigorij_nisskij_bolshoe_oglasitelnoe.json",
-      "sha256": "ed58b2a0ea65ad203f30a22d18da625a4f313122656a20d5078278e2fdd906c7"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.4/grigorij_nisskij_bolshoe_oglasitelnoe.json",
+      "sha256": "405706848eaecd061b0bd6457602f58f5eaada37d704094c7f8196d323809e50"
     },
     {
       "id": "efrem_sirin_izbrannye_slova",
@@ -230,10 +230,10 @@
       "place": "Дамаск",
       "chapters_count": 100,
       "chapter_label": "Глава",
-      "size_bytes": 1104750,
+      "size_bytes": 1104228,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.5.1/ioann_damaskin.json",
-      "sha256": "e886fa41941deea2c38749e2133a02090da0ea181537d9351877a577ce54e673"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.4/ioann_damaskin.json",
+      "sha256": "5199fd96de65915ad8c919dae4b47304a2d58a54622d5d355421af266b7de931"
     },
     {
       "id": "nikolaj_kavasila_sem_slov",
