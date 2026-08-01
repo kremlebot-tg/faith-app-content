@@ -1,7 +1,7 @@
 # Восемь слов на Книгу Бытия · слова 1–8
 
 - Автор: Иоанн Златоуст
-- Входной commit: `16fd9777dfa14f497f09949920aba379f7503d58`
+- Входной commit: `060e78715a9fbc1fea01996f0fcc24e919b8c557`
 - SHA-256 книги: `2ee587c159b3542ab745d896c6ee6970f24586c4861836add8a0d1a891cbd442`
 - SHA-256 редакционного файла тестов: `5be8a3f23194c5a2b4abe2691a1474a71f9682be1f9e8e8911779873f9d1a90a`
 - Источник: [https://azbyka.ru/otechnik/Ioann_Zlatoust/slova_01](https://azbyka.ru/otechnik/Ioann_Zlatoust/slova_01)
