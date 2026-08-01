@@ -62,10 +62,10 @@
       "place": "Антиохия",
       "chapters_count": 8,
       "chapter_label": "Слово",
-      "size_bytes": 242518,
+      "size_bytes": 242982,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.6.0/ioann_zlatoust_bytie.json",
-      "sha256": "2ee587c159b3542ab745d896c6ee6970f24586c4861836add8a0d1a891cbd442"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.6/ioann_zlatoust_bytie.json",
+      "sha256": "9034b769ae86564d8466f4418a703932275b521b5065ab60b5e27087657f8b71"
     },
     {
       "id": "ioann_zlatoust_stagiriju",
@@ -75,10 +75,10 @@
       "place": "Антиохия",
       "chapters_count": 3,
       "chapter_label": "Слово",
-      "size_bytes": 395155,
+      "size_bytes": 394918,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.15.0/ioann_zlatoust_stagiriju.json",
-      "sha256": "c6f24cde344ed8ac6fb5c938b88e382f2a950573aaa365c32949f185a1609611"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.6/ioann_zlatoust_stagiriju.json",
+      "sha256": "5a2edb2cc48264682dde252680fffa3716f395f5d833c34f0878968344a52573"
     },
     {
       "id": "kirill_ierusalimskij_oglasitelnye",
@@ -269,10 +269,10 @@
       "place": "Оптина пустынь",
       "chapters_count": 12,
       "chapter_label": "Письмо",
-      "size_bytes": 78143,
+      "size_bytes": 78142,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.17.0/amvrosij_optinskij_pisma_o_seme.json",
-      "sha256": "fc98586cced4beaa2eaa02b6cf0e678a96e540b69cda9cf84ccd70f103eef5a8"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.6/amvrosij_optinskij_pisma_o_seme.json",
+      "sha256": "2d14f6e786614910b5380e0834e4adb5dd54915b34d27b6f53913ee478a1eb9a"
     },
     {
       "id": "tihon_zadonskij_duhovnye_obrazy",
@@ -308,10 +308,10 @@
       "place": "Ростов",
       "chapters_count": 12,
       "chapter_label": "Поучение",
-      "size_bytes": 440966,
+      "size_bytes": 440869,
       "bundled": false,
-      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.20.0/dimitrij_rostovskij_izbrannye_pouchenija.json",
-      "sha256": "ca6fc24abbf99803f1bfae6c5ad2ebe31b89bea943452f049310a691afeaf13d"
+      "download_url": "https://github.com/kremlebot-tg/faith-app-content/releases/download/v1.21.6/dimitrij_rostovskij_izbrannye_pouchenija.json",
+      "sha256": "2901a2a21c4ed889ff7bd7508e62180c3d44fd8ef0284a4a71978e291e27366b"
     },
     {
       "id": "grigorij_dvoeslov_izbrannye_glavy_o_pastyrstve",
