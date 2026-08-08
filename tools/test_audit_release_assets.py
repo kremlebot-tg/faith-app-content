@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 import hashlib
+from http.client import IncompleteRead, RemoteDisconnected
 import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from audit_release_assets import (
     LATEST_MANIFEST_URL,
     audit_release_assets,
+    network_fetch,
 )
 
 
@@ -99,6 +102,52 @@ class AuditReleaseAssetsTest(unittest.TestCase):
         self.assertEqual(stats["remote_books"], 1)
         self.assertEqual(len(errors), 2)
         self.assertTrue(all("нет сети" in error for error in errors))
+
+    def test_retries_truncated_or_disconnected_http_response(self) -> None:
+        class Response:
+            status = 200
+
+            def __init__(
+                self,
+                *,
+                payload: bytes | None = None,
+                error: Exception | None = None,
+            ) -> None:
+                self.payload = payload
+                self.error = error
+
+            def __enter__(self) -> "Response":
+                return self
+
+            def __exit__(self, *_: object) -> None:
+                return None
+
+            def read(self) -> bytes:
+                if self.error is not None:
+                    raise self.error
+                assert self.payload is not None
+                return self.payload
+
+        for error in (
+            IncompleteRead(b"partial", 5),
+            RemoteDisconnected("connection closed"),
+        ):
+            with self.subTest(error=type(error).__name__):
+                with patch(
+                    "audit_release_assets.urlopen",
+                    side_effect=[
+                        Response(error=error),
+                        Response(payload=b"complete"),
+                    ],
+                ) as mocked_urlopen:
+                    result = network_fetch(
+                        "https://example.test/book.json",
+                        timeout=1,
+                        attempts=2,
+                    )
+
+                self.assertEqual(result, b"complete")
+                self.assertEqual(mocked_urlopen.call_count, 2)
 
 
 if __name__ == "__main__":

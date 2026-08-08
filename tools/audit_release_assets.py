@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+from http.client import HTTPException
 import json
 from pathlib import Path
 import sys
@@ -44,7 +45,13 @@ def network_fetch(url: str, *, timeout: float, attempts: int) -> bytes:
                 if response.status != 200:
                     raise ValueError(f"HTTP {response.status}")
                 return response.read()
-        except (HTTPError, URLError, TimeoutError, ValueError) as error:
+        except (
+            HTTPError,
+            URLError,
+            TimeoutError,
+            HTTPException,
+            ValueError,
+        ) as error:
             last_error = error
             if attempt < attempts:
                 time.sleep(min(attempt, 3))
