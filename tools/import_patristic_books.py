@@ -81,6 +81,108 @@ HESYCHASM_TEXT_REPLACEMENTS = {
 }
 
 
+# Unpublished books require an explicit --book; --book all must continue to
+# operate only on the registered catalog until the content release is published.
+STAGED_BOOKS: dict[str, dict[str, Any]] = {
+    "ioann_zlatoust_kto_sebe_ne_vredit": {
+        "id": "ioann_zlatoust_kto_sebe_ne_vredit",
+        "author": "Иоанн Златоуст",
+        "work": "Слово о том, что кто сам себе не вредит, тому никто вредить не может",
+        "century": "IV–V",
+        "place": "Византия",
+        "chapter_label": "Глава",
+        "mode": "numbered_paragraphs",
+        "count": 17,
+        "expected_notes": 0,
+        "reading_breaks": {
+            1: ["Поэтому не высказывай мне", "Так и теперь общее", "Поэтому многие из неразумных"],
+            2: ["Итак, если для каждого", "Многие, по своим погрешительным", "А никто не плачет"],
+            3: ["Так точно поступим", "Поэтому и Иова он лишил", "Если же тот, кто столько"],
+            4: ["Скажи мне, какой вред причинило это апостолам", "Но что я говорю об удалении", "«Для чего же, – скажешь, – наказания", "Поэтому последним определяются", "Скажи апостольские слова"],
+            5: ["Видишь ли, как и здесь", "И в этом случае, получая вред", "А Павел?"],
+            6: ["Впрочем, хотя бы тысячу раз", "Подлинно, пленившиеся ею", "Так и малые дети", "Подлинно, она, как бесчеловечная", "Богатые никогда не оставляют"],
+            7: ["Ты не можешь сказать", "И во-первых, если хотите"],
+            8: ["Поэтому-то больные", "Поэтому и пророк", "Если же это так"],
+            9: ["Если бы когда-нибудь"],
+            10: ["Итак, потому ли", "Если же вникнуть точнее", "Если просто бедные", "Тунеядцы и льстецы лопались"],
+            11: ["Павел, и борясь с голодом"],
+            12: ["Итак, ни порывисто", "То же показывает нам и притча"],
+            13: ["И во время ночи", "А что сказать о камнях", "Подлинно, все эти чудеса", "Они имели трапезу готовую"],
+            14: ["И однако столь великое", "Видишь ли, что внимательный"],
+            15: ["Что же делают эти юноши", "Поэтому они пришли", "И так как они сделали", "Притом они введены были"],
+            16: ["И опять они остались", "Если плен, и рабство"],
+            17: ["А что огонь устыдился", "И они также.", "А отроки, находясь", "Итак, зная это и подобное"],
+        },
+        "source_start": r'<p\b[^>]*\bid="p1"[^>]*>',
+        "source_end": '<section class="flex flex-col noprint">',
+        "url": "https://azbyka.ru/otechnik/Ioann_Zlatoust/slovo-o-tom-chto-kto-sam-sebe-ne-vredit-tomu-nikto-vredit-ne-mozhet/",
+        "translator": "Русский перевод Санкт-Петербургской духовной академии",
+        "source_edition": (
+            "Творения святого отца нашего Иоанна Златоуста. Санкт-Петербург: "
+            "Санкт-Петербургская духовная академия, 1897. Т. 3, кн. 2, с. 475–496. "
+            "Электронный текст: библиотека «Азбука веры»."
+        ),
+        "editorial_note": (
+            "Под вредом святитель здесь понимает прежде всего повреждение души грехом. "
+            "Это не отрицание телесных и душевных последствий насилия и не обвинение "
+            "пострадавшего. Слова о терпении не запрещают искать защиты и помощи. "
+            "Сохранены все 17 частей произведения и их исходная нумерация."
+            " Длинные абзацы разделены по смысловым переходам для чтения с экрана; "
+            "слова автора не изменены."
+        ),
+    },
+    "feofan_chetyre_slova_o_molitve": {
+        "id": "feofan_chetyre_slova_o_molitve",
+        "author": "Феофан Затворник",
+        "work": "Четыре слова о молитве",
+        "century": "XIX",
+        "place": "Владимир",
+        "chapter_label": "Слово",
+        "mode": "headings",
+        "count": 4,
+        "expected_notes": 0,
+        "source_start": r'<h2 class="h2 title">',
+        "source_end": '<section class="flex flex-col noprint">',
+        "heading_pattern": r'<(h2)\b[^>]*>(.*?)</\1>',
+        "chapter_titles": ["Слово I", "Слово II", "Слово III", "Слово IV"],
+        "reading_breaks": {
+            1: ["Других правил не требуется."],
+            2: ["Так надо поступать и в деле молитвы.", "Так и во всяком случае.",
+                "Стань размышлять, например, о благости Божией", "Так, о каком свойстве",
+                "Самое приличное и удобное", "Труд в сем походит"],
+            3: ["Молимся мы утром и вечером:", "Если теперь положим себе",
+                "Когда посетят душу сии три:"],
+            4: ["Вот, апостол Павел снаряжает", "В другом месте тот же Апостол",
+                "И в других многих местах слова Божия"],
+        },
+        "excluded_chapter_intros": [
+            "Молитва – первое дело в христианской жизни. Молитва есть возникновение в сердце благоговейных чувств к Богу. Способы воспитания в себе духа молитвенного.",
+            "Опыты собственного молитвенного отношения к Богу. О навыке умного с Богом собеседования. Наука молитвенного в душе к Богу возношения. Обучение души частому обращению к Богу. Богомыслие есть благоговейное размышление о божественных свойствах и действиях. Способы научить душу молитвенно к Богу возноситься.",
+            "Непрестанное обращение ума и сердца к Богу – цель молитвенного труда. Молитва есть состояние духа. Как сподобиться непрестанного молитвенного предстояния Богу в сердце.",
+            "Невозможно успеть в молитве, если не заботиться о других добродетелях. Молитве должны предшествовать и сопутствовать добродетели. Какими именно добродетелями надо окружить молитву.",
+        ],
+        "url": "https://azbyka.ru/otechnik/Feofan_Zatvornik/chetyre-slova-o-molitve/",
+        "translator": "Русский авторский текст, современная орфография",
+        "source_edition": (
+            "Четыре слова, произнесённые в ноябре–декабре 1864 года. "
+            "Электронный текст «Азбуки веры» по изданию: Простые истины сердца. "
+            "Внутренняя жизнь. Москва: Правило веры, 2007, с. 32–65. "
+            "Дореволюционное издание для сверки: Четыре слова о молитве. "
+            "Изд. 6-е Афонского Русского Пантелеимонова монастыря. Москва, 1912 "
+            "(электронная копия библиотеки «Предание»)."
+        ),
+        "editorial_note": (
+            "Здесь приведены четыре полных слова святителя с авторскими датами. "
+            "Современные аннотации и тематические заголовки электронной редакции "
+            "не включены. Заголовки «Слово I–IV» соответствуют изданию 1912 года; "
+            "приложения к тому изданию в эту книгу не входят."
+            " В длинных абзацах добавлены паузы по смысловым переходам; слова "
+            "автора и последовательность текста сохранены."
+        ),
+    },
+}
+
+
 BOOKS: dict[str, dict[str, Any]] = {
     "grigorij_dvoeslov_izbrannye_glavy_o_pastyrstve": {
         "id": "grigorij_dvoeslov_izbrannye_glavy_o_pastyrstve",
@@ -837,6 +939,17 @@ def content_region(page: str) -> tuple[str, str]:
     return title, page[start:end]
 
 
+def bounded_source(config: dict[str, Any], page: str) -> str:
+    """Require the inspected text boundaries; never fall back to the whole page."""
+    start = re.search(config["source_start"], page, re.S | re.I)
+    if start is None:
+        raise ValueError(f'{config["id"]}: начало авторского текста не найдено')
+    end = page.find(config["source_end"], start.end())
+    if end < 0:
+        raise ValueError(f'{config["id"]}: конец авторского текста не найден')
+    return page[start.start():end]
+
+
 def scripture_refs(fragment: str) -> list[dict[str, str]]:
     refs: list[dict[str, str]] = []
     seen: set[tuple[str, str]] = set()
@@ -853,10 +966,11 @@ def scripture_refs(fragment: str) -> list[dict[str, str]]:
 
 def ordered_elements(
     page: str,
+    heading_re: re.Pattern[str] = HEADING_RE,
 ) -> tuple[str, list[dict[str, Any]], dict[str, str]]:
     title, body = content_region(page)
     events: list[tuple[int, dict[str, Any]]] = []
-    for match in HEADING_RE.finditer(body):
+    for match in heading_re.finditer(body):
         events.append((match.start(), {
             "kind": "heading",
             "text": clean_content_text(match.group(2)),
@@ -917,7 +1031,11 @@ def deduplicate_refs(refs: list[dict[str, str]]) -> list[dict[str, str]]:
 
 
 def build_heading_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
-    _, raw_elements, note_texts = ordered_elements(fetch(config["url"]))
+    page = fetch(config["url"])
+    if config.get("source_start"):
+        page = bounded_source(config, page)
+    heading_re = re.compile(config["heading_pattern"], re.S | re.I) if config.get("heading_pattern") else HEADING_RE
+    _, raw_elements, note_texts = ordered_elements(page, heading_re)
     elements = strip_note_section(raw_elements)
     chapters: list[dict[str, Any]] = []
     current_title: str | None = None
@@ -966,6 +1084,14 @@ def build_heading_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
             f'{config["id"]}: ожидалось примечаний {config["expected_notes"]}, '
             f'получено {len(note_texts)}'
         )
+    excluded_intros = config.get("excluded_chapter_intros")
+    if excluded_intros:
+        if len(excluded_intros) != len(chapters):
+            raise ValueError(f'{config["id"]}: изменилось число редакционных аннотаций')
+        for chapter, expected in zip(chapters, excluded_intros):
+            if not chapter["paragraphs"] or chapter["paragraphs"][0] != expected:
+                raise ValueError(f'{config["id"]}: редакционная аннотация не совпала')
+            chapter["paragraphs"].pop(0)
     drop_leading = config.get("drop_leading_chapters", 0)
     if drop_leading:
         chapters = chapters[drop_leading:]
@@ -992,6 +1118,40 @@ def build_heading_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
             )
         for chapter, title in zip(chapters, chapter_titles):
             chapter["title"] = title
+    return chapters
+
+
+def build_numbered_paragraph_chapters(config: dict[str, Any]) -> list[dict[str, Any]]:
+    body = bounded_source(config, fetch(config["url"]))
+    chapters: list[dict[str, Any]] = []
+    # Original chapter numbers are bold; ordinary numbered examples remain text.
+    marker = re.compile(r'^\s*<b>(\d+)</b>\s*\.\s*', re.I)
+    for paragraph in PARAGRAPH_RE.finditer(body):
+        fragment = paragraph.group(1)
+        if note_references(fragment):
+            raise ValueError(f'{config["id"]}: появились примечания; нужен разбор')
+        number = marker.match(fragment)
+        if number:
+            expected = len(chapters) + 1
+            if int(number.group(1)) != expected:
+                raise ValueError(f'{config["id"]}: нарушена последовательность глав')
+            chapters.append({
+                "number": expected,
+                "title": f'{config["chapter_label"]} {expected}',
+                "paragraphs": [],
+                "scripture_refs": [],
+            })
+            fragment = fragment[number.end():]
+        if not chapters:
+            raise ValueError(f'{config["id"]}: текст до первой главы')
+        text = clean_content_text(fragment)
+        if text:
+            chapters[-1]["paragraphs"].append(text)
+            chapters[-1]["scripture_refs"].extend(scripture_refs(fragment))
+    if len(chapters) != config["count"]:
+        raise ValueError(f'{config["id"]}: неверное число глав')
+    for chapter in chapters:
+        chapter["scripture_refs"] = deduplicate_refs(chapter["scripture_refs"])
     return chapters
 
 
@@ -1390,6 +1550,8 @@ def build_book(config: dict[str, Any], output_dir: Path) -> Path:
         chapters = build_cyril_chapters(config)
     elif config["mode"] == "hesychasm_pages":
         chapters = build_hesychasm_chapters(config)
+    elif config["mode"] == "numbered_paragraphs":
+        chapters = build_numbered_paragraph_chapters(config)
     else:
         chapters = build_numbered_page_chapters(config)
 
@@ -1398,6 +1560,8 @@ def build_book(config: dict[str, Any], output_dir: Path) -> Path:
             f'{config["id"]}: ожидалось глав {config["count"]}, '
             f'получено {len(chapters)}'
         )
+
+    apply_reading_breaks(chapters, config.get("reading_breaks", {}))
 
     output = output_dir / f'{config["id"]}.json'
     attach_authored_tests(config["id"], chapters)
@@ -1431,9 +1595,29 @@ def build_book(config: dict[str, Any], output_dir: Path) -> Path:
     return write_book(book, output)
 
 
+def apply_reading_breaks(
+    chapters: list[dict[str, Any]], breaks: dict[int, list[str]],
+) -> None:
+    """Apply explicit editorial paragraph breaks without changing any words."""
+    for chapter in chapters:
+        original = list(chapter["paragraphs"])
+        for prefix in breaks.get(chapter["number"], []):
+            matches = [(i, text.find(prefix)) for i, text in enumerate(chapter["paragraphs"])
+                       if prefix in text]
+            if len(matches) != 1:
+                raise ValueError(f'Глава {chapter["number"]}: неоднозначная пауза {prefix!r}')
+            index, offset = matches[0]
+            text = chapter["paragraphs"][index]
+            if text.count(prefix) != 1 or offset <= 0 or not text[offset - 1].isspace():
+                raise ValueError(f'Глава {chapter["number"]}: неверная пауза {prefix!r}')
+            chapter["paragraphs"][index:index + 1] = [text[:offset].rstrip(), text[offset:]]
+        if " ".join(original) != " ".join(chapter["paragraphs"]):
+            raise AssertionError('Разбиение изменило авторский текст')
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--book", choices=["all", *BOOKS], default="all")
+    parser.add_argument("--book", choices=["all", *BOOKS, *STAGED_BOOKS], default="all")
     parser.add_argument(
         "--output-dir",
         type=Path,
@@ -1451,7 +1635,8 @@ def main() -> None:
     )
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    selected = BOOKS.values() if args.book == "all" else [BOOKS[args.book]]
+    available_books = BOOKS | STAGED_BOOKS
+    selected = BOOKS.values() if args.book == "all" else [available_books[args.book]]
     builder = embed_tests_in_existing_book if args.tests_only else build_book
     outputs = [builder(config, args.output_dir) for config in selected]
     if args.update_manifest:
